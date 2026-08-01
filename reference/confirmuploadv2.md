@@ -1,0 +1,625 @@
+---
+updatedAt: 2026-06-15T10:18:08.000Z
+---
+
+Fetch the complete documentation index at: https://docs.midtrans.com/llms.txt. Use this file to discover all available pages before exploring further.
+
+# Confirm Upload V2
+
+Confirm that all required documents have been uploaded and provide user details to start the certificate registration process.
+The additional details passed in this API will be stored and used during submission processing.
+
+
+# OpenAPI definition
+
+```json
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Esign APIs",
+    "description": "APIs for Esign related operations such as certificate registration and document signing.",
+    "version": "1.2.0",
+    "contact": {
+      "name": "GoTo OneKYC Team"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://onekyc.ky.id.sandbox.gopayapi.com",
+      "description": "Sandbox - OneKYC Gateway"
+    },
+    {
+      "url": "https://onekyc.ky.id.gopayapi.com",
+      "description": "Production - OneKYC Gateway"
+    }
+  ],
+  "paths": {
+    "/esign-partner/v2/submissions/urls": {
+      "put": {
+        "summary": "Confirm Upload V2",
+        "description": "Confirm that all required documents have been uploaded and provide user details to start the certificate registration process.\nThe additional details passed in this API will be stored and used during submission processing.\n",
+        "operationId": "confirmUploadV2",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/OneKycToken"
+          },
+          {
+            "$ref": "#/components/parameters/EsignOnboardingPartner"
+          },
+          {
+            "$ref": "#/components/parameters/PartnerSessionId"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConfirmUploadRequest"
+              },
+              "examples": {
+                "DOCUMENT_SIGNING_WITH_LLC": {
+                  "value": {
+                    "submissionId": "b59e6461-8627-45dd-b633-b872eec5f02f",
+                    "metadata": {
+                      "sendNotification": true,
+                      "actionDetails": {
+                        "inSequence": true,
+                        "actions": [
+                          {
+                            "height": "60",
+                            "width": "150",
+                            "xCoordinate": 85,
+                            "yCoordinate": 600,
+                            "pageNumber": 1,
+                            "email": "john.doe@test.com",
+                            "accountType": "PERSONAL",
+                            "action": "SIGN",
+                            "order": 1
+                          },
+                          {
+                            "height": "60",
+                            "width": "150",
+                            "xCoordinate": 285,
+                            "yCoordinate": 600,
+                            "pageNumber": 1,
+                            "email": "jane.doe@test.com",
+                            "accountType": "PERSONAL",
+                            "action": "SIGN",
+                            "order": 2
+                          }
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Upload confirmed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConfirmUploadSuccessResponse"
+                },
+                "example": {
+                  "success": true,
+                  "data": {
+                    "submissionId": "fcc805b6-de6e-43b5-a20f-d6b3298cb0c0"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthorized"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "OneKycToken": {
+        "name": "x-onekyc-token",
+        "in": "header",
+        "required": true,
+        "description": "OneKYC Partner token generated using the Get Partner Token API",
+        "schema": {
+          "type": "string"
+        },
+        "example": "eyJraWQiOiJlYzdmMjY0ZS0wNDkwLTQxODgtYTRjZS0wMWZlMzQ2MWFmYzUi..."
+      },
+      "EsignOnboardingPartner": {
+        "name": "x-esign-onboarding-partner",
+        "in": "header",
+        "required": true,
+        "description": "Used to identify the source of the request (generated by OneKYC team)",
+        "schema": {
+          "type": "string"
+        },
+        "example": "CLIENT_X-BE-CERT_REG"
+      },
+      "PartnerSessionId": {
+        "name": "x-partner-session-id",
+        "in": "header",
+        "required": true,
+        "description": "Session ID (generated by partner) used as correlation ID between partner and OneKYC. Must be unique for each invocation",
+        "schema": {
+          "type": "string"
+        },
+        "example": "test-0008"
+      }
+    },
+    "schemas": {
+      "ConfirmUploadRequest": {
+        "type": "object",
+        "required": [
+          "submissionId",
+          "metadata"
+        ],
+        "properties": {
+          "submissionId": {
+            "$ref": "#/components/schemas/SubmissionId"
+          },
+          "metadata": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ConfirmUploadCertRegMetadata"
+              },
+              {
+                "$ref": "#/components/schemas/ConfirmUploadSigningMetadata"
+              }
+            ]
+          }
+        }
+      },
+      "ConfirmUploadCertRegMetadata": {
+        "type": "object",
+        "required": [
+          "userDetails",
+          "consentData"
+        ],
+        "properties": {
+          "userDetails": {
+            "$ref": "#/components/schemas/CertRegUserDetails"
+          },
+          "userLocale": {
+            "type": "string",
+            "description": "User's locale",
+            "enum": [
+              "en_ID",
+              "id_ID"
+            ],
+            "example": "en_ID"
+          },
+          "consentData": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ConsentData"
+            }
+          },
+          "additionalData": {
+            "type": "object",
+            "description": "Additional data (optional)"
+          }
+        }
+      },
+      "ConfirmUploadSigningMetadata": {
+        "type": "object",
+        "required": [
+          "actionDetails"
+        ],
+        "properties": {
+          "sendNotification": {
+            "type": "boolean",
+            "description": "Flag to indicate if notification should be sent to the signer(s)"
+          },
+          "actionDetails": {
+            "type": "object",
+            "required": [
+              "actions"
+            ],
+            "properties": {
+              "inSequence": {
+                "type": "boolean",
+                "description": "Flag to indicate if signings should be performed in sequence by the signer (i.e. signer needs to complete current action before next signer)"
+              },
+              "actions": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "$ref": "#/components/schemas/SigningAction"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ConfirmUploadSuccessResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "submissionId": {
+                "$ref": "#/components/schemas/SubmissionId"
+              }
+            }
+          }
+        }
+      },
+      "CertRegUserDetails": {
+        "type": "object",
+        "required": [
+          "nik",
+          "name",
+          "dateOfBirth",
+          "dataVerification"
+        ],
+        "properties": {
+          "nik": {
+            "type": "integer",
+            "format": "int64",
+            "description": "User's national identification number as stated in KTP",
+            "example": 3177734902845410
+          },
+          "name": {
+            "type": "string",
+            "description": "User's full name as stated in KTP",
+            "example": "John Doe"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "User's date of birth (DD-MM-YYYY)",
+            "example": "21-05-1980"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "format": "phone",
+            "description": "User's phone number (required if email is empty)",
+            "example": "+6281234567890"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User's email address (required if phoneNumber is empty)",
+            "example": "user@example.com"
+          },
+          "dataVerification": {
+            "$ref": "#/components/schemas/DataVerification"
+          }
+        }
+      },
+      "ConsentData": {
+        "type": "object",
+        "required": [
+          "entity",
+          "consentType",
+          "consentGiven",
+          "details",
+          "timeStamp"
+        ],
+        "properties": {
+          "entity": {
+            "type": "string",
+            "description": "Consent's Entity",
+            "example": "Digi"
+          },
+          "consentType": {
+            "type": "string",
+            "description": "Consent's Type",
+            "example": "termsAndConditions"
+          },
+          "consentGiven": {
+            "type": "boolean",
+            "description": "Set to true if user has given the consent",
+            "example": true
+          },
+          "details": {
+            "$ref": "#/components/schemas/ConsentDetails"
+          },
+          "timeStamp": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Timestamp when user gives the consent in milliseconds elapsed since UNIX epoch",
+            "example": 1725603017345
+          },
+          "additionalDetails": {
+            "$ref": "#/components/schemas/ConsentAdditionalDetails"
+          }
+        }
+      },
+      "ConsentDetails": {
+        "type": "object",
+        "properties": {
+          "en_ID": {
+            "$ref": "#/components/schemas/LocaleConsentDetail"
+          },
+          "id_ID": {
+            "$ref": "#/components/schemas/LocaleConsentDetail"
+          }
+        }
+      },
+      "LocaleConsentDetail": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to consent's page or file",
+            "example": "https://www.digi.com/termsAndConditions?version=v1.0.0"
+          },
+          "text": {
+            "type": "string",
+            "description": "Rendered text containing hyperlink to consent's URL",
+            "example": "terms and conditions"
+          }
+        }
+      },
+      "ConsentAdditionalDetails": {
+        "type": "object",
+        "description": "Additional information when capturing user's consent(s)",
+        "properties": {
+          "userAgent": {
+            "type": "string",
+            "example": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"
+          },
+          "userIp": {
+            "type": "string",
+            "example": "172.217.22.14"
+          },
+          "deviceDetails": {
+            "$ref": "#/components/schemas/DeviceDetails"
+          }
+        }
+      },
+      "DeviceDetails": {
+        "type": "object",
+        "properties": {
+          "os": {
+            "type": "string",
+            "description": "Operating system",
+            "example": "R"
+          },
+          "make": {
+            "type": "string",
+            "description": "Device manufacturer",
+            "example": "google"
+          },
+          "model": {
+            "type": "string",
+            "description": "Device model",
+            "example": "KB2001"
+          },
+          "uniqueId": {
+            "type": "string",
+            "description": "Unique device identifier",
+            "example": "AF7KI0bly3aPIsYJ4+O+2QE"
+          },
+          "networkProvider": {
+            "type": "string",
+            "description": "Network provider",
+            "example": "IND idea"
+          },
+          "appId": {
+            "type": "string",
+            "description": "Application ID",
+            "example": "gojek"
+          },
+          "appVersion": {
+            "type": "string",
+            "description": "Application version",
+            "example": "4.96.0"
+          }
+        }
+      },
+      "SigningAction": {
+        "type": "object",
+        "properties": {
+          "height": {
+            "type": "string",
+            "description": "Height of the action element"
+          },
+          "width": {
+            "type": "string",
+            "description": "Width of the action element"
+          },
+          "xCoordinate": {
+            "type": "integer",
+            "description": "X coordinate of the action element"
+          },
+          "yCoordinate": {
+            "type": "integer",
+            "description": "Y coordinate of the action element"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "description": "Page number where the action element is located"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email of the user performing the action"
+          },
+          "accountType": {
+            "type": "string",
+            "description": "Type of account",
+            "enum": [
+              "PERSONAL"
+            ]
+          },
+          "action": {
+            "type": "string",
+            "description": "Action to be performed",
+            "enum": [
+              "SIGN"
+            ]
+          },
+          "order": {
+            "type": "integer",
+            "description": "Order of the action if inSequence is true"
+          }
+        }
+      },
+      "SubmissionId": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Unique identification of submission record"
+      },
+      "DataVerification": {
+        "type": "object",
+        "description": "Details of verification done by partner on behalf of the user",
+        "properties": {
+          "email": {
+            "type": "object",
+            "properties": {
+              "isVerified": {
+                "type": "boolean",
+                "description": "Boolean field to determine if email has been verified by partner"
+              },
+              "verificationReferenceId": {
+                "type": "string",
+                "description": "Required if email.isVerified = true. ReferenceId for email verification."
+              }
+            }
+          },
+          "phoneNumber": {
+            "type": "object",
+            "properties": {
+              "isVerified": {
+                "type": "boolean",
+                "description": "Boolean field to determine if phone number has been verified by partner"
+              },
+              "verificationReferenceId": {
+                "type": "string",
+                "description": "Required if phoneNumber.isVerified = true. ReferenceId for phone verification."
+              }
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Error code:\n- 110: Unauthorized, invalid token in header parameters\n- 900: Unknown error (500)\n- 1650: Missing header parameters (4XX)\n"
+          },
+          "entity": {
+            "type": "string",
+            "description": "Entity where the error occurred"
+          },
+          "cause": {
+            "type": "string",
+            "description": "Detailed message of the error"
+          }
+        }
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Bad Request - Invalid input or missing required parameters",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "success": false,
+              "errors": [
+                {
+                  "code": "1539",
+                  "cause": "PARTNER_USER_ID_CAN_NOT_BE_EMPTY"
+                },
+                {
+                  "code": "1539",
+                  "cause": "PARTNER_USER_ID_TYPE_CAN_NOT_BE_EMPTY"
+                },
+                {
+                  "code": "1650",
+                  "cause": "ESIGN_PARTNER_CAN_NOT_BE_EMPTY"
+                },
+                {
+                  "code": "1650",
+                  "cause": "ESIGN_ONBOARDING_PARTNER_CAN_NOT_BE_EMPTY"
+                },
+                {
+                  "code": "1653",
+                  "cause": "SUBMISSION_ID_DOES_NOT_BELONG_TO_CURRENT_USER"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Unauthorized - Invalid or missing authentication token",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "success": false,
+              "errors": [
+                {
+                  "code": "110",
+                  "cause": "UNAUTHORIZED"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Internal Server Error - An unexpected error occurred on the server",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ErrorResponse"
+            },
+            "example": {
+              "success": false,
+              "errors": [
+                {
+                  "code": "900",
+                  "cause": "GENERIC_SERVICE_ERROR"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
