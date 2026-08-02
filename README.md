@@ -30,6 +30,19 @@ For AI agents, also consider Midtrans' own [agent skills.md](https://docs.midtra
 | [`changelog/`](changelog/) | Product release notes |
 | [`llms.txt`](llms.txt) | Official full page index (markdown + OpenAPI endpoints) |
 
+## RAG Starter Kit
+
+Local semantic search over the docs:
+
+```bash
+pip install chromadb
+python rag.py build                    # index Markdown pages into ./rag_chroma
+python rag.py query "your question"    # retrieve top-k relevant chunks
+python rag.py info                     # corpus stats
+```
+
+Re-running `build` is idempotent and incremental.
+
 ## Updating
 
 Re-mirror from the official index:
