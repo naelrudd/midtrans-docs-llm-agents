@@ -1,6 +1,6 @@
 # Index — Docs
 Source: https://docs.midtrans.com/llms.txt
-Pages: 592
+Pages: 594
 
 | Path | First heading |
 |---|---|
@@ -400,6 +400,8 @@ Pages: 592
 | [docs/will-i-be-charged-for-chargebacks-or-refunds.md](https://docs.midtrans.com/docs/will-i-be-charged-for-chargebacks-or-refunds.md) | Will I be charged for refunds for GoPay? |
 | [docs/woocommerce-1.md](https://docs.midtrans.com/docs/woocommerce-1.md) | Woocommerce |
 | [docs/woocommerce.md](https://docs.midtrans.com/docs/woocommerce.md) | Woocommerce |
+| [page/404.md](https://docs.midtrans.com/page/404.md) | 404 Page Not Found. |
+| [page/page-not-found.md](https://docs.midtrans.com/page/page-not-found.md) | 404 Page Not Found |
 | [page-not-found.md](https://docs.midtrans.com/page-not-found.md) | 404 Page Not Found |
 | [recipes/snap-core-api-how-to-get-transactions-status.md](https://docs.midtrans.com/recipes/snap-core-api-how-to-get-transactions-status.md) | [Snap & Core API] How to get transaction's status |
 | [recipes/snap-how-to-create-snap-token.md](https://docs.midtrans.com/recipes/snap-how-to-create-snap-token.md) | [SNAP] How to create Snap token |

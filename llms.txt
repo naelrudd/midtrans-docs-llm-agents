@@ -588,8 +588,8 @@
 - [[SNAP] How to utilize query params in the finish url for Snap redirection](https://docs.midtrans.com/recipes/snap-how-to-utilize-query-params-in-the-finish-url-for-snap-redirection.md)
 
 ## Pages
-- [404 Page Not Found.](https://docs.midtrans.com/404.md)
-- [404 Page Not Found](https://docs.midtrans.com/page-not-found.md)
+- [404 Page Not Found.](https://docs.midtrans.com/page/404.md)
+- [404 Page Not Found](https://docs.midtrans.com/page/page-not-found.md)
 
 ## Changelog
 - [New Payment Methods are Now Available!](https://docs.midtrans.com/changelog/new-payment-methods-are-now-available.md)
