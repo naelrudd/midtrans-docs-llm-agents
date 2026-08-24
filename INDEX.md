@@ -1,6 +1,6 @@
 # Index — Docs
 Source: https://docs.midtrans.com/llms.txt
-Pages: 594
+Pages: 595
 
 | Path | First heading |
 |---|---|
@@ -569,6 +569,7 @@ Pages: 594
 | [reference/reward-coins-emoney-v2.md](https://docs.midtrans.com/reference/reward-coins-emoney-v2.md) | Reward GoPay Coins/eMoney |
 | [reference/reward-gems-v2.md](https://docs.midtrans.com/reference/reward-gems-v2.md) | Reward Gems (Ruby) |
 | [reference/sample-response.md](https://docs.midtrans.com/reference/sample-response.md) | Response |
+| [reference/saqu-virtual-account.md](https://docs.midtrans.com/reference/saqu-virtual-account.md) | Saqu Virtual Account |
 | [reference/seabank-virtual-account.md](https://docs.midtrans.com/reference/seabank-virtual-account.md) | SeaBank Virtual Account |
 | [reference/seamless-login-v2.md](https://docs.midtrans.com/reference/seamless-login-v2.md) | Seamless Login |
 | [reference/seamless-payment-v2.md](https://docs.midtrans.com/reference/seamless-payment-v2.md) | Seamless Payment (Bi-Snap) |

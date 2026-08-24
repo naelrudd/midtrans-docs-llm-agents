@@ -2,6 +2,8 @@
 
 > Midtrans is the leading payment gateway in Indonesia, providing businesses and developers an easy-to-integrate platform to accept and send payments. Our technical documentation offers step-by-step guidance for seamless integration. Simplify your payment process with Midtrans today.
 
+Append .md to any documentation page URL to get its markdown version.
+
 ## Guides
 - [Account Overview](https://docs.midtrans.com/docs/midtrans-account.md)
 - [Overview](https://docs.midtrans.com/docs/payment-overview.md): Midtrans Payments Overview
@@ -409,6 +411,7 @@
 - [Danamon Virtual Account](https://docs.midtrans.com/reference/danamon-virtual-account.md)
 - [BSI Virtual Account](https://docs.midtrans.com/reference/bsi-virtual-account.md)
 - [SeaBank Virtual Account](https://docs.midtrans.com/reference/seabank-virtual-account.md)
+- [Saqu Virtual Account](https://docs.midtrans.com/reference/saqu-virtual-account.md)
 - [Other Banks](https://docs.midtrans.com/reference/other-banks.md)
 - [GoPay & QRIS](https://docs.midtrans.com/reference/gopay.md)
 - [Other QRIS](https://docs.midtrans.com/reference/other-qris.md)
@@ -590,15 +593,3 @@
 ## Pages
 - [404 Page Not Found.](https://docs.midtrans.com/page/404.md)
 - [404 Page Not Found](https://docs.midtrans.com/page/page-not-found.md)
-
-## Changelog
-- [New Payment Methods are Now Available!](https://docs.midtrans.com/changelog/new-payment-methods-are-now-available.md)
-- [Transaction Split in Withdrawal Report](https://docs.midtrans.com/changelog/transaction-split-in-withdrawal-report.md)
-- [Release Note: Saved Filters Are Here!](https://docs.midtrans.com/changelog/release-note-saved-filters-are-here.md)
-- [Midtrans Android SDK Update - v.2.4.0](https://docs.midtrans.com/changelog/midtrans-android-sdk-update-v240.md)
-- [Penambahan Kolom Tipe Refund Pada Laporan Pencairan (Withdrawal)](https://docs.midtrans.com/changelog/penambahan-kolom-tipe-refund-pada-laporan-pencairan-withdrawal.md)
-- [All payment method support in Promo Management](https://docs.midtrans.com/changelog/all-payment-method-support-in-promo-management.md)
-- [SKU Level Promotion in Promo Management](https://docs.midtrans.com/changelog/sku-level-promotion-in-promo-management.md)
-- [Updates to Configurations Page in Dashboard](https://docs.midtrans.com/changelog/update-to-configurations-page-in-dashboard.md)
-- [TLS Version 1.2 Upgrade](https://docs.midtrans.com/changelog/tls-version-12-upgrade.md)
-- [Invoicing Release](https://docs.midtrans.com/changelog/jan-1st-2024-invoicing-release.md)

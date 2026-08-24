@@ -1,3 +1,3 @@
 source: https://docs.midtrans.com/llms.txt
-pages: 593
-synced: 2026-08-17T04:01:35Z
+pages: 594
+synced: 2026-08-24T04:04:12Z
