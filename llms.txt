@@ -377,6 +377,7 @@ Append .md to any documentation page URL to get its markdown version.
 - [Getting Started](https://docs.midtrans.com/docs/getting-started-1.md)
 - [Feature Manager](https://docs.midtrans.com/docs/features.md)
 - [Verify with GoPay](https://docs.midtrans.com/docs/verify-with-gopay.md)
+- [Launch Feature](https://docs.midtrans.com/docs/launch-feature.md)
 - [FAQ (EN)](https://docs.midtrans.com/docs/faq-en.md)
 - [Getting Started](https://docs.midtrans.com/docs/getting-started-4.md)
 - [Initialization](https://docs.midtrans.com/docs/initialization-1.md)
