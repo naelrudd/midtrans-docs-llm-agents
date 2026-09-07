@@ -384,6 +384,7 @@ Append .md to any documentation page URL to get its markdown version.
 - [Feature Manager](https://docs.midtrans.com/docs/feature-manager.md)
 - [Verify with GoPay](https://docs.midtrans.com/docs/gopay-id-verify-with-gopay.md)
 - [FAQ (EN)](https://docs.midtrans.com/docs/faq-en-1.md)
+- [Launch Feature](https://docs.midtrans.com/docs/launch-feature-1.md)
 - [KYC Data Pull](https://docs.midtrans.com/docs/backend-contracts.md)
 - [KYC callback](https://docs.midtrans.com/docs/kyc-callback.md)
 - [Get Linking Token](https://docs.midtrans.com/docs/get-linking-token-1.md): A Linking token generated after Login with GoPay that links a user's accounts.

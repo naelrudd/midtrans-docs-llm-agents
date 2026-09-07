@@ -1,6 +1,6 @@
 # Index — Docs
 Source: https://docs.midtrans.com/llms.txt
-Pages: 596
+Pages: 597
 
 | Path | First heading |
 |---|---|
@@ -242,6 +242,7 @@ Pages: 596
 | [docs/kyc-callback.md](https://docs.midtrans.com/docs/kyc-callback.md) | KYC callback |
 | [docs/kyc-sdk-1.md](https://docs.midtrans.com/docs/kyc-sdk-1.md) | Android SDK - OneKYC SDK |
 | [docs/kyc-sdk.md](https://docs.midtrans.com/docs/kyc-sdk.md) | iOS SDK - OneKYC SDK |
+| [docs/launch-feature-1.md](https://docs.midtrans.com/docs/launch-feature-1.md) | Launch Feature |
 | [docs/launch-feature.md](https://docs.midtrans.com/docs/launch-feature.md) | Launch Feature |
 | [docs/login-issue-due-to-2fa-code-two-factor-authentication-what-should-i-do.md](https://docs.midtrans.com/docs/login-issue-due-to-2fa-code-two-factor-authentication-what-should-i-do.md) | Login issue due to 2FA code (Two-factor Authentication), what should I do? |
 | [docs/login-issue.md](https://docs.midtrans.com/docs/login-issue.md) | Login Issue |
