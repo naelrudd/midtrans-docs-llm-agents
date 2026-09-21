@@ -1,6 +1,6 @@
 # Index — Docs
 Source: https://docs.midtrans.com/llms.txt
-Pages: 597
+Pages: 598
 
 | Path | First heading |
 |---|---|
@@ -529,6 +529,7 @@ Pages: 597
 | [reference/migration-guides.md](https://docs.midtrans.com/reference/migration-guides.md) | Migration Guides |
 | [reference/miniapp-core.md](https://docs.midtrans.com/reference/miniapp-core.md) | MiniApp Core (Shared) |
 | [reference/miniapp-faq.md](https://docs.midtrans.com/reference/miniapp-faq.md) | FAQ |
+| [reference/miniapp-performance-guide.md](https://docs.midtrans.com/reference/miniapp-performance-guide.md) | MiniApp Performance Guidelines |
 | [reference/miniapp-security-guidelines.md](https://docs.midtrans.com/reference/miniapp-security-guidelines.md) | MiniApp Security Guidelines |
 | [reference/miniapp-uiux-guidelines.md](https://docs.midtrans.com/reference/miniapp-uiux-guidelines.md) | UI/UX Guidelines |
 | [reference/miniapp-v1.md](https://docs.midtrans.com/reference/miniapp-v1.md) | GoPay Container V1: Getting Started |
