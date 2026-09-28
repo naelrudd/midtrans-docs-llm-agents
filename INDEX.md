@@ -1,6 +1,6 @@
 # Index — Docs
 Source: https://docs.midtrans.com/llms.txt
-Pages: 598
+Pages: 603
 
 | Path | First heading |
 |---|---|
@@ -451,6 +451,7 @@ Pages: 598
 | [reference/charge-transactions-on-card.md](https://docs.midtrans.com/reference/charge-transactions-on-card.md) | Charge Transactions on Card |
 | [reference/cimb-virtual-account.md](https://docs.midtrans.com/reference/cimb-virtual-account.md) | CIMB Virtual Account |
 | [reference/code-4xx.md](https://docs.midtrans.com/reference/code-4xx.md) | Code 4xx |
+| [reference/command-reference.md](https://docs.midtrans.com/reference/command-reference.md) | Command Reference |
 | [reference/confirmupload-5.md](https://docs.midtrans.com/reference/confirmupload-5.md) | Confirm Upload |
 | [reference/confirmuploadv2.md](https://docs.midtrans.com/reference/confirmuploadv2.md) | Confirm Upload V2 |
 | [reference/convert-invoice.md](https://docs.midtrans.com/reference/convert-invoice.md) | Convert Invoice |
@@ -472,12 +473,14 @@ Pages: 598
 | [reference/direct-debit-api-gopay-tokenization.md](https://docs.midtrans.com/reference/direct-debit-api-gopay-tokenization.md) | Payment Method: GoPay Tokenization (non Pre-Auth) |
 | [reference/direct-debit-api-gopay.md](https://docs.midtrans.com/reference/direct-debit-api-gopay.md) | Payment Method: GoPay/ShopeePay/Dana |
 | [reference/direct-refund-transaction.md](https://docs.midtrans.com/reference/direct-refund-transaction.md) | Direct Refund Transaction |
+| [reference/directory-structure.md](https://docs.midtrans.com/reference/directory-structure.md) | Directory Structure |
 | [reference/disable-subscription.md](https://docs.midtrans.com/reference/disable-subscription.md) | Disable Subscription |
 | [reference/enable-gopaylater-for-miniapp.md](https://docs.midtrans.com/reference/enable-gopaylater-for-miniapp.md) | Enable GoPayLater for MiniApp |
 | [reference/ewallet-ovo.md](https://docs.midtrans.com/reference/ewallet-ovo.md) | OVO |
 | [reference/expire-a-snap-session.md](https://docs.midtrans.com/reference/expire-a-snap-session.md) | Expire a Snap Session |
 | [reference/faq-redirection-to-gojek-gopay-app.md](https://docs.midtrans.com/reference/faq-redirection-to-gojek-gopay-app.md) | FAQ: Redirection to Gojek / GoPay app |
 | [reference/faq-redirection-to-gopay-web-page.md](https://docs.midtrans.com/reference/faq-redirection-to-gopay-web-page.md) | FAQ: Redirection to GoPay web page (GoPay Tokenization webview) |
+| [reference/feature-guide.md](https://docs.midtrans.com/reference/feature-guide.md) | Feature Guide |
 | [reference/fetch-promotion-gopay-tokenization.md](https://docs.midtrans.com/reference/fetch-promotion-gopay-tokenization.md) | Fetch Promotion (GoPay Tokenization) |
 | [reference/frontend-v1.md](https://docs.midtrans.com/reference/frontend-v1.md) | Frontend SDKs V1 |
 | [reference/frontend-v2.md](https://docs.midtrans.com/reference/frontend-v2.md) | Frontend SDKs V2 |
@@ -527,6 +530,7 @@ Pages: 598
 | [reference/merchant-balance-mutation-api.md](https://docs.midtrans.com/reference/merchant-balance-mutation-api.md) | Merchant Balance Mutation API |
 | [reference/merchants-migration-backward-compatibality.md](https://docs.midtrans.com/reference/merchants-migration-backward-compatibality.md) | Merchants Migration & Backward Compatibality |
 | [reference/migration-guides.md](https://docs.midtrans.com/reference/migration-guides.md) | Migration Guides |
+| [reference/miniapp-cli-tools.md](https://docs.midtrans.com/reference/miniapp-cli-tools.md) | MiniKit CLI: Create Your First MiniApp |
 | [reference/miniapp-core.md](https://docs.midtrans.com/reference/miniapp-core.md) | MiniApp Core (Shared) |
 | [reference/miniapp-faq.md](https://docs.midtrans.com/reference/miniapp-faq.md) | FAQ |
 | [reference/miniapp-performance-guide.md](https://docs.midtrans.com/reference/miniapp-performance-guide.md) | MiniApp Performance Guidelines |
@@ -594,6 +598,7 @@ Pages: 598
 | [reference/transaction-history-list-api.md](https://docs.midtrans.com/reference/transaction-history-list-api.md) | Transaction History List API |
 | [reference/transaction-history-values.md](https://docs.midtrans.com/reference/transaction-history-values.md) | Transaction History Values |
 | [reference/transaction-status.md](https://docs.midtrans.com/reference/transaction-status.md) | Transaction Status |
+| [reference/troubleshooting.md](https://docs.midtrans.com/reference/troubleshooting.md) | Troubleshooting |
 | [reference/two-clicks.md](https://docs.midtrans.com/reference/two-clicks.md) | Card Payment - Subscription (Two Clicks) |
 | [reference/unbind-api.md](https://docs.midtrans.com/reference/unbind-api.md) | Unbind API |
 | [reference/update-subscription.md](https://docs.midtrans.com/reference/update-subscription.md) | Update Subscription |

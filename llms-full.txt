@@ -1,6 +1,6 @@
 # Docs — Full corpus (single-file)
 Source: https://docs.midtrans.com/llms.txt
-Pages: 598
+Pages: 603
 
 ========================================================================
 
@@ -59598,6 +59598,246 @@ List of Midtrans specific status codes starting with 4XX.
 
 ========================================================================
 
+# reference/command-reference.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T08:48:16.000Z
+---
+
+Fetch the complete documentation index at: https://docs.midtrans.com/llms.txt. Use this file to discover all available pages before exploring further. Append .md to any documentation page URL to get its markdown version.
+
+# Command Reference
+
+## create
+
+Scaffold a new Mini App project.
+
+```Plain
+minikit-cli create [project-name] [options]
+```
+
+| **Option**           | **Description**                             |
+| -------------------- | ------------------------------------------- |
+| --no-install         | Skip installing dependencies                |
+| --project-dir <path> | Parent directory for the scaffolded project |
+
+```Plain
+minikit-cli create my-app
+minikit-cli create my-app --no-install
+minikit-cli create my-app --project-dir /tmp/scaffolds --no-install
+```
+
+When **Auth** is selected, the following files are added or modified during the `create` operation.
+
+| File/Directory                       | Added/Modified      | Purpose & Change                                                                       |
+| ------------------------------------ | ------------------- | -------------------------------------------------------------------------------------- |
+| src/bridge/handlers/get-auth-code.ts | Added               | GPBase.getAuthCode bridge handler                                                      |
+| src/hooks/useAuthCode.ts             | Added (conditional) | Custom hook for auth code. Only added with "fetch before render" option                |
+| src/api/fetch-user-data.ts           | Added (conditional) | API layer for user data. Only added with "fetch before render" option                  |
+| src/pages/home.tsx                   | Modified            | Adds an auth handler demo; fully replaced in fetch-before-render mode                  |
+| src/pages/layout.tsx                 | Modified            | Calls useAuthCode() and logs result in development when fetch-before-render is enabled |
+
+![](https://files.readme.io/0aeb17132ca86341414f1df9d4176b541db3164247191e1ef47c15208aa1070d-img_v3_0215v_e85b0983-c83e-47c7-a029-9604b3b6behu.png)
+
+***
+
+## JSAPIs Commands
+
+Below are the commands for adding and removing JSAPIs. Refer to view the complete [list of available JSAPIs](https://docs.midtrans.com/reference/frontend-v2#jsapis-specification-v100) and learn more about each one
+
+***Note:****&#x20;*`className`*&#x20;represents the category and starts with the&#x20;*`GP`*&#x20;prefix.&#x20;*`methodName`*&#x20;represents the main function being invoked.*
+
+### jsbridge:add
+
+Add a Host App method to call from your Mini App.
+
+```Plain
+minikit-cli jsbridge:add [className] [methodName] [options]
+```
+
+| **Argument** | **Format** | **Example**          |
+| ------------ | ---------- | -------------------- |
+| className    | PascalCase | GPAuth, GPWallet     |
+| methodName   | camelCase  | getToken, getBalance |
+
+Both arguments are optional — omit either to be prompted.
+
+| **Option** | **Alias** | **Description**                           |
+| ---------- | --------- | ----------------------------------------- |
+| --cache    | -c        | Cache the result for the session lifetime |
+
+```Plain
+minikit-cli jsbridge:add
+minikit-cli jsbridge:add GPAuth getToken --cache
+```
+
+![](https://files.readme.io/352bfc34ba28a76c01b468a925b0c57cf38e4e0c2103beb471d3b381cc8fe13d-image.png)
+
+| **File/Directory**   | **Added/Modified** | **Purpose & Change**                                             |
+| :------------------- | :----------------- | :--------------------------------------------------------------- |
+| src/bridge/          | Added              | Core JSBridge module for native communication                    |
+| src/bridge/handlers/ | Added              | All bridge handler files (device.ts, and more added by features) |
+
+***
+
+### jsbridge:remove
+
+Remove a previously added JS Bridge method and its generated hook.
+
+```Plain
+minikit-cli jsbridge:remove [className] [methodName]
+```
+
+Both arguments are optional — omit either to pick from a list.
+
+```Plain
+minikit-cli jsbridge:remove
+minikit-cli jsbridge:remove GPAuth getToken
+```
+
+![](https://files.readme.io/5a4d1617bdff23476a657088b07b3544dbc75aecbd4adb9730ee43abb9ce2ed5-image.png)
+
+***
+
+## i18n:add
+
+Add multi-language support.
+
+```Plain
+minikit-cli i18n:add [options]
+```
+
+| **Option** | **Values** | **Description**                          |
+| ---------- | ---------- | ---------------------------------------- |
+| --source   | json       | Translation source. Omit to be prompted. |
+
+```Plain
+minikit-cli i18n:add
+```
+
+![](https://files.readme.io/7223e72bcaac50fdbc34b5f1245ee1f1b7e85c4f881d56ccc6ea4f01bcca8a30-image.png)
+
+| **File/Directory**      | **Added/Modified** | **Purpose & Change**                                             |
+| ----------------------- | ------------------ | ---------------------------------------------------------------- |
+| src/constants/locale.ts | Added              | Supported locales configuration                                  |
+| project.inlang/         | Added              | Inlang project configuration for managing translations           |
+| messages/               | Added              | Paraglide message catalogs for storing translations              |
+| src/globals.d.ts        | Modified           | Adds i18n type definitions                                       |
+| src/bridge/types.ts     | Modified           | Adds Locale and LocaleResponse types for bridge communication    |
+| src/bridge/index.ts     | Modified           | Registers GPBase.getLocale bridge handler                        |
+| vite.config.ts          | Modified           | Adds Paraglide Vite plugin for compilation                       |
+| package.json            | Modified           | Adds compile:messages script and @inlang/paraglide-js dependency |
+| src/pages/layout.tsx    | Modified           | Synchronizes active locale on app load                           |
+
+***
+
+## snap:add
+
+Add Snap Checkout (Midtrans) payment integration.
+
+```Plain
+minikit-cli snap:add
+```
+
+![](https://files.readme.io/5518c8baddbad05038c52bfb75648326c0115291a11a634d3016a7ae0ac67240-image.png)
+
+| **File/Directory**                     | **Added/Modified** | **Purpose & Change**                                             |
+| -------------------------------------- | ------------------ | ---------------------------------------------------------------- |
+| src/snap-checkout/                     | Added              | Snap Checkout integration module directory                       |
+| src/snap-checkout/fetch-request.ts     | Added              | Request fetching logic for Snap API                              |
+| src/snap-checkout/use-fetch-request.ts | Added              | Custom hook for managing fetch requests                          |
+| src/snap-checkout/types.ts             | Added              | TypeScript type definitions for Snap Checkout                    |
+| src/snap-checkout/snap-checkout.tsx    | Added              | Main Snap Checkout component                                     |
+| src/snap-checkout/index.ts             | Added              | Module exports for Snap Checkout                                 |
+| src/pages/snap-checkout.tsx            | Added              | Page component for Snap Checkout flow                            |
+| src/pages/routes.ts                    | Modified           | Registers the /snap-checkout route                               |
+| src/pages/home.tsx                     | Modified           | Adds CTA (Call-to-Action) linking to /snap-checkout              |
+| .env.example                           | Modified           | Adds VITE\_MIDTRANS\_SNAPJS\_URL and VITE\_MIDTRANS\_CLIENT\_KEY |
+| src/vite-env.d.ts                      | Modified           | Adds TypeScript types for Midtrans environment variables         |
+
+***
+
+## vconsole:add
+
+Add vConsole, an in-app debug panel.
+
+```Plain
+minikit-cli vconsole:add
+```
+
+![](https://files.readme.io/da3381814459deece40eef3b5a3a47b8a94fb500895985ea1db8a0e286a6ec8c-image.png)
+
+| **File/Directory**    | **Added/Modified** | **Purpose & Change**                                       |
+| --------------------- | ------------------ | ---------------------------------------------------------- |
+| src/debug/vconsole.ts | Added              | vConsole initialization and setup logic                    |
+| src/main.tsx          | Modified           | Imports and calls initVConsole() before app renders        |
+| package.json          | Modified           | Adds vconsole npm dependency                               |
+| .env.example          | Modified           | Adds VITE\_ENABLE\_VCONSOLE environment variable           |
+| src/vite-env.d.ts     | Modified           | Adds TypeScript type definition for VITE\_ENABLE\_VCONSOLE |
+
+***
+
+## update
+
+Update the MiniKit CLI itself to the latest published version.
+
+```Plain
+minikit-cli update [options]
+```
+
+| **Option**  | **Description**                                                                   |
+| ----------- | --------------------------------------------------------------------------------- |
+| --check     | Report current vs. latest version without installing                              |
+| --tag <tag> | dist-tag to resolve. Defaults to beta for prerelease installs, latest for stable. |
+
+```Plain
+minikit-cli update
+minikit-cli update --check
+minikit-cli update --tag latest
+```
+
+Run minikit-cli migrate inside each project after updating, to apply project-level migrations.
+
+![](https://files.readme.io/e8afb1db99106c5e53412ceb8427390731ffacb9740be478ac07c3daf4bf375a-image.png)
+
+***
+
+## docs
+
+List or search documentation links.
+
+```Plain
+minikit-cli docs [keyword]
+```
+
+```Plain
+minikit-cli docs
+```
+
+Search is case-insensitive, matches document names and titles.
+
+***
+
+## --help
+
+Every command supports --help for inline usage info:
+
+```Plain
+minikit-cli --help
+minikit-cli create --help
+minikit-cli jsbridge:add --help
+minikit-cli i18n:add --help
+minikit-cli litmus:add --help
+```
+
+***
+
+#
+
+========================================================================
+
 # reference/confirmupload-5.md
 
 ========================================================================
@@ -72609,6 +72849,134 @@ See sample on the right -- try it yourself!
 
 ========================================================================
 
+# reference/directory-structure.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T08:47:14.000Z
+---
+
+Fetch the complete documentation index at: https://docs.midtrans.com/llms.txt. Use this file to discover all available pages before exploring further. Append .md to any documentation page URL to get its markdown version.
+
+# Directory Structure
+
+When you run `minikit-cli create my-app`, the generated codebase follows this structure:
+
+```Plain
+my-app/
+├── .husky/                        # Git hooks
+├── public/                        # Static assets
+│   ├── index.html                 # HTML entry point
+│   └── assets/
+│       ├── icons/                 # Icon assets
+│       └── illustrations/         # Image assets
+│
+├── src/                           # Source code
+│   ├── main.tsx                   # React app entry point
+│   ├── globals.d.ts               # Global type definitions
+│   ├── vite-env.d.ts              # Vite environment types
+│   ├── styles.css                 # Global styles
+│
+│   ├── bridge/                    # JSBridge handlers
+│   │   ├── index.ts               # Bridge exports
+│   │   ├── types.ts               # Bridge type definitions
+│   │   ├── core.ts                # Core bridge logic
+│   │   ├── cache.ts               # Bridge cache management
+│   │   ├── handlers/              # Bridge handlers
+│   │   │   ├── index.ts           # Export all handlers
+│   │   │   └── device.ts          # Device info methods
+│   │   └── __tests__/             # Bridge tests
+│   │       ├── core.test.ts
+│   │       └── cache.test.ts
+│
+│   ├── components/                # Reusable React components
+│   │   ├── navbar.tsx             # Navigation bar
+│   │   └── error-boundary.tsx     # Error boundary
+│
+│   ├── context/                   # React context providers
+│   │   └── tanstack-query.tsx     # TanStack Query setup
+│
+│   ├── pages/                     # Page components & routing
+│   │   ├── routes.ts              # Route definitions
+│   │   ├── layout.tsx             # Root layout
+│   │   ├── home.tsx               # Home page
+│   │   ├── example.tsx            # Example page
+│   │   └── example.test.tsx       # Page tests
+│
+│   ├── utils/                     # Utility functions
+│   │   ├── app-name.ts            # App naming utils
+│   │   ├── sanitise-html.ts       # HTML sanitization
+│   │   └── test-utils.tsx         # Testing utilities
+│
+│   ├── hooks/                     # Custom React hooks (optional)
+│   │   └── useAuthCode.ts         # Auth code hook
+│
+│   ├── api/                       # API layer (optional)
+│   │   └── fetch-user-data.ts     # User data fetching
+│
+│   ├── constants/                 # App constants (optional)
+│   │   └── locale.ts              # Locale constants
+│
+│   ├── debug/                     # Debug utilities (optional)
+│   │   └── vconsole.ts            # vConsole integration
+│
+│   └── snap-checkout/             # Snap Checkout integration (optional)
+│       ├── index.ts               # Snap checkout exports
+│       ├── types.ts               # Type definitions
+│       ├── snap-checkout.tsx      # Main component
+│       ├── use-fetch-request.ts   # Hook for fetching requests
+│       ├── fetch-request.ts       # Fetch logic
+│       └── components.tsx         # Additional components
+│
+├── messages/                      # i18n message files (optional)
+├── project.inlang/                # i18n configuration (optional)
+│
+├── .env.example                   # Environment variables template
+├── .env.test                      # Test environment variables
+├── .gitignore                     # Git ignore rules
+├── .minikit.json                  # MiniKit configuration
+├── .npmrc                         # NPM configuration
+├── .nvmrc                          # Node version (NVM)
+├── .releaserc.json                # Semantic release config
+├── biome.json                     # Code formatter & linter
+├── commitlint.config.js           # Commit message validation
+├── index.html                     # Main HTML file
+├── package.json                   # Dependencies and scripts
+├── pnpm-workspace.yaml            # Workspace configuration
+├── svgo.config.js                 # SVG optimization config
+├── tsconfig.json                  # TypeScript configuration
+└── vite.config.ts                 # Vite build configuration
+```
+
+| **File/Directory** | **Required?** | **Purpose**                                              |
+| :----------------- | :------------ | :------------------------------------------------------- |
+| .minikit.json      | **YES**       | MiniKit project configuration. Do not modify or delete.  |
+| package.json       | **YES**       | Project dependencies, scripts, and metadata.             |
+| package-lock.json  | **YES**       | Locked versions of dependencies for reproducible builds. |
+| tsconfig.json      | **YES**       | TypeScript compiler configuration.                       |
+| vite.config.ts     | **YES**       | Vite build tool configuration.                           |
+| biome.json         | **YES**       | Code formatter and linter configuration.                 |
+| .releaserc.json    | Optional      | Semantic release configuration for versioning.           |
+| .gitignore         | **YES**       | Specifies files to exclude from git.                     |
+| .env.example       | Optional      | Template for environment variables (without secrets).    |
+| .env               | Optional      | Local environment variables (not committed to git).      |
+| /src/bridge        | **YES**       | JSBridge handlers for native MiniApp communication.      |
+| /src/components    | **YES**       | Reusable React UI components.                            |
+| /src/pages         | **YES**       | Page components and routing logic.                       |
+| /src/context       | **YES**       | React Context providers for global state.                |
+| /src/utils         | **YES**       | Utility functions and helper methods.                    |
+| /src/styles        | Optional      | Shared CSS files and design tokens.                      |
+| /public            | **YES**       | Static assets served as-is.                              |
+| /public/assets     | Optional      | Organized static files (icons, images, etc.).            |
+| /.husky            | Optional      | Git hooks for code quality validation.                   |
+
+***
+
+#
+
+========================================================================
+
 # reference/disable-subscription.md
 
 ========================================================================
@@ -73497,6 +73865,80 @@ After completing linking, merchant can initiate payments by calling the [Charge 
 After payment completion, user will be redirected back to merchant's page
 
 For more information on GoPay redirection, please read our [technical FAQ page](https://docs.midtrans.com/docs/technical-faq?id=ios-webview-specific#failure-to-redirect-the-customer-to-gojek-gopay-shopee-pay-and-other-e-wallet-payment-provider-app-what-should-i-do) or directly contact your Midtrans Sales representative so we can assist you further.
+
+========================================================================
+
+# reference/feature-guide.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T08:57:52.000Z
+---
+
+Fetch the complete documentation index at: https://docs.midtrans.com/llms.txt. Use this file to discover all available pages before exploring further. Append .md to any documentation page URL to get its markdown version.
+
+# Feature Guide
+
+These features can be selected and configured during project creation:
+
+## Auth Feature
+
+#### &#x20;(Available only during creation) *\[Refer:&#x20;*<https://docs.midtrans.com/reference/seamless-login-v2>*]*
+
+  The **Auth** feature provides the authentication and container configuration required by mini apps running inside the GoPay host app.
+
+* **When selected, prompts:**
+
+```Plain
+When to fetch auth code?
+● Before app renders
+○ After app renders
+```
+
+* Before: The app waits for the Auth Code before showing the UI. Use this when authentication is required to load the app.
+  * Example: A travel app where the user's profile is required to render the initial UI, such as showing their name, preferences or personalized travel information.
+* After: The app shows the UI first, and the Auth Code can be fetched whenever needed by calling the auth function. Use this when authentication is not required to show the initial UI.
+  * Example: A game app where the current user's profile is not required initially, so the game can render first and fetch the Authcode later when the user profile is needed.
+
+***
+
+## JSAPIs Management
+
+Mini Apps communicate with the native Host app via a "JSAPIs". [https://docs.midtrans.com/reference/command-reference/#jsapis-commands](https://docs.midtrans.com/reference/command-reference/#jsapis-commands "https://docs.midtrans.com/reference/command-reference/#jsapis-commands")
+
+```Bash
+minikit-cli jsbridge:add <class_name> <method_name> --cache
+minikit-cli jsbridge:remove <class_name> <method_name>
+```
+
+***
+
+## i18n Feature
+
+The **i18n feature** supports multiple languages in the app. It provides two translation sources:
+
+[**Command:** `minikit-cli i18n:add`](https://docs.midtrans.com/reference/command-reference)
+
+***
+
+## Payment Integration Using Snap
+
+[**Snap Checkout**](https://docs.midtrans.com/reference/miniapp-x-snap-checkout-payment) enables Mini Apps to accept payments through Midtrans.
+
+[**Command:** `minikit-cli snap:add`](https://docs.midtrans.com/reference/command-reference)
+
+***
+
+## Debug Tools
+
+**Debug Tools** help developers debug the Mini App during development. After selecting **vConsole**, it is enabled automatically in development mode. When you run the Mini App on a mobile device, the vConsole button appears in the bottom-right corner of the screen.
+
+[**Command:** `minikit-cli vconsole:add`](https://docs.midtrans.com/reference/command-reference)
+
+***
+
+#
 
 ========================================================================
 
@@ -93434,6 +93876,181 @@ Note: Before planning for migration please check the list of existing frontend s
    2. [Publish your MiniApp](https://docs.midtrans.com/reference/publish-miniapp-v1)
    3. [How to Test MiniApp](https://docs.midtrans.com/reference/testing-miniapp-v1)
 4. For more information please check the [V1 getting started page](https://docs.midtrans.com/reference/miniapp-v1)
+
+========================================================================
+
+# reference/miniapp-cli-tools.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T09:10:21.000Z
+---
+
+Fetch the complete documentation index at: https://docs.midtrans.com/llms.txt. Use this file to discover all available pages before exploring further. Append .md to any documentation page URL to get its markdown version.
+
+# MiniKit CLI: Create Your First MiniApp
+
+## **Overview**
+
+**MiniKit CLI** is a developer tool for scaffolding and managing the frontend of [MiniApp](https://docs.midtrans.com/reference/overview-miniapp) web applications built with *React and TypeScript* in the GoTo ecosystem. It provides a standard setup with tooling, configuration, and selected internal integrations pre-configured.
+
+***
+
+## **Prerequisites & Create**
+
+**Step 1: Check Your System**
+
+Before installing the CLI, make sure the following are in place:
+
+<Table>
+  <thead>
+    <tr>
+      <th>
+        **Requirement**
+      </th>
+
+      <th>
+        **Description**
+      </th>
+
+      <th>
+        Verification Command
+      </th>
+
+      <th>
+        **Install**
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Git
+      </td>
+
+      <td>
+
+      </td>
+
+      <td>
+        `git --version`
+      </td>
+
+      <td>
+        If not installed, download it from [https://git-scm.com/install/](https://git-scm.com/install/).
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Bun.js
+      </td>
+
+      <td>
+        A fast JavaScript runtime and package manager used to run the CLI.
+      </td>
+
+      <td>
+        `bun --version`
+      </td>
+
+      <td>
+        ```Bash
+        curl -fsSL https://bun.com/install | bash -s "bun-v1.3.14"
+        ```
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+**Step 2: Install the CLI tool**
+
+Run the following command to install the CLI globally and verify that it was installed correctly:
+
+```Bash
+bun install -g @gopay/minikit-cli@latest && minikit-cli --version
+```
+
+**Step 3: Run the Create Command**
+
+```Plain
+minikit-cli create my-first-project
+```
+
+Replace `my-first-project` with your project name (lowercase, with hyphens).
+
+<Image src="https://files.readme.io/b705cbae037c6d9f194f3d8bf06969098056ba966620008d753672b22152653a-20260928-160941.gif" alt="Snap Embedded - Mobile Implementation via Mobile View" align="center" />
+
+**Step 4: Select the Wizard Options**
+
+The CLI will ask you a series of questions.
+
+**1: Framework**
+
+```Plain
+? Choose a framework
+  › React + TypeScript
+```
+
+**2: Install Dependencies**
+
+```Plain
+? Install dependencies with pnpm?
+  › Yes
+```
+
+**3: Features to Include**
+
+```Plain
+? Select features (multi-select, press Space to toggle)
+  ◯ Auth 
+  ◯ i18n (Multi-language)
+  ◯ Snap Checkout (Payments)
+```
+
+**Choose based on your MiniApp requirement:**
+
+| **Feature**                                                                                            | **When to choose**                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| [***Auth***](https://docs.midtrans.com/reference/feature-guide#auth-feature)                           | MiniApp requires seamless login.                              |
+| [**i18n**](https://docs.midtrans.com/reference/feature-guide/#i18n-feature)                            | MiniApp serves users in multiple languages                    |
+| [**Snap Checkout**](https://docs.midtrans.com/reference/feature-guide/#payment-integration-using-snap) | MiniApp needs payments integration                            |
+| [**Debug Tools**](https://docs.midtrans.com/reference/feature-guide/#debug-tools)                      | Testing MiniApp on physical mobile or debugging in production |
+
+**4: Debug tool to Include**
+
+```Plain
+? Select Debug Tool (press Space to toggle)
+  ◯ vConsole
+```
+
+**Step 5: Run your MiniApp**
+
+```Plain
+cd my-app
+source "$HOME/.nvm/nvm.sh" && nvm use
+cp .env.example .env
+pnpm install  # If not already done
+pnpm dev
+```
+
+Open the url to the browser. You should see the default home page heading ***"Your Miniapp is ready..."***.
+
+✅ 🎉 **Congratulations!** Your MiniApp is running.
+
+**Next Step:** To open and test the app as a GoPay/Gojek MiniApp, deploy your changes and try it out using the GoPay/Gojek app.
+
+## **Technical Support**
+
+<https://docs.midtrans.com/reference/miniapp-v2#technical-assistant-and-support>
+
+***
+
+<br />
+
+<br />
 
 ========================================================================
 
@@ -119246,6 +119863,63 @@ The table given below describes the `transaction_status` used by Midtrans APIs.
   </tr>
   </table>
 `}</HTMLBlock>
+
+========================================================================
+
+# reference/troubleshooting.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T08:47:37.000Z
+---
+
+Fetch the complete documentation index at: https://docs.midtrans.com/llms.txt. Use this file to discover all available pages before exploring further. Append .md to any documentation page URL to get its markdown version.
+
+# Troubleshooting
+
+1. ### Command not found: minikit-cli
+
+This happens due to CLI not installed or not in PATH. Use the following command to fix it:
+
+```Plain
+which minikit-cli
+which bun
+source ~/.zshrc && npm install -g @gopay/minikit-cli
+```
+
+2. ### Not a mini-app project
+
+This happens due to running commands outside generated projects. Check .minikit.json and package.json whether present in the current repo.
+
+3. ### Feature not working
+
+This happens due to features not being installed or dependencies missing. Use the following command to fix it:
+
+```Bash
+minikit-cli <feature>:add && pnpm install && pnpm dev
+```
+
+4. ### Feature already set up
+
+This happens due to running feature command when it's already installed in the project. Check .minikit.json to see if the feature is already listed.
+
+5. ### vConsole not appearing
+
+This happens due to `VITE_ENABLE_VCONSOLE` being disabled. Use the following command to fix it:
+
+```Bash
+# Set in .env: VITE_ENABLE_VCONSOLE=true
+pnpm dev
+```
+
+6. ### Missing environment variables
+
+This happens due to the `.env` file being missing or incomplete. Use the following command to fix it:
+
+```Plain
+cp .env.example .env && nano .env
+```
 
 ========================================================================
 

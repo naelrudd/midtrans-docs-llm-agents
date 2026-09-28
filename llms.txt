@@ -4,7 +4,7 @@
 
 Append .md to any documentation page URL to get its markdown version.
 
-## Guides
+## Documentation
 - [Account Overview](https://docs.midtrans.com/docs/midtrans-account.md)
 - [Overview](https://docs.midtrans.com/docs/payment-overview.md): Midtrans Payments Overview
 - [Built-in Interface (SNAP)](https://docs.midtrans.com/docs/snap.md)
@@ -40,7 +40,7 @@ Append .md to any documentation page URL to get its markdown version.
 - [Postman Collection](https://docs.midtrans.com/docs/midtrans-api-postman-collection.md)
 - [IP Addresses & API Domain](https://docs.midtrans.com/docs/ip-address.md)
 - [Error Code & Response Code](https://docs.midtrans.com/docs/error-code-and-response-code.md)
-- [Switching to Production Mode](https://docs.midtrans.com/docs/switching-to-production-mode.md): This document is designed to assist you in switching from *Sandbox* environment to *Production* environment, in order to start accepting real world payment for your business. This is also known as "Going Live".
+- [Switching to Production Mode](https://docs.midtrans.com/docs/switching-to-production-mode.md): This document is designed to assist you in switching from *Sandbox* environment to *Production* environment, in order to start accepting real world payment for your business. This is also known as…
 - [Security Information](https://docs.midtrans.com/docs/payment-security.md)
 - [Technical FAQ](https://docs.midtrans.com/docs/technical-faq.md): This page contains list of Midtrans Product technical FAQs
 - [GoPay QRIS POS Integration](https://docs.midtrans.com/docs/gopay-qris-pos-integration.md): Integration process of GoPay / QRIS with custom software/hardware/POS/IoT will be explained below.
@@ -302,7 +302,7 @@ Append .md to any documentation page URL to get its markdown version.
 - [Bagaimana cara saya mendapatkan Daily Report?](https://docs.midtrans.com/docs/bagaimana-cara-saya-mendapatkan-daily-report.md)
 - [Cara download Payout Report?](https://docs.midtrans.com/docs/cara-download-payout-report.md)
 - [Report Gabungan untuk Partner Merchant](https://docs.midtrans.com/docs/report-gabungan-untuk-partner-merchant.md)
-- [Cara Mengkonfigurasi Data dan Kolom yang Ingin Ditampilkan Laporan yang Diunduh](https://docs.midtrans.com/docs/apa-perbedaan-filter-dan-edit-table-for-export.md): Pada bagian atas dari setiap halaman laporan, baik laporan transaksi maupun laporan saldo, terdapat fungsi navigasi dan operasional, berupa pencarian (search), penyaringan (filter), dan pengunduhan dalam bentuk file (export). Meskipun sering digunakan bersamaan, Filter dan Edit Table for Export memiliki fungsi yang berbeda. Artikel ini akan menjelaskan perbedaan keduanya agar Anda dapat menggunakan fitur laporan dengan lebih optimal.
+- [Cara Mengkonfigurasi Data dan Kolom yang Ingin Ditampilkan Laporan yang Diunduh](https://docs.midtrans.com/docs/apa-perbedaan-filter-dan-edit-table-for-export.md): Pada bagian atas dari setiap halaman laporan, baik laporan transaksi maupun laporan saldo, terdapat fungsi navigasi dan operasional, berupa pencarian (search), penyaringan (filter), dan pengunduhan…
 - [Manajemen Resiko](https://docs.midtrans.com/docs/manajemen-resiko.md)
 - [Perlindungan Merchant](https://docs.midtrans.com/docs/perlindungan-merchant.md)
 - [Apa itu fraud?](https://docs.midtrans.com/docs/apa-itu-fraud.md)
@@ -392,7 +392,7 @@ Append .md to any documentation page URL to get its markdown version.
 - [Unlink Accounts](https://docs.midtrans.com/docs/unlink-accounts.md): How to perform or receive unlinking account events.
 - [Error Codes](https://docs.midtrans.com/docs/gopayenterprise-error-codes.md)
 
-## API Reference
+## API References
 - [Browse Midtrans's API References](https://docs.midtrans.com/reference/quick-start-1.md)
 - [Overview](https://docs.midtrans.com/reference/snap-api-overview.md)
 - [Getting Started](https://docs.midtrans.com/reference/getting-started-with-snap.md)
@@ -529,41 +529,38 @@ Append .md to any documentation page URL to get its markdown version.
 - [Transaction History Values](https://docs.midtrans.com/reference/transaction-history-values.md)
 - [Security & Architecture](https://docs.midtrans.com/reference/bi-snap-security-architecture.md): BI-SNAP Core API architecture overview covering REST design, data formats, HTTP methods, URI standardization, and compliance mapping to ASPI technical standards.
 - [Overview](https://docs.midtrans.com/reference/overview-miniapp.md): This guide explains what a MiniApp is, its benefits, and how it integrates with the GoPay ecosystem, providing developers and merchants with a clear understanding of its features and advantages.
-- [Best Practices for Building a MiniApp](https://docs.midtrans.com/reference/getting-started-miniapp.md): This guide outlines recommended practices for developing, integrating, testing, and launching a MiniApp within the GoPay ecosystem, helping developers and merchants deliver secure, scalable, and user-friendly experiences.
-- [Introduction to GoPay Container](https://docs.midtrans.com/reference/introduction-to-gopay-container-v2.md): This guide introduces GoPay Container, the runtime environment for MiniApps inside the GoPay app. It explains the differences between Container V1 and V2, their features, deployment models, and how they enable seamless login, payments, and native-like experiences for users.
-- [Choosing your GoPay Container](https://docs.midtrans.com/reference/which-container-i-should-choose.md): This guide helps you decide between GoPay Container V1 (Legacy) and V2 (Recommended) for your MiniApp integration, explaining their differences, advantages, limitations, and which option is best suited for new or existing projects.
+- [Best Practices for Building a MiniApp](https://docs.midtrans.com/reference/getting-started-miniapp.md): This guide outlines recommended practices for developing, integrating, testing, and launching a MiniApp within the GoPay ecosystem, helping developers and merchants deliver secure, scalable, and…
+- [Introduction to GoPay Container](https://docs.midtrans.com/reference/introduction-to-gopay-container-v2.md): This guide introduces GoPay Container, the runtime environment for MiniApps inside the GoPay app. It explains the differences between Container V1 and V2, their features, deployment models, and how…
 - [MiniApp UI/UX Guidelines](https://docs.midtrans.com/reference/miniapp-uiux-guidelines.md): This guide outlines the mandatory UI/UX standards for Mini Apps to ensure a seamless, secure, and consistent user experience within the GoPay App environment.
 - [MiniApp Security Guidelines](https://docs.midtrans.com/reference/miniapp-security-guidelines.md): This guide explains security best practices for building GoPay MiniApps and highlights common mistakes developers should avoid to protect credentials, APIs, and user data. 🔒
-- [MiniApp Performance Guidelines](https://docs.midtrans.com/reference/miniapp-performance-guide.md): This guide explains performance best practices for building GoPay MiniApps and highlights common practices developers should follow to ensure fast loading, responsive interactions, and a smooth user experience. ⚡
-- [Icon Guidelines](https://docs.midtrans.com/reference/icon-guidelines.md): This guide explains how to create icons for Mini Apps, including design requirements, sizing, formatting, and best practices to ensure a consistent appearance and optimal display across the platform.
+- [MiniApp Performance Guidelines](https://docs.midtrans.com/reference/miniapp-performance-guide.md): This guide explains performance best practices for building GoPay MiniApps and highlights common practices developers should follow to ensure fast loading, responsive interactions, and a smooth user…
+- [MiniApp Icon Guidelines](https://docs.midtrans.com/reference/icon-guidelines.md): This guide explains how to create icons for Mini Apps, including design requirements, sizing, formatting, and best practices to ensure a consistent appearance and optimal display across the platform.
 - [Migration Guides](https://docs.midtrans.com/reference/migration-guides.md): This guide explains the step-by-step instructions for migrating miniapp to a JSAPI new version or container.
-- [Version History](https://docs.midtrans.com/reference/version-history.md): This section provides a chronological overview of major updates, SDK releases, and API changes for GoPay MiniApps, helping developers track enhancements, migrations, and feature additions across versions.
-- [GoPay Container V2: Getting Started](https://docs.midtrans.com/reference/miniapp-v2.md): This guide helps you get started with onboarding and integrating your MiniApp using GoPay Container V2.
+- [Version History](https://docs.midtrans.com/reference/version-history.md): This section provides a chronological overview of major updates, SDK releases, and API changes for GoPay MiniApps, helping developers track enhancements, migrations, and feature additions across…
+- [Getting Started](https://docs.midtrans.com/reference/miniapp-v2.md): This guide helps you get started with onboarding and integrating your MiniApp using GoPay Container V2.
 - [Merchant Onboarding V2](https://docs.midtrans.com/reference/onboarding-v2.md): This guide walks you through how to onboard as a new or existing merchant with GoPay via Midtrans, including registration and obtaining your Merchant ID.
-- [Testing MiniApp V2](https://docs.midtrans.com/reference/testing-miniapp-v2.md): This guide explains how to test your miniapp live using the MiniApp Deeplink provided in the integration guide.
-- [Frontend SDKs V2](https://docs.midtrans.com/reference/frontend-v2.md): This guide explains the technical specifications of JSAPIs that is available to be called from your application's frontend.
-- [MiniApp Core (Shared)](https://docs.midtrans.com/reference/miniapp-core.md): This guide explains the core components and requirements shared across all GoPay MiniApp Containers.
+- [Technical Specification](https://docs.midtrans.com/reference/miniapp-core.md): This guide explains the core components and requirements shared across all GoPay MiniApp Containers.
+- [MiniKit CLI: Create Your First MiniApp](https://docs.midtrans.com/reference/miniapp-cli-tools.md)
+- [Command Reference](https://docs.midtrans.com/reference/command-reference.md)
+- [Feature Guide](https://docs.midtrans.com/reference/feature-guide.md)
+- [Directory Structure](https://docs.midtrans.com/reference/directory-structure.md)
+- [Troubleshooting](https://docs.midtrans.com/reference/troubleshooting.md)
 - [Core Flows](https://docs.midtrans.com/reference/coreflow-v2.md): This guide explains end-to-end MiniApp flows, which may involve a combination of frontend SDKs and backend APIs.
 - [Seamless Login](https://docs.midtrans.com/reference/seamless-login-v2.md): This method explains how to authenticate a GoPay user via the Mini App by first retrieving an auth code from the frontend and then exchanging it for an access token through the backend.
 - [Seamless Payment (Bi-Snap)](https://docs.midtrans.com/reference/seamless-payment-v2.md): This method explains how merchants can receive payments on the Mini App using the BI-SNAP Core API Redirection Deeplink.
 - [Seamless Payment (Snap-Checkout)](https://docs.midtrans.com/reference/miniapp-x-snap-checkout-payment.md): This guide explains how merchants with an existing Snap Checkout integration can enable payments within MiniApp.
 - [Enable GoPayLater for MiniApp](https://docs.midtrans.com/reference/enable-gopaylater-for-miniapp.md): This section describes the additional metadata fields required to enable GoPay Later as a payment option in the Mini App.
+- [Frontend SDKs V2](https://docs.midtrans.com/reference/frontend-v2.md): This guide explains the technical specifications of JSAPIs that is available to be called from your application's frontend.
 - [Backend APIs (Shared)](https://docs.midtrans.com/reference/backend-v2.md): This guide explains the technical specifications of APIs that can be called from your application's backend.
 - [Reward GoPay Coins/eMoney](https://docs.midtrans.com/reference/reward-coins-emoney-v2.md): This method explains how merchants can disburse GoPay Saldo or GoPay Coins to users using this API. The user who receives the disbursement will be identified from the Authorization token.
 - [Reward Gems (Ruby)](https://docs.midtrans.com/reference/reward-gems-v2.md): This API is used to fetch the user's latest gems balance and to issue gems to the user. It returns a promise that resolves with the result or rejects if an error occurs.
-- [Reminder System (GoPay Genie Card)](https://docs.midtrans.com/reference/reminder-v2.md): This method explains how merchants can display reminders on the GoPay app homepage for time-sensitive actions like bill payments or returns. This feature is limited to selected merchants. To request access, contact the GoPay team with your business use case and provide the reminder template details.
-- [Push Notification](https://docs.midtrans.com/reference/push-notification-v2.md): This method explains how merchants can send push notifications to users in the GoPay app using this API. This API currently supports sending only one notification at a time. The user for push notification will be identified from the Authorization token.
+- [Reminder System (GoPay Genie Card)](https://docs.midtrans.com/reference/reminder-v2.md): This method explains how merchants can display reminders on the GoPay app homepage for time-sensitive actions like bill payments or returns. This feature is limited to selected merchants. To request…
+- [Push Notification](https://docs.midtrans.com/reference/push-notification-v2.md): This method explains how merchants can send push notifications to users in the GoPay app using this API. This API currently supports sending only one notification at a time. The user for push…
 - [Get Profile](https://docs.midtrans.com/reference/get-profile-v2.md): This method retrieves the phone number of the user. It returns a promise that resolves with the phone number or rejects it if there is an error.
-- [GoPay Container V1: Getting Started](https://docs.midtrans.com/reference/miniapp-v1.md): This guide helps you get started with onboarding and integrating your MiniApp using GoPay Container V1.
-- [Merchant Onboarding V1](https://docs.midtrans.com/reference/onboarding-v1.md): This guide walks you through how to onboard as a new or existing merchant with GoPay via Midtrans, including registration and obtaining your Merchant ID.
-- [Project Setup V1](https://docs.midtrans.com/reference/project-setup-v1.md): This guide covers the initial steps required to access the portal, create your MiniApp project, and prepare your local setup.
-- [Publish MiniApp V1](https://docs.midtrans.com/reference/publish-miniapp-v1.md): This guide explains how to bind your project to the GoPay MiniApp Portal and build, upload, and publish your MiniApp version using VS Code or the MiniApp Portal.
-- [Testing MiniApp V1](https://docs.midtrans.com/reference/testing-miniapp-v1.md): This guide explains how to preview, test, and debug your MiniApp using GoPay, Visual Studio Code, and Android or iOS simulators, including the supported capabilities and limitations of each method.
-- [Release MiniApp V1](https://docs.midtrans.com/reference/release-miniapp-v1.md): This guide explains how to submit your MiniApp version for release, apply for approval, and officially launch it through the GoPay MiniApp Portal
-- [Frontend SDKs V1](https://docs.midtrans.com/reference/frontend-v1.md): This guide explains the technical specifications of JSAPIs that is available to be called from your application's frontend.
+- [Testing MiniApp V2](https://docs.midtrans.com/reference/testing-miniapp-v2.md): This guide explains how to test your miniapp live using the MiniApp Deeplink provided in the integration guide.
 - [FAQ](https://docs.midtrans.com/reference/miniapp-faq.md): This guide provides answers to common questions about GoPay MiniApps.
 - [Generate User Token](https://docs.midtrans.com/reference/get_v2-coe-authentication.md): Generates a user token that must be passed to the IAB native SDK. Note: This API is only needed for Native SDK integration, not for H5/Web integration.
-- [Generate Partner Token](https://docs.midtrans.com/reference/get_v1-coe-partner-authentication.md): Retrieves a GTF partner-scoped JWT authentication token for use in subsequent API calls. Token validity is typically 1 hour. Partners are encouraged to cache tokens within their validity period to minimize authentication requests. For production environments, NAT whitelisting is mandatory.
+- [Generate Partner Token](https://docs.midtrans.com/reference/get_v1-coe-partner-authentication.md): Retrieves a GTF partner-scoped JWT authentication token for use in subsequent API calls. Token validity is typically 1 hour. Partners are encouraged to cache tokens within their validity period to…
 - [Initiate Flow](https://docs.midtrans.com/reference/post_coe-partner-v1-initiate-flow.md): Generates a required token (for SDK) or a launch URL (for Web SDK) to start the Face Verification flow.
 - [Get presigned URLs for submission](https://docs.midtrans.com/reference/get_coe-partner-v1-submissions-url.md)
 - [Confirm upload for submission](https://docs.midtrans.com/reference/put_coe-partner-v1-submissions-url.md)
@@ -571,12 +568,12 @@ Append .md to any documentation page URL to get its markdown version.
 - [Get Submission Details](https://docs.midtrans.com/reference/get_coe-v1-submissions.md): Retrieves the face verification results for a given session and submission ID.
 - [Get Partner Token](https://docs.midtrans.com/reference/getpartnertoken.md): Fetch the partner token needed to call any IAB Backend APIs. The token is generated based on the Client ID and Pass Key provided during onboarding and will be valid for a limited time period.
 - [Get Presigned URLs](https://docs.midtrans.com/reference/getpresignedurls-5.md): Get presigned URLs for you to upload required documents based on the submissionType. After successful uploads, call the Confirm Upload API to start processing.
-- [Confirm Upload](https://docs.midtrans.com/reference/confirmupload-5.md): Confirm that all required documents have been uploaded and provide user details to start the certificate registration process. The additional details passed in this API will be stored and used during submission processing.
+- [Confirm Upload](https://docs.midtrans.com/reference/confirmupload-5.md): Confirm that all required documents have been uploaded and provide user details to start the certificate registration process. The additional details passed in this API will be stored and used during…
 - [Get Submission Details](https://docs.midtrans.com/reference/getsubmissiondetails.md): Get submission details and status.
 - [Initiate Flow](https://docs.midtrans.com/reference/initiateflow.md): Fetch the user token/launch URL needed to start the identity verification flow on frontend. Additional details passed in this API will be stored and used during submission processing.
 - [Generate Web View URL](https://docs.midtrans.com/reference/generatewebviewurl.md): This API is used to generate a web view URL for signing or account verification.
 - [Get Presigned URLs V2](https://docs.midtrans.com/reference/getpresignedurlsv2.md): Get presigned URLs for you to upload required documents based on the submissionType. After successful uploads, call the Confirm Upload API to start processing.
-- [Confirm Upload V2](https://docs.midtrans.com/reference/confirmuploadv2.md): Confirm that all required documents have been uploaded and provide user details to start the certificate registration process. The additional details passed in this API will be stored and used during submission processing.
+- [Confirm Upload V2](https://docs.midtrans.com/reference/confirmuploadv2.md): Confirm that all required documents have been uploaded and provide user details to start the certificate registration process. The additional details passed in this API will be stored and used during…
 - [Get Submission Details V2](https://docs.midtrans.com/reference/getsubmissiondetailsv2.md): Get submission details and status.
 - [Get Partner Token](https://docs.midtrans.com/reference/getpartnertoken-6.md): Fetch the partner token needed to call IAB Backend APIs. The partner token will be valid for 1 hour. After expiry, partners can create a new token.
 - [Initiate Flow](https://docs.midtrans.com/reference/initiateflow-1.md): Fetch the user token/launch URL needed to start the identity verification flow on frontend. Additional details passed in this API will be stored and used during submission processing.
