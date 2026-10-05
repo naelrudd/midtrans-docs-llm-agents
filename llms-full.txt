@@ -1,6 +1,6 @@
 # Docs — Full corpus (single-file)
 Source: https://docs.midtrans.com/llms.txt
-Pages: 603
+Pages: 632
 
 ========================================================================
 
@@ -46553,6 +46553,225 @@ GoPay APIs are now accessible via a public domain, Simply use the provided host 
 
 ========================================================================
 
+# reference/balance-mutation-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Partner Balance Mutation API
+
+Retrieve the balance mutation for a specific merchant over a specified period. This endpoint is useful for reconciling balances over a time period.
+
+### HTTP Request
+
+Endpoints: `/api/v1/balance/mutation`
+
+HTTP Method: `GET`
+
+***
+
+### Request Headers
+
+| Header          | Type     | Required | Description                                                     |
+| :-------------- | :------- | :------- | :-------------------------------------------------------------- |
+| `Content-Type`  | `string` | Required | Expected format of the request body. e.g.: `application/json`.  |
+| `Accept`        | `string` | Required | Expected format of the response body. e.g.: `application/json`. |
+| `X-PARTNER-ID`  | `string` | Required | Unique identifier for partner. Provided by Midtrans.            |
+| `X-MERCHANT-ID` | `string` | Required | Unique identifier for merchant. Provided by Midtrans.           |
+| `Authorization` | `string` | Required | Basic Base64Encode(partnerServerKey:)                           |
+
+***
+
+## Query Parameters
+
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Parameter
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Required
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `currency`
+      </td>
+
+      <td>
+        `string`
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        The currency code for the balance mutation. Example: `IDR`.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `start_time`
+      </td>
+
+      <td>
+        `string`
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        The start time of the mutation window in ISO 8601 format, URL encoded.  
+        Example raw value: `2026-03-02T00:00:00+07:00`.  
+        URL Encoded: `2026-03-02T00%3A00%3A00%2B07%3A00`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `end_time`
+      </td>
+
+      <td>
+        `string`
+      </td>
+
+      <td>
+        Required
+      </td>
+
+      <td>
+        The end time of the mutation window in ISO 8601 format, URL encoded.  
+        Example raw value: `2026-03-16T23:59:59+07:00`.  
+        URL Encoded: `2026-03-16T23%3A59%3A59%2B07%3A00`
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+***
+
+## Sample Curl
+
+```shell
+curl --request GET \
+  --url 'https://partner-api.midtrans.com/api/v1/balance/mutation?currency=IDR&start_time=2026-03-02T00%3A00%3A00%2B07%3A00&end_time=2026-03-16T23%3A59%3A59%2B07%3A00' \
+  --header 'Content-Type: application/json' \
+  --header 'Accept: application/json' \
+  --header 'X-PARTNER-ID: 272' \
+  --header 'X-MERCHANT-ID: G209196883' \
+  --header 'Authorization: Basic <redacted>'
+```
+
+## Response Body
+
+### Success
+
+```shell 200 OK
+{
+    "currency": "IDR",
+    "start_time": "2026-03-02T00:00:00+07:00",
+    "end_time": "2026-03-16T23:59:59+07:00",
+    "opening_balance_effective": 962000.01,
+    "closing_balance_effective": 59312508.02,
+    "opening_balance_pending": 0.01,
+    "closing_balance_pending": 0.00,
+    "opening_balance_overall": 962000.02,
+    "closing_balance_overall": 59312508.02,
+    "wallets": [
+        {
+            "source": "payin",
+            "opening_balance_effective": 962000.00,
+            "closing_balance_effective": 144.00,
+            "opening_balance_pending": 0.01,
+            "closing_balance_pending": 0.00,
+            "opening_balance_overall": 962000.01,
+            "closing_balance_overall": 144.00
+        },
+        {
+            "source": "iris",
+            "opening_balance_effective": 0.01,
+            "closing_balance_effective": 59312514.01,
+            "opening_balance_pending": 0.00,
+            "closing_balance_pending": 0.00,
+            "opening_balance_overall": 0.01,
+            "closing_balance_overall": 59312514.01
+        }
+    ]
+}
+```
+
+| Field                       | Type             | Description                                                                                                                                             |
+| :-------------------------- | :--------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| currency                    | string           | The currency code for the balances returned (e.g., IDR).                                                                                                |
+| start\_time                 | string           | The start time of the queried period.                                                                                                                   |
+| end\_time                   | string           | The end time of the queried period.                                                                                                                     |
+| opening\_balance\_effective | number           | The available funds at the beginning of the period.                                                                                                     |
+| closing\_balance\_effective | number           | The available funds at the end of the period.                                                                                                           |
+| opening\_balance\_pending   | number           | The pending funds at the beginning of the period.                                                                                                       |
+| closing\_balance\_pending   | number           | The pending funds at the end of the period.                                                                                                             |
+| opening\_balance\_overall   | number           | The total funds (effective + pending) at the beginning of the period.                                                                                   |
+| closing\_balance\_overall   | number           | The total funds (effective + pending) at the end of the period.                                                                                         |
+| wallets                     | array of objects | Breakdown of balances grouped by wallet source (e.g., payin for incoming payments, iris for disbursements). Contains the same balance metrics as above. |
+
+### Failed
+
+```shell 400 - Validation Error
+{
+    "errors": [
+        "currency must not be empty"
+    ]
+}
+```
+
+| Field  | Type            | Description         |
+| :----- | :-------------- | :------------------ |
+| errors | array of string | The list of errors. |
+
+========================================================================
+
+# reference/balance.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Balance
+
+Midtrans' Balance Related APIs
+
+[Balance Mutation API](https://docs.midtrans.com/reference/balance-mutation-api)
+
+<br />
+
+========================================================================
+
 # reference/bank-transfer-object.md
 
 ========================================================================
@@ -48826,6 +49045,246 @@ If the user remains on the Snap page after the session has been canceled and att
 <br />
 
 <Image align="center" width="50% " src="https://files.readme.io/9282ac7344cd711dcbd719c0218cdcc2a0e435b3be725997a665ec0c15ab9e83-image.png" />
+
+========================================================================
+
+# reference/cancel-api-1.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Cancel API
+
+Cancel transaction is triggered to void the transaction. If transaction is already settled (status : `settlement`) you should perform `refund` instead if the payment method supports it.
+
+## Card Payment
+
+Card payment can be voided with Cancel method if the transaction has not been settled. The time interval during which the pre-authorized transaction can be cancelled depends on the Acquiring Bank.
+
+| Acquiring Bank                | Trigger Cancel Method                                         |
+| ----------------------------- | ------------------------------------------------------------- |
+| **BNI**                       | After pre-authorization payment has been captured.            |
+| **Mandiri**                   | After the initial charge of the pre-authorized payment.       |
+| **BCA**, **BRI**, **MAYBANK** | Before and after pre-authorization payment has been captured. |
+
+***
+
+## Pending Payment
+
+Payment with `transaction_status:pending` can be voided with cancel method if the transaction has not expired or has not been completed. The list of payment methods with `transaction_status:pending` are given below.
+
+* Bank Transfer: [Permata Virtual Account](https://docs.midtrans.com/reference/permata-virtual-account), [BCA Virtual Account](https://docs.midtrans.com/reference/bca-virtual-account), [Mandiri Bill Payment](https://docs.midtrans.com/reference/mandiri-bill-payment), [BNI Virtual Account](https://docs.midtrans.com/reference/bni-virtual-account), [BRI Virtual Account](https://docs.midtrans.com/reference/bri-virtual-account)
+* Direct Debit: [BCA KlikPay](https://docs.midtrans.com/reference/bca-klikpay), [KlikBCA](https://docs.midtrans.com/reference/klikbca), [BRImo](/reference/brimo-1), [CIMB Clicks](https://docs.midtrans.com/reference/cimb-clicks), [Danamon Online Banking](https://docs.midtrans.com/reference/danamon-online-banking), [UOB Ezpay](https://docs.midtrans.com/reference/uob-ez-pay)
+* E-money: [QRIS](https://docs.midtrans.com/reference/qris), [GoPay](https://docs.midtrans.com/reference/gopay), [ShopeePay](https://docs.midtrans.com/reference/shopeepay)
+* Over the Counter: [Indomaret](https://docs.midtrans.com/reference/indomaret), [Alfamart](https://docs.midtrans.com/reference/alfamart)
+* Cardless Credit: [Akulaku](https://docs.midtrans.com/reference/akulaku), [Kredivo](https://docs.midtrans.com/reference/kredivo)
+
+Endpoints: `/api/v1/core/{{transaction_id}}/cancel`
+
+HTTP Method: `POST`
+
+## Response Body
+
+```json 200 - Success
+{
+  "status_code" : "200",
+  "status_message" : "Success, transaction is canceled",
+  "transaction_id" : "249fc620-6017-4540-af7c-5a1c25788f46",
+  "masked_card" : "48111111-1114",
+  "order_id" : "example-1424936368",
+  "payment_type" : "credit_card",
+  "transaction_time" : "2015-02-26 14:39:33",
+  "transaction_status" : "cancel",
+  "fraud_status" : "accept",
+  "bank" : "bni",
+  "gross_amount" : "30000.00"
+}
+```
+```json 200 - Error
+{
+  "status_code" : "412",
+  "status_message" : "Merchant cannot modify the status of the transaction"
+}
+```
+
+<Table align={[null,"left",null]}>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        status\_code
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Status code of transaction cancel result.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        status\_message
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Description of transaction cancel result.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_id
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Transaction ID given by Midtrans.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        masked\_card
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        First 8-digits and last 4-digits of customer's credit card number.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        order\_id
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Order ID specified by you.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        payment\_type
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The payment method used by the customer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_time
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Timestamp of transaction in ISO 8601 format. Time Zone: GMT+7.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_status
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Transaction status after charge credit card transaction. Possible values are<br/>`capture` : Transaction is accepted by the bank and ready for settlement. <br /> **Note**: Cancel transaction to deny / cancel it. Otherwise, transaction is settled automatically. <br/>`deny`: transaction is denied by the bank or FDS.<br/>`authorize`: Credit card is authorized in pre-authorization feature.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        fraud\_status
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Detection result by Fraud Detection System (FDS). Possible values are<br/>`accept` : Approved by FDS.<br/>`deny`: Denied by FDS. Transaction automatically failed.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        bank
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The acquiring bank of the transaction.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        gross\_amount
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Total amount of transaction in IDR.
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 ========================================================================
 
@@ -51910,6 +52369,266 @@ See sample on the right -- try it yourself!
   "x-readme-fauxas": true
 }
 ```
+
+========================================================================
+
+# reference/capture-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Capture API
+
+Capture transaction is triggered to capture the transaction balance when `transaction_status:authorize`. This is only available after [Pre-Authorized Credit Card](https://docs.midtrans.com/reference/card-feature-pre-authorization) or [Pre-Authorized GoPay](/reference/gopay-tokenization#gopay-tokenization-features-pre-auth).
+
+Endpoints: `/api/v1/core/capture`
+
+HTTP Method: `POST`
+
+## Request Body
+
+```json JSON
+{
+  "transaction_id": "be4f3e44-d6ee-4355-8c64-c1d1dc7f4590",
+  "gross_amount": 145000
+}
+```
+
+| Field           | Type        | Attribute | Description                                                                                                                       |
+| --------------- | ----------- | --------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| transaction\_id | String(255) | Required  | Transaction ID given by Midtrans.                                                                                                 |
+| gross\_amount   | Long        | Optional  | Total amount of transaction in IDR. By default it captures whole transaction amount. <br /> **Note**: Decimal values are invalid. |
+
+## Response Body
+
+```json 200 - Success
+{
+  "status_code" : "200",
+  "status_message" : "Success, Credit Card capture transaction is successful",
+  "transaction_id" : "ca297170-be4c-45ed-9dc9-be5ba99d30ee",
+  "masked_card" : "45111111-1117",
+  "order_id" : "testing-0.4555-1414741517",
+  "payment_type" : "credit_card",
+  "transaction_time" : "2014-10-31 14:46:44",
+  "transaction_status" : "capture",
+  "fraud_status" : "accept",
+  "bank" : "bni",
+  "gross_amount" : "30000.00"
+}
+```
+```json 200 - Error
+{
+  "status_code" : "412",
+  "status_message" : "Merchant cannot modify the status of the transaction"
+}
+```
+
+<Table>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        status\_code
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Status code of transaction capture result.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        status\_message
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Description of transaction capture result.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        order\_id
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Order ID specified by you.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_id
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Transaction ID given by Midtrans.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        masked\_card
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        First 8-digits and last 4-digits of customer's card number.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        gross\_amount
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Total amount of transaction in IDR.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        order\_id
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Order ID specified by you.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        payment\_type
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The payment method used by the customer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_time
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Timestamp of transaction in ISO 8601 format. Time Zone: GMT+7.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_status
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Transaction status after capture card transaction.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        fraud\_status
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Detection result by Fraud Detection System (FDS). Possible values are<br/>`accept` : Approved by FDS.<br/>`deny`: Denied by FDS. Transaction automatically failed.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        bank
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The name of the acquiring bank.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        gross\_amount
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Total amount of transaction in IDR. 
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 ========================================================================
 
@@ -58276,6 +58995,235 @@ Fetch the complete documentation index at: https://docs.midtrans.com/llms.txt. U
 
 ========================================================================
 
+# reference/charge-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Charge API
+
+Endpoints: `/api/v1/core/charge`
+
+HTTP Method: `POST`
+
+## Request Body
+
+```json JSON
+{
+  "payment_type": "bank_transfer",
+  "bank_transfer": {
+    "bank": "permata"
+  },
+  "transaction_details": {
+    "order_id": "C17550",
+    "gross_amount": 145000
+  }
+}
+```
+
+More information regarding list of parameters on request body can be seen on [here](https://docs.midtrans.com/reference/charge-transactions-1)
+
+## Response Body
+
+```json 200 - Success
+{
+    "status_code": "201",
+    "status_message": "Success, PERMATA VA transaction is successful",
+    "transaction_id": "a3b75ca9-8b52-445b-99c8-c2cc742a0991",
+    "order_id": "C17550",
+    "merchant_id": "G772349112",
+    "gross_amount": "145000.00",
+    "currency": "IDR",
+    "payment_type": "bank_transfer",
+    "transaction_time": "2024-07-04 10:53:53",
+    "transaction_status": "pending",
+    "fraud_status": "accept",
+    "permata_va_number": "8778000002332015",
+    "expiry_time": "2024-07-05 10:53:53"
+}
+```
+
+<Table>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        status\_code
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Status code of transaction capture result.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        status\_message
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Description of transaction capture result.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        order\_id
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Order ID specified by you.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_id
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Transaction ID given by Midtrans.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        gross\_amount
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Total amount of transaction in IDR.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        order\_id
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Order ID specified by you.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        payment\_type
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The payment method used by the customer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_time
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Timestamp of transaction in ISO 8601 format. Time Zone: GMT+7.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_status
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Transaction status after capture card transaction.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        fraud\_status
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Detection result by Fraud Detection System (FDS). Possible values are<br/>`accept` : Approved by FDS.<br/>`deny`: Denied by FDS. Transaction automatically failed.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        gross\_amount
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Total amount of transaction in IDR. 
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+========================================================================
+
 # reference/charge-transactions-1.md
 
 ========================================================================
@@ -59481,6 +60429,42 @@ The `transaction_status` and `fraud_status` attributes are the two most importan
 * Transaction status `capture` and fraud status `accept`: Customer’s card has been charged and the amount is credited to your account. At this point, the payment process of a transaction is complete.\
   Send the transaction status to the customer and also update the respective database. For example, you can mark if the respective order\_id has been paid for.\
   [Login to MAP](https://account.midtrans.com/login) to see the detail of the transaction and the transaction status. Alternatively, check the transaction status using [Get Transaction Status](https://docs.midtrans.com/reference/get-transaction-status).\ <br />By default, all card transactions from 00:00 until 23:59 are settled on the next day at 16:00. The transaction status is updated from `capture` to `settlement`.  Midtrans also sends HTTP POST notification to the Notification URL configured on MAP.
+
+========================================================================
+
+# reference/checkout.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Checkout
+
+Midtrans Checkout Page Service
+
+## API
+
+[Create Checkout Token API](https://docs.midtrans.com/reference/create-checkout-token-api)
+
+[Get Checkout Page Preference API](https://docs.midtrans.com/reference/get-checkout-page-preference-api)
+
+[Update Checkout Page Preference API](https://docs.midtrans.com/reference/update-checkout-page-preference-api)
+
+[Cancel Checkout Page Session](https://docs.midtrans.com/reference/partner-cancel-checkout-session)
+
+[Get Account Info](https://docs.midtrans.com/reference/partner-get-account-info)
+
+[Unlink Account](https://docs.midtrans.com/reference/partner-unlink-snap-users-api)
+
+<br />
+
+## Advanced Features
+
+Check more in this [sections](https://docs.midtrans.com/docs/partner-checkout-advanced-features)
 
 ========================================================================
 
@@ -61714,6 +62698,44 @@ To be able to receive notification from Midtrans, **merchant will need to whitel
 
 ========================================================================
 
+# reference/core.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Core
+
+Midtrans's Payment API that can be integrated to your own checkout interface
+
+[Get Transaction Status API](https://docs.midtrans.com/reference/get-transaction-status-api-1)
+
+[Charge API](https://docs.midtrans.com/reference/charge-api)
+
+[Capture API](https://docs.midtrans.com/reference/capture-api)
+
+[Cancel API](https://docs.midtrans.com/reference/cancel-api-1)
+
+[Expire API](https://docs.midtrans.com/reference/expire-api)
+
+[Refund API](https://docs.midtrans.com/reference/refund-api-1)
+
+[Get Pay Account (Gopay Tokenizations)](https://docs.midtrans.com/reference/get-pay-account-gopay-tokenizations)
+
+[Unbind Pay Account (GoPay Tokenizations)](https://docs.midtrans.com/reference/partner-unbind-pay-account-gopay-tokenizations)
+
+<br />
+
+## Advanced Features
+
+Check more in this [sections](https://docs.midtrans.com/reference/partner-core-advanced-features)
+
+========================================================================
+
 # reference/coreflow-v2.md
 
 ========================================================================
@@ -61896,6 +62918,605 @@ Note:
 <br />
 
 <br />
+
+========================================================================
+
+# reference/create-checkout-token-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Create Checkout Token API
+
+This API can be used to create a checkout token which is used to open a checkout page where a transaction happens. Details regarding the transaction can be passed here, such as list of enabled payments on checkout page, transaction expiry time, callback URL from checkout page, and some more which can be seen below.
+
+Endpoints: `/api/v1/checkout/transactions`
+
+HTTP Method: `POST`
+
+## Request Body
+
+```json Minimum request
+{
+  "transaction_details": {
+    "order_id": "ORDER-101",
+    "gross_amount": 10000
+  }
+}
+```
+```json Complete request
+{
+  "transaction_details": {
+    "order_id": "ORDER-101",
+    "gross_amount": 10000
+  },
+  "item_details": [{
+    "id": "ITEM1",
+    "price": 10000,
+    "quantity": 1,
+    "name": "Midtrans Bear",
+    "brand": "Midtrans",
+    "category": "Toys",
+    "merchant_name": "Midtrans",
+    "url": "http://toko/toko1?item=abc"
+  }],
+  "customer_details": {
+    "first_name": "TEST",
+    "last_name": "MIDTRANSER",
+    "email": "test@midtrans.com",
+    "phone": "+628123456",
+    "billing_address": {
+      "first_name": "TEST",
+      "last_name": "MIDTRANSER",
+      "email": "test@midtrans.com",
+      "phone": "081 2233 44-55",
+      "address": "Sudirman",
+      "city": "Jakarta",
+      "postal_code": "12190",
+      "country_code": "IDN"
+    },
+    "shipping_address": {
+      "first_name": "TEST",
+      "last_name": "MIDTRANSER",
+      "email": "test@midtrans.com",
+      "phone": "0 8128-75 7-9338",
+      "address": "Sudirman",
+      "city": "Jakarta",
+      "postal_code": "12190",
+      "country_code": "IDN"
+    }
+  },
+  "enabled_payments": ["credit_card", "cimb_clicks",
+    "bca_klikbca", "bca_klikpay", "bri_epay", "echannel", "permata_va",
+    "bca_va", "bni_va", "bri_va","cimb_va", "other_va", "gopay", "indomaret",
+    "danamon_online", "akulaku", "shopeepay", "kredivo", "uob_ezpay","other_qris" ],
+  
+  "credit_card": {
+    "secure": true,
+    "channel": "migs",
+    "bank": "bca",
+    "installment": {
+      "required": false,
+      "terms": {
+        "bni": [3, 6, 12],
+        "mandiri": [3, 6, 12],
+        "cimb": [3],
+        "bca": [3, 6, 12],
+        "offline": [6, 12]
+      }
+    },
+    "whitelist_bins": [
+      "48111111",
+      "41111111"
+    ],
+    "dynamic_descriptor": {
+      "merchant_name" : "Fuji Apple Inc",
+      "city_name": "Jakarta",
+      "country_code": "ID"
+    }
+  },
+  "bca_va": {
+    "va_number": "12345678911",
+    "sub_company_code": "00000",
+    "free_text": {
+      "inquiry": [
+        {
+          "en": "text in English",
+          "id": "text in Bahasa Indonesia"
+        }
+      ],
+      "payment": [
+        {
+          "en": "text in English",
+          "id": "text in Bahasa Indonesia"
+        }
+      ]
+    }
+  },
+  "bni_va": {
+    "va_number": "12345678"
+  },
+  "bri_va": {
+    "va_number": "1234567891234"
+  },
+  "cimb_va": {
+    "va_number": "1234567891234567"
+  },  
+  "permata_va": {
+    "va_number": "1234567890",
+    "recipient_name": "SUDARSONO"
+  },
+  "shopeepay": {
+    "callback_url": "http://shopeepay.com"
+  },
+  "gopay": {
+    "enable_callback": true,
+    "callback_url": "http://gopay.com"
+  },
+  "callbacks": {
+    "finish": "https://demo.midtrans.com"
+  },
+  "expiry": {
+    "start_time": "2018-12-13 18:11:08 +0700",
+    "unit": "minutes",
+    "duration": 1
+  },
+  "page_expiry": {
+      "duration": 3,
+      "unit": "hours"
+  },
+  "custom_field1": "custom field 1 content",
+  "custom_field2": "custom field 2 content",
+  "custom_field3": "custom field 3 content"
+}
+```
+
+<Table align={[null,"left","left",null]}>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Attribute
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        transaction\_details         <br /> [Transaction Details](/reference/json-objects#transaction-details-object) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Mandatory
+      </td>
+
+      <td>
+        Specific information regarding the transaction
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        item\_details                <br /> Array of [Item Details](/reference/json-objects#item-details-object) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Mandatory
+      </td>
+
+      <td>
+        Shopping item details will be paid by customer
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        customer\_details            <br />[Customer Details](/reference/json-objects#customer-details-object) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Mandatory
+      </td>
+
+      <td>
+        Specific information regarding the customer
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        enabled\_payments            
+      </td>
+
+      <td>
+        Array of String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        List of payment types that should be enabled. If `enabled_payments:` field is not passed, all active payment types are included. <br />**Card Payment**:<br /> `credit_card`. <br />**VA**:<br />  `echannel` (Mandiri Bill Payment), `permata_va`, `bca_va`, `bni_va`, `bri_va`, `cimb_va`. <br />**E-wallets**:<br />  `gopay`, and `shopeepay`. <br />**Other QRIS**:<br />  `other_qris` <br />**<br /><br />Aliasing refers to a list of payment types. Passing an alias is the equivalent of passing all the the payment types it refers to.<br />**&#x53;upported aliases\*\*:<br />`bank_transfer` =>  e.g. `permata_va`, `bca_va`, `bni_va`.<br /><br />If you want to use `other_va`, either `permata_va` or `bni_va` or `bri_va` because Midtrans handles other bank transfer as either Permata or BNI VA or BRI VA.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        credit\_card                 <br /> [CreditCard](/reference/json-objects#credit-card-object)
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Card payment method
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        bca\_va                      <br /> [BCA Virtual Account](/reference/json-objects#bca-virtual-account-object) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        BCA Virtual Account payment method
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        permata\_va                  <br /> [Permata Virtual Account](/reference/json-objects#permata-virtual-account-object) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Permata Virtual Account payment method
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        bni\_va                      <br /> [BNI Virtual Account](/reference/json-objects#bni-virtual-account-object) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        BNI Virtual Account payment method
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        cimb\_va                      <br /> [CIMB Virtual Account](/reference/json-objects#cimb-virtual-account-object) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        CIMB Virtual Account payment method
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        bri\_va                      <br /> [BRI Virtual Account](/reference/json-objects#bri-virtual-account-object) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        BRI Virtual Account payment method
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        other\_va                      <br /> [Other Banks Virtual Account](/reference/other-banks) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Other Banks payment method. See Other Bank page for more details on how it works.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        gopay                       <br /> [GoPay](https://midtrans-docs.readme.io/reference/json-objects#gopay-object) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        GoPay e-wallet & GoPay QRIS payment methods.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        shopeepay                   <br /> [ShopeePay](/reference/json-objects#shopeepay-object)
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        ShopeePay & ShopeePay QRIS payment methods.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        callbacks	                 <br /> [Callbacks](/reference/json-objects#callbacks-object) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Redirect URL after transaction is successfully paid (can be overridden by JS callback). Can also be set via Snap Preference menu in your dashboard. <br />Partner merchant (multi-outlet) can use [cross auth](https://docs.midtrans.com/docs/merchant-administration-portal-partner-multi-outlet#d-you-can-also-login-to-your-merchants-dashboard-which-you-arent-able-to-do-on-the-previous-dashboard) to access merchant dashboard and configure this.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        expiry                      <br /> [Expiry](/reference/json-objects#expiry-object) 
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Custom payment method expiry
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        page\_expiry                      <br /> [Page Expiry](/reference/json-objects#page-expiry-object)
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Customize Checkout page expiry
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        custom\_field1
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Custom field 1 for custom parameter from merchant
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        custom\_field2
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Custom field 2 for custom parameter from merchant
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        custom\_field3
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Custom field 3 for custom parameter from merchant
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+> 📘 Specifying payment methods via API using `enabled_payments`
+>
+> Other than from Snap Preference settings in Dashboard, you can also specify which payment method to show in Snap via API using `enabled_payments`. This is useful if you want to maintain your own payment list; you can then bind each payment method list in your checkout page with individual Snap checkout page containing the specified payment method. See [Supported Payment Channels](/reference/payment-channels) page for more details on the param value for each payment channel.
+
+<br />
+
+## Sample Curl
+
+```curl
+curl --location 'https://partner-api.stg.midtrans.com/api/v1/checkout/transactions' \
+--header 'x-partner-id: 370' \
+--header 'x-merchant-id: G167720338' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Basic key' \
+--data '{
+    "transaction_details": {
+        "order_id": "order-1720773628",
+        "gross_amount": 50000
+    }
+}'
+```
+
+<br />
+
+## Response Body
+
+### Success
+
+```json 201 - Success
+{
+  "token": "d379aa71-99eb-4dd1-b9bb-eefe813746e9",
+  "redirect_url": "https://app.sandbox.midtrans.com/snap/v3/redirection/071e0c3d-dade-4148-a1b5-296ee8735b79"
+}
+```
+
+| Field         | Type       | Description                                          |
+| ------------- | :--------- | ---------------------------------------------------- |
+| token         | String(36) | Snap token for [opening the Snap popup](https://docs.midtrans.com/reference/snap-js) |
+| redirect\_url | String(75) | URL for [redirection](https://docs.midtrans.com/reference/window-redirection)        |
+
+### Failed
+
+```json 400 - Validation Error
+{
+  "error_messages": [
+    "transaction_details.gross_amount is not equal to the sum of item_details"
+  ]
+}
+```
+```json 400 - Duplicate Order ID
+{
+  "error_messages": [
+    "transaction_details.order_id has been paid and utilized, please use another order ID"
+  ]
+}
+```
+```json 401 - Authentication Failed
+{
+  "error_messages": [
+    "Access denied due to unauthorized transaction, please check client or server key",
+    "Visit https://snap-docs.midtrans.com/#request-headers for more details"
+  ]
+}
+```
+```json 500 - Internal Server Error
+{
+  "error_messages": [
+    "Sorry, we encountered internal server error. We will fix this soon."
+  ]
+}
+```
+
+| Field           | Type            | Description    |
+| --------------- | :-------------- | -------------- |
+| error\_messages | Array of String | Error messages |
 
 ========================================================================
 
@@ -73515,6 +75136,58 @@ curl -X POST \
 
 ========================================================================
 
+# reference/expire-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Expire API
+
+Expire transaction is triggered to update the `transaction_status` to `expire`, when the customer fails to complete the payment. The expired `order_id` can be reused for the same or different payment methods.
+
+Endpoints: `/api/v1/core/{{transaction_id}}/expire`
+
+HTTP Method: `POST`
+
+## Response Body
+
+```json 200 - Success
+{
+  "status_code": "407",
+  "status_message": "Success, transaction has expired",
+  "transaction_id": "447e846a-403e-47db-a5da-d7f3f06375d6",
+  "order_id": "vtmbill05",
+  "payment_type": "echannel",
+  "transaction_time": "2015-06-15 13:36:24",
+  "transaction_status": "expire",
+  "gross_amount": "10000.00"
+}
+```
+```json 200 - Error
+{
+  "status_code" : "412",
+  "status_message" : "Merchant cannot modify the status of the transaction"
+}
+```
+
+| Field               | Type   | Description                                                    |
+| ------------------- | :----- | -------------------------------------------------------------- |
+| status\_code        | String | Status code of transaction expire result.                      |
+| status\_message     | String | Description of transaction expire result.                      |
+| transaction\_id     | String | Transaction ID given by Midtrans.                              |
+| order\_id           | String | Order ID specified by you.                                     |
+| payment\_type       | String | The payment method used by the customer.                       |
+| transaction\_time   | String | Timestamp of transaction in ISO 8601 format. Time Zone: GMT+7. |
+| transaction\_status | String | Status of the transaction.                                     |
+| gross\_amount       | String | Total amount of transaction in IDR.                            |
+
+========================================================================
+
 # reference/faq-redirection-to-gojek-gopay-app.md
 
 ========================================================================
@@ -76611,6 +78284,278 @@ In case of a successful API request call (merchant successfully calls the Get Au
 
 ========================================================================
 
+# reference/get-checkout-page-preference-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Get Checkout Page Preference API
+
+This API can be used to retrieve the detail modification and configuration of merchant's checkout page, such as merchant's display name, typography, and payment channel settings.
+
+Endpoints: `/api/v1/checkout/merchant-preferences`
+
+HTTP Method: `GET`
+
+## Response Body
+
+### Success
+
+```json 200 - Success
+{
+    "merchant_id": "M007743",
+    "display_name": "DEMO STORE",
+    "finish_payment_return_url": "https://midtrans.com/finish",
+    "error_payment_return_url": "https://midtrans.com/error",
+    "locale": "en",
+    "other_va_processor": "bri_va",
+    "allow_retry": true,
+    "brand": {
+        "typography": "Poppins",
+        "header_color": "#ffffff",
+        "button_color": "#0256A7",
+        "input_border_radius": 10,
+        "button_border_radius": 10,
+        "hide_header": false
+    },
+    "payment_channels": [
+        {
+            "name": "credit_card",
+            "enabled": true
+        },
+        {
+            "name": "bca_va",
+            "enabled": true
+        }
+    ]
+}
+```
+
+<Table>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        display\_name
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The name of the merchant or store that will be displayed on the checkout page
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        finish\_payment\_return\_url
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The URL to which the user will be redirected after successfully completing a payment.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        error\_payment\_return\_url
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The URL for redirecting the user in case an error occurs during the payment process
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        locale
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Specifies the language and regional settings for the checkout page
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        other\_va\_processor
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Alternative virtual account processor that the merchant can use for transactions. Corresponds to the `Other Bank/ATM Bank Processor` menu in Snap Preference > System Settings. Options: `permata_va`, `bni_va`, `bri_va`, `cimb_va`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        allow\_retry
+      </td>
+
+      <td>
+        Boolean
+      </td>
+
+      <td>
+        A boolean value that, when true, allows users to retry payments if their initial attempt fails
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.typography
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Specifies the font family to be used on the checkout page. <br /><br />Options: `Arial`,`Inter`,`Nunito`,`Open Sans`,`Playfair Display`,`Poppins`,`Questrial`,`Roboto`,`Source Sans Pro`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.header\_color
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Hex code of header color of the checkout page
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.button\_color
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Hex code of the color of buttons on the checkout page.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.input\_border\_radius
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        These fields define the border radius (in pixels) for input fields, affecting their rounded corners. Max value is 10.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.button\_border\_radius
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        These fields define the border radius (in pixels) for buttons, affecting their rounded corners. Max value is 10.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.hide\_header
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        A boolean value that, when set to false, shows the header on the checkout page.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        payment\_channels
+      </td>
+
+      <td>
+        Array of Object
+      </td>
+
+      <td>
+        An array of objects, each representing a payment method available on the checkout page. Each object has the following properties:<br /><br />name: The identifier for the payment method (e.g., "credit\_card", "bca\_va", “gopay”).<br /><br />enabled: A boolean indicating whether the payment method is available for use.<br />
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+### Failed
+
+```json 401 - Access Denied
+{
+    "error_messages": [
+        "Access denied, please check server key"
+    ]
+}
+```
+
+| Field           | Type            | Description    |
+| --------------- | :-------------- | -------------- |
+| error\_messages | Array of String | Error messages |
+
+#
+
+========================================================================
+
 # reference/get-invoice.md
 
 ========================================================================
@@ -77089,6 +79034,95 @@ Sandbox: `https://api.sandbox.midtrans.com/v1/invoices/{invoice_id}`
     </tr>
   </tbody>
 </Table>
+
+========================================================================
+
+# reference/get-pay-account-gopay-tokenizations.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Get Pay Account (GoPay Tokenizations)
+
+Get Pay Account is triggered to get GoPay's account linked status. This method is only applicable for GoPay Tokenizations.
+
+Endpoints: `/api/v1/core/pay/account/{{account_id}}`
+
+HTTP Method: `GET`
+
+## Response Body
+
+```json 200 - Enabled
+{
+  "status_code": "200",
+  "payment_type": "gopay",
+  "account_id": "00000269-7836-49e5-bc65-e592afafec14",
+  "account_status": "ENABLED",
+  "metadata": {
+    "payment_options": [
+      {
+        "name": "GOPAY_WALLET",
+        "active": true,
+        "balance": {
+          "value": "1000000.00",
+          "currency": "IDR"
+        },
+        "metadata": {},
+        "token": "eyJ0eXBlIjogIkdPUEFZX1dBTExFVCIsICJpZCI6ICIifQ=="
+      },
+      {
+        "name": "PAY_LATER",
+        "active": true,
+        "balance": {
+          "value": "350000.00",
+          "currency": "IDR"
+        },
+        "metadata": {},
+        "token": "eyJ0eXBlIjogIlBBWV9MQVRFUiIsICJpZCI6ICIifQ=="
+      }
+    ]
+  }
+}
+```
+```json 200 - Pending
+{
+  "status_code": "201",
+  "payment_type": "gopay",
+  "account_id": "00000269-7836-49e5-bc65-e592afafec14",
+  "account_status": "PENDING"
+}
+```
+```json 200 - Expired
+{
+  "status_code": "204",
+  "payment_type": "gopay",
+  "account_id": "00000269-7836-49e5-bc65-e592afafec14",
+  "account_status": "EXPIRED"
+}
+```
+```json 200 - Disabled
+{
+  "status_code": "204",
+  "payment_type": "gopay",
+  "account_id": "00000269-7836-49e5-bc65-e592afafec14",
+  "account_status": "DISABLED"
+}
+```
+
+| Field           | Type   | Description                                                                                 |
+| --------------- | ------ | ------------------------------------------------------------------------------------------- |
+| status\_code    | String | Status code of the API result.                                                              |
+| payment\_type   | String | Payment channel associated with the account.                                                |
+| account\_id     | String | Customer account ID to be used for payment.                                                 |
+| account\_status | String | Status of the account. Possible values are `PENDING`, `EXPIRED`, `ENABLED`, and `DISABLED`. |
+| metadata        | Object | Additional data from the specific payment provider, that is, *GoPay*.                       |
+
+More information about GoPay Tokenizations can be seen [here](https://docs.midtrans.com/reference/gopay-tokenization-1)
 
 ========================================================================
 
@@ -77787,6 +79821,158 @@ Available options are given below.
   "x-readme-fauxas": true
 }
 ```
+
+========================================================================
+
+# reference/get-transaction-status-api-1.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Get Transaction Status API
+
+Endpoints: `/api/v1/core/{{transaction_id}}/status`
+
+HTTP Method: `GET`
+
+## Response Body
+
+```json 200 - Success
+{
+  "status_code" : "200",
+  "status_message" : "Success, Credit Card transaction is successful",
+  "transaction_id" : "249fc620-6017-4540-af7c-5a1c25788f46",
+  "masked_card" : "48111111-1114",
+  "order_id" : "example-1424936368",
+  "payment_type" : "credit_card",
+  "transaction_time" : "2015-02-26 14:39:33",
+  "transaction_status" : "capture",
+  "fraud_status" : "accept",
+  "approval_code" : "1424936374393",
+  "signature_key" : "2802a264cb978fbc59f631c68d120cbda8dc853f5dfdc52301c615cf4f14e7a0b09aa...",
+  "bank" : "bni",
+  "gross_amount" : "30000.00",
+  "channel_response_code": "00",
+  "channel_response_message": "Approved",
+  "card_type": "credit",
+  "payment_option_type": "GOPAY_WALLET",
+  "shopeepay_reference_number": "103995032913255264",
+  "reference_id": "DL-dduIy7XtGtvxJtNNpOfbAt"
+}
+
+```
+```json 200 - Success (Refund)
+{
+  "status_code" : "200",
+  "status_message" : "Success, refund request is approved by the bank",
+  "transaction_id" : "249fc620-6017-4540-af7c-5a1c25788f46",
+  "masked_card" : "48111111-1114",
+  "order_id" : "example-1424936368",
+  "payment_type" : "credit_card",
+  "transaction_time" : "2015-02-26 14:39:33",
+  "transaction_status" : "partial_refund",
+  "fraud_status" : "accept",
+  "approval_code" : "1424936374393",
+  "signature_key" : "2802a264cb978fbc59f631c68d120cbda8dc853f5dfdc52301c615cf4f14e7a0b09aa...",
+  "bank" : "bni",
+  "gross_amount" : "30000.00",
+  "channel_response_code": "00",
+  "channel_response_message": "Approved",
+  "card_type": "credit",
+  "payment_option_type": "GOPAY_WALLET",
+  "refund_amount": "12000.00",
+  "refunds": [
+    {
+      "refund_chargeback_id": 1,
+      "refund_amount": "5000.00",
+      "created_at": "2015-02-27 00:14:20",
+      "reason": "some reason",
+      "refund_key": "reference1"
+    },
+    {
+      "refund_chargeback_id": 2,
+      "refund_amount": "7000.00",
+      "created_at": "2015-02-28 01:23:15",
+      "reason": "",
+      "refund_key": "reference2"
+    },
+  ]
+}
+```
+```json 200 - Success (Point)
+{
+  "masked_card": "52412500-0127",
+  "approval_code": "T12345",
+  "bank": "bni",
+  "eci": "02",
+  "point_balance_amount": "1644.00",
+  "point_redeem_amount": 80000,
+  "point_redeem_quantity": 26667,
+  "channel_response_code": "00",
+  "channel_response_message": "Approved",
+  "channel": "dragon",
+  "three_ds_version": "2",
+  "transaction_time": "2023-11-20 07:30:03",
+  "custom_field1": "TEST1",
+  "custom_field2": "TEST2",
+  "gross_amount": "410400.00",
+  "currency": "IDR",
+  "order_id": "TKP2453912939",
+  "payment_type": "credit_card",
+  "signature_key": "d60dc0a9c7c3cd5c20399d99d56968c241dbaacc26444c2eebc541d3b0fad594cefb50dd866a83089ecba785bd153ee95c03d81a35ccf82689b15d8f57bdbb80",
+  "status_code": "200",
+  "transaction_id": "0c8b481d-8b99-4c6a-b735-aec18be92f28",
+  "transaction_status": "capture",
+  "fraud_status": "accept",
+  "expiry_time": "2023-11-20 07:40:03",
+  "status_message": "Success, Credit Card transaction is successful",
+  "merchant_id": "B200000000000001005476",
+  "card_type": "credit",
+  "challenge_completion": true
+}
+```
+
+<HTMLBlock>{`
+<table>
+<tr><th colspan="2">Field</th><th>Description</th><th>Type</th></tr>
+<tr><td colspan="2">status_code</td><td>Status code of transaction. See this <a href="https://docs.midtrans.com/reference/transaction-status">section</a> for full list of transaction status.</td><td>String</td></tr>
+<tr><td colspan="2">status_message</td><td>Description of transaction status.</td><td>String</td></tr>
+<tr><td colspan="2">transaction_id</td><td>Transaction ID given by Midtrans.</td><td>String</td></tr>
+<tr><td colspan="2">masked_card</td><td>First 8-digit and last 4-digit of customer's credit card number.</td><td>String</td></tr>
+<tr><td colspan="2">order_id</td><td>Order ID specified by you.</td><td>String</td></tr>
+<tr><td colspan="2">payment_type</td><td>The payment method used by the customer.</td><td>String</td></tr>
+<tr><td colspan="2">transaction_time</td><td>Timestamp of transaction in ISO 8601 format. Time Zone: GMT+7.</td><td>String</td></tr>
+<tr><td colspan="2">transaction_status</td><td>Transaction status after charge credit card transaction. Possible values are<br/><code>capture</code>: Transaction is accepted by the bank and ready for settlement. <br/><code>deny</code>: transaction is denied by the bank or FDS.<br/><code>authorize</code>: Credit card is authorized in pre-authorization feature.</td><td>String</td></tr>
+<tr><td colspan="2">fraud_status</td><td>Detection result by Fraud Detection System (FDS). Possible values are<br/><code>accept</code>: Approved by FDS.<br/><code>deny</code>: Denied by FDS. Transaction automatically failed.</td><td>String</td></tr>
+<tr><td colspan="2">approval_code</td><td>Approval code from payment provider for successful transaction. It can be used for refund.</td><td>String</td></tr>
+<tr><td colspan="2">signature_key</td><td>Signature key to validate if the notification is originated from Midtrans. This field is used to validate notification to merchant, not to partner (multi-outlet).</td><td>String</td></tr>
+<tr><td colspan="2">bank</td><td>The acquiring bank of the transaction.</td><td>String</td></tr>
+<tr><td colspan="2">gross_amount</td><td>Total amount of transaction in IDR. </td><td>String</td></tr>
+<tr><td colspan="2">channel_response_code</td><td>Response code from payment channel provider.</td><td>String</td></tr>
+<tr><td colspan="2">channel_response_message</td><td>Response message from payment channel provider</td><td>String</td></tr>
+<tr><td colspan="2">card_type</td><td>Type of card used. Possible values are <code>credit</code>, <code>debit</code>.</td><td>String</td></tr>
+<tr><td colspan="2">payment_option_type</td><td>Type of payment that is being used, possible values are <code>GOPAY_WALLET</code>, <code>PAY_LATER</code>, <code>GO_CICIL</code>, <code>GOPAY_COINS</code> (more possible values will be added once we launch more payment option on Gopay). Only available for Gopay payment type.</td><td>String</td></tr>
+<tr><td colspan="2">shopeepay_reference_number</td><td>Reference number given by ShopeePay. Only available for ShopeePay payment type and QRIS payment type with acquirer <code>airpay shopee</code>.</td><td>String</td></tr>
+<tr><td colspan="2">reference_id</td><td>Reference ID given by payment provider. Only available for ShopeePay payment type and QRIS payment type with acquirer <code>airpay shopee</code>.</td><td>String</td></tr>
+<tr><td colspan="2">refund_amount</td><td>Cumulative refund amount in \`IDR\`.</td><td>String</td></tr>
+<tr><td colspan="2">refunds</td><td>List of refund details related to the transaction. Only available on transaction status <code>partial_refund</code> or <code>refund</code>.</td><td>JSON Array</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;refund_chargeback_id</td><td>Midtrans refund ID.</td><td>Long</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;refund_amount</td><td>Amount of the specific refund.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;created_at</td><td>Timestamp of the refund creation.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;reason</td><td>Reason the refund is created.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;refund_key</td><td>Merchant refund reference.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;refund_method</td><td>Refund confirmation method. The value is applied after Midtrans confirm the refund request (1 day after request is made). Possible values are <code>online</code>, <code>offline</code>.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;bank_confirmed_at</td><td>Timestamp of receipt of refund request confirmation from acquiring bank.</td><td>String</td></tr>
+<tr><td colspan="2">point_redeem_amount</td><td>Amount redeemed in IDR.</td><td>Long</td></tr>
+<tr><td colspan="2">point_redeem_quantity</td><td>Point representation of point_redeem_amount.</td><td>Long</td></tr>
+<tr><td colspan="2">point_balance_amount</td><td>Balance amount in IDR.</td><td>String</td></tr>
+</table>
+`}</HTMLBlock>
 
 ========================================================================
 
@@ -81294,6 +83480,97 @@ Nominal inputted by Customer with 2 decimal
   }
 }
 ```
+
+========================================================================
+
+# reference/get-transaction-status-b2b-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Get Transaction Status B2B API
+
+Get Transaction Status B2B is triggered to obtain the transaction status for all B2B transactions related to an `order_id`. B2B here refers to bank transfer or virtual account transaction which can be paid multiple times by customer or open amount virtual account.
+
+Endpoints: `/api/v1/core/{{transaction_id}}/status/b2b?page=1&per_page=10`
+
+HTTP Method: `GET`
+
+## Request Query Parameter
+
+| Query Parameter | Attribute | Description                                                 |
+| --------------- | --------- | ----------------------------------------------------------- |
+| page            | Optional  | Index of the search. Default is `0`.                        |
+| per\_page       | Optional  | Number of transactions displayed per page. Default is `10`. |
+
+Say merchant has five transactions created under a certain order\_id **A**. The transactions are **B**, **C**, **D**, **E**, **F** (ordered to the latest). Below are the examples on how merchant can use `page` and `per_page` parameters.
+
+1. `per_page` is not set, `page` is not set: Merchant gets **F**, **E**, **D**, **C**, **B**, **A**
+2. `per_page` is set 2, `page` is not set: Merchant gets **F**, **E**
+3. `per_page` is set 2, `page` is set 1: Merchant gets **D**, **C**
+4. `per_page` is set 3, `page` is set 1: Merchant gets **C**, **B**, **A**
+
+## Response Body
+
+```json 200 - Success
+{
+  "status_code": "200",
+  "status_message": "Success, transactions are retrieved",
+  "transactions": [
+    {
+      "payment_type": "echannel",
+      "bill_key": "990568881594",
+      "transaction_time": "2016-09-17 06:36:31",
+      "gross_amount": "6000.00",
+      "order_id": "vttesta73fb08ebd1-160916233631561",
+      "signature_key": "ae85d0ade1bcdfdce4400b63918a8250b3ce45056621c743f71c02197e851accae43787190ee343b18f665d811a4e4d372bddbd347bda588a90d89c1b1c4ed53",
+      "status_code": "200",
+      "transaction_id": "647c9366-596a-4ba2-b20f-77baaa1e6647",
+      "transaction_status": "settlement",
+      "fraud_status": "accept",
+      "status_message": "Success, transaction is found"
+    },
+    {
+      "payment_type": "echannel",
+      "bill_key": "990568881594",
+      "transaction_time": "2016-09-17 06:34:52",
+      "gross_amount": "6000.00",
+      "order_id": "vttesta73fb08ebd1",
+      "signature_key": "e8ae2f8cba40fe505c3c0f8bfec8dbc748ee5c8d04ad0699f33d17b7fc6aba5b1218f518226b4ea2ff095cb60125a5e6e1cb345608446378d29cb10ad687f560",
+      "status_code": "200",
+      "transaction_id": "f9a6684f-e3b4-46dd-8b6c-b61d805b3c6f",
+      "transaction_status": "settlement",
+      "fraud_status": "accept",
+      "status_message": "Success, transaction is found"
+    }
+  ]
+}
+```
+
+<HTMLBlock>{`
+<table>
+<tr><th colspan="2">Field</th><th>Description</th><th>Type</th></tr>
+<tr><td colspan="2">status_code</td><td>Status code of transaction charge result</td><td>String</td></tr>
+<tr><td colspan="2">status_message</td><td>Description of transaction charge result.</td><td>String</td></tr>
+<tr><td colspan="2">transactions</td><td>Details of transaction</td><td>JSON Array</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;payment_type</td><td>The payment method used by the customer.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;bill_key</td><td></td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;transaction_time</td><td>Timestamp of transaction in ISO 8601 format. Time Zone: GMT+7.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;gross_amount</td><td>Total amount of transaction in IDR.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;order_id</td><td>Order ID specified by you.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;signature_key</td><td>Signature key to validate if the notification is originated from Midtrans.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;status_code</td><td>Status code of transaction charge result.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;transaction_id</td><td>Transaction ID given by Midtrans.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;transaction_status</td><td>Transaction status after charge credit card transaction. Possible values are<br/><code>capture</code> : Transaction is accepted by the bank and ready for settlement. <br/><code>deny</code>: transaction is denied by the bank or FDS.<br/><code>authorize</code>: Credit card is authorized in pre-authorization feature.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;fraud_status</td><td>Detection result by Fraud Detection System (FDS). Possible values are<br/><code>accept</code> : Approved by FDS.<br/><code>deny</code>: Denied by FDS. Transaction automatically failed.</td><td>String</td></tr>
+<tr><td></td><td>&nbsp;&nbsp;&nbsp;status_message</td><td>Description of transaction charge result.</td><td>String</td></tr>
+</table>
+`}</HTMLBlock>
 
 ========================================================================
 
@@ -89630,6 +91907,172 @@ When `transaction.status_code` in notification is `500`, you can expect that the
 
 ========================================================================
 
+# reference/http-status-code-copy-1.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# HTTP Status Code
+
+<Table align={["left","left","left"]}>
+  <thead>
+    <tr>
+      <th style={{ textAlign: "left" }}>
+        HTTP Code
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        HTTP Status
+      </th>
+
+      <th style={{ textAlign: "left" }}>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        200
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        OK
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Everything is working as expected
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        400
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Bad Request
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The request is not accepted due to missing parameter or wrong parameter format
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        401
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Unauthorized
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        No valid API key provided
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        403
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Forbidden
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The API key does not have permission to perform the request
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        404
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Not Found
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The requested resource is not valid
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        405
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Method Not Allowed
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The request method is not supported for the requested resource
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        409
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Conflict
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        The request conflicted with another request (possibly due to having the same idempotency key)
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        429
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Too Many Requests
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Too many requests hit the API too quickly. We recommend limiting the request amount or implementing exponential backoff
+      </td>
+    </tr>
+
+    <tr>
+      <td style={{ textAlign: "left" }}>
+        5xx
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Server Errors
+      </td>
+
+      <td style={{ textAlign: "left" }}>
+        Something went wrong on Midtrans' end. To handle this:  
+
+        1. Reach out to [our support team](https://midtrans.com/contact-us)  for clarification on whether it's safe to retry the request. Explain the issue you encountered.
+
+        2. Ensure you include all relevant request details. This could involve the specific API endpoint, payload, and any relevant parameters used.
+
+        3. If your request used an idempotency key, make sure to provide it. The idempotency key helps ensure that the same request is not processed multiple times if retried.By following these steps, you can get the necessary guidance on whether retrying is safe and how to proceed.
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+========================================================================
+
 # reference/icon-guidelines.md
 
 ========================================================================
@@ -93787,6 +96230,74 @@ Authorization-Customer: Bearer [accessToken from BI-SNAP Binding API]
 
 1. If a transaction is created using the BI-SNAP-based API, Midtrans will send all notifications related to that transaction using the BI-SNAP-based API specification.
 2. In case merchant decided to roll back to legacy flow, all transaction notifications will still use  BI-SNAP-based API specification.
+
+========================================================================
+
+# reference/midtrans-merchant-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:17.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Midtrans Merchant API
+
+Midtrans Partner Merchant APIs
+
+[Create merchant API](https://docs.midtrans.com/reference/partner-create-merchant-api)
+
+[Get merchant API](https://docs.midtrans.com/reference/partner-get-merchant-api)
+
+[HTTP Notification](https://docs.midtrans.com/reference/partner-http-notification)
+
+[Update HTTP Notification URL](https://docs.midtrans.com/reference/partner-update-merchant-notification)
+
+========================================================================
+
+# reference/midtrans-partner-apis.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T11:59:55.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Midtrans Partner API
+
+# List of Partner APIs
+
+<br />
+
+<Anchor target="_blank" href="https://docs.midtrans.com/reference/checkout">Checkout APIs</Anchor>
+
+<Anchor target="_blank" href="https://docs.midtrans.com/reference/core">Core APIs</Anchor>
+
+<Anchor target="_blank" href="https://docs.midtrans.com/reference/midtrans-merchant-api">Merchant APIs</Anchor>
+
+<Anchor target="_blank" href="https://docs.midtrans.com/reference/balance-mutation-api">Balance API</Anchor>
+
+# Base URL
+
+Production: `https://partner-api.midtrans.com`
+
+Staging: `https://partner-api.stg.midtrans.com`
+
+# Request Header
+
+| Field         | Type   | Attribute | Description                                                                                                                                                                                                                                           |
+| :------------ | :----- | :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Authorization | String | Mandatory | Basic Base64Encode(partnerServerKey:)<br />Sample<br />PARTNER\_SERVER\_KEY = `f58abc7a-c17f-46e4-898a-607f1257fb62`<br />AUTH\_STRING = `Base64("f58abc7a-c17f-46e4-898a-607f1257fb62:")`<br />AUTH\_STRING = `ZjU4YWJjN2EtYzE3Zi00NmU0LTg5OGEtNjA3` |
+| X-PARTNER-ID  | String | Mandatory | Unique identifier for partner. Provided by Midtrans.                                                                                                                                                                                                  |
+| X-MERCHANT-ID | String | Mandatory | Unique identifier for each merchant under the partner. Provided by Midtrans.                                                                                                                                                                          |
+| Accept        | String | Mandatory | application/json                                                                                                                                                                                                                                      |
+| Content-Type  | String | Mandatory | application/json                                                                                                                                                                                                                                      |
+
+#
 
 ========================================================================
 
@@ -98185,6 +100696,1718 @@ OVO's transaction expiry is set to 65 seconds, and customers have 55 seconds to 
 </Table>
 
 <br />
+
+========================================================================
+
+# reference/partner-cancel-checkout-session.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Cancel Checkout Page Session
+
+In principle, a checkout page will have an expiry time (default 24 hour), which can also be customized following this guide [Expire a Snap Checkout Session](https://docs.midtrans.com/reference/expire-a-snap-session).
+
+In a scenario where you want to cancel a checkout page before the expiry time, you can use this endpoint.
+
+<br />
+
+Endpoints: `/api/v1/checkout/transactions/{{token}}/cancel`
+
+HTTP Method: `POST`
+
+## Response Body
+
+```json Success response
+{
+  "canceled_at": "2025-06-03T13:09:39.776Z"
+}
+```
+```json Token has been canceled response
+{
+  "error_messages": [
+    "token already canceled"
+  ]
+}
+```
+```json Transaction is in progress response
+{
+  "error_messages": [
+    "Transaction is in progress"
+  ]
+}
+```
+```json Token not found response
+{
+  "error_messages": [
+    "token not found"
+  ]
+}
+```
+
+| JSON Attribute | Description                               | Type   |
+| -------------- | ----------------------------------------- | ------ |
+| canceled\_at   | Timestamp when the page has been canceled | String |
+
+<br />
+
+If the user remains on the checkout page after the session has been cancelled and attempts to continue the transaction, they will see an error indicating that they are not able to proceed with the transaction.
+
+<br />
+
+<Image align="center" width="50% " src="https://files.readme.io/da00d0e6c7fd899ef2e8fec3a29ef545b6c2b6a83ba9a011e2150434e0afc364-image.png" />
+
+========================================================================
+
+# reference/partner-checkout-advanced-features.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Advanced Features
+
+Snap has various optional parameters. These optional parameters can be utilized for more advanced use cases that can help your integration. This section will explain advance features specific for Partner Solutions, other general features can be seen on this [docs](https://docs.midtrans.com/reference/advanced-features).
+
+<br />
+
+***
+
+<br />
+
+## Transaction Split
+
+With this feature, as a partner, you can split the gross amount and MDR fee of a transaction to your merchants.
+
+<br />
+
+> 📘 Glossary
+>
+> In this context, gross amount is the amount that will be added on your withdrawable balance.
+>
+> MDR fee is transaction fee that is deducted for each transaction.
+
+<br />
+
+You can add `transaction_split_settings` parameter to define how will you split the transaction.
+
+<br />
+
+```json JSON Parameters
+{
+  ...
+  "transaction_split_settings": {
+    "gross_amount_split": {
+      "type": "percentage",
+      "split_rules": [
+        {
+          "merchant_id": "G000002",
+          "value": "85"
+        },
+        {
+          "merchant_id": "G000003",
+          "value": "15"
+        }
+      ]
+    },
+    "fee_split": {
+      "type": "percentage",
+      "split_rules": [
+        {
+          "merchant_id": "G000002",
+          "value": "50"
+        },
+        {
+          "merchant_id": "G000003",
+          "value": "50"
+        }
+      ]
+    }
+  },
+  ...
+}
+```
+
+<br />
+
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Parameter
+      </th>
+
+      <th>
+        Description
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Required
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `gross_amount_split`
+      </td>
+
+      <td>
+        Define the rules for splitting the transaction amount
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional*  
+        `required` when `fee_split` is not defined
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `gross_amount_split.type`
+      </td>
+
+      <td>
+        Type of the split, possible values are `percentage` and `fixed`
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `gross_amount_split.split_rules`
+      </td>
+
+      <td>
+        Define the detail of the split
+      </td>
+
+      <td>
+        Array of Object
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `gross_amount_split.split_rules.*.merchant_id`
+      </td>
+
+      <td>
+        Merchant ID which will receive amount of the transaction
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `gross_amount_split.split_rules.*.value`
+      </td>
+
+      <td>
+        Value of the split based on type.
+
+        * Percentage: percentage of the amount that merchant will receive
+        * Fixed: amount that merchant will receive
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `gross_amount_split.remaining_split_receiver`
+      </td>
+
+      <td>
+        Determine which merchant that get the remaining amount of transaction after distribution to list of merchant in `split_rules`
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional*  
+        `required` when `gross_amount_split.type` is `fixed`.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `fee_split`
+      </td>
+
+      <td>
+        Define the rules for splitting the transaction fee
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional*  
+        `required` when `gross_amount_split` is not defined
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `fee_split.type`
+      </td>
+
+      <td>
+        Type of the split, possible values are `percentage` and `fixed`.
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `fee_split.split_rules`
+      </td>
+
+      <td>
+        Define the detail of the split
+      </td>
+
+      <td>
+        Array of Object
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `fee_split.split_rules.*.merchant_id`
+      </td>
+
+      <td>
+        Merchant ID which will bear the transaction fee
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `fee_split.split_rules.*.value`
+      </td>
+
+      <td>
+        Value of the split based on type.
+
+        * Percentage: percentage of the fee that will be borne by merchant
+        * Fixed: fixed amount of fee that will be borne by  merchant
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `fee_split.remaining_split_receiver`
+      </td>
+
+      <td>
+        Determine which merchant that borne the remaining fee of transaction after distribution to list of merchant in `split_rules`
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional*  
+        `required` when `fee_split.type` is `fixed`.
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+<br />
+
+### Things to Note
+
+* You can split only the gross amount, only the fee, or both.
+* When the `type` is `percentage`, the total value must be equals to 100%.
+* Specified `merchant_id` must be registered under your Partner setup.
+
+<br />
+
+### Sample Calculation
+
+With transaction amount Rp 100.000, transaction fee Rp 4.440, and this split configuration:
+
+```json Split Configuration
+{
+  ...
+  "transaction_split_settings": {
+    "gross_amount_split": {
+      "type": "percentage",
+      "split_rules": [
+        {
+          "merchant_id": "G000002",
+          "value": "85"
+        },
+        {
+          "merchant_id": "G000003",
+          "value": "15"
+        }
+      ]
+    },
+    "fee_split": {
+      "type": "percentage",
+      "split_rules": [
+        {
+          "merchant_id": "G000002",
+          "value": "50"
+        },
+        {
+          "merchant_id": "G000003",
+          "value": "50"
+        }
+      ]
+    }
+  },
+  ...
+}
+```
+
+<br />
+
+The split result will be:
+
+* Merchant `G000002`:
+  * Receive Rp 82.780 (85% \* 100.000 - 2.220)
+  * Bear Rp 2.220 of the fee (50% \* 4.440)
+* Merchant `G000003`:
+  * Receive Rp 12.780 (15% \* 100.000 - 2.220)
+  * Bear Rp 2.220 of the fee (50% \* 4.440)
+
+========================================================================
+
+# reference/partner-core-advanced-features.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Advanced Features
+
+Core API has various optional parameters that can be utilized to integrate with more advanced use cases. This section will explain advance features specific for Partner Solutions, other general features can be seen on this docss [docs](https://docs.midtrans.com/docs/coreapi-advanced-features)
+
+<br />
+
+***
+
+<br />
+
+## Transaction Split
+
+With this feature, as a partner, you can split the gross amount and MDR fee of a transaction to your merchants.
+
+<br />
+
+> 📘 Glossary
+>
+> In this context, gross amount is the amount that will be added on your withdrawable balance.
+>
+> MDR fee is transaction fee that is deducted for each transaction.
+
+<br />
+
+You can add `transaction_split_settings` parameter to define how will you split the transaction.
+
+<br />
+
+```json JSON Parameters
+{
+  ...
+  "transaction_split_settings": {
+    "gross_amount_split": {
+      "type": "percentage",
+      "split_rules": [
+        {
+          "merchant_id": "G000002",
+          "value": "85"
+        },
+        {
+          "merchant_id": "G000003",
+          "value": "15"
+        }
+      ]
+    },
+    "fee_split": {
+      "type": "percentage",
+      "split_rules": [
+        {
+          "merchant_id": "G000002",
+          "value": "50"
+        },
+        {
+          "merchant_id": "G000003",
+          "value": "50"
+        }
+      ]
+    }
+  },
+  ...
+}
+```
+
+<br />
+
+<Table align={["left","left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Parameter
+      </th>
+
+      <th>
+        Description
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Required
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        `gross_amount_split`
+      </td>
+
+      <td>
+        Define the rules for splitting the transaction amount
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional\*\
+        `required` when `fee_split` is not defined
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `gross_amount_split.type`
+      </td>
+
+      <td>
+        Type of the split, possible values are `percentage`
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `gross_amount_split.split_rules`
+      </td>
+
+      <td>
+        Define the detail of the split
+      </td>
+
+      <td>
+        Array of Object
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `gross_amount_split.split_rules.*.merchant_id`
+      </td>
+
+      <td>
+        Merchant ID which will receive amount of the transaction
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `gross_amount.split_rules.*.value`
+      </td>
+
+      <td>
+        Value of the split based on type.  
+
+        * Percentage: percentage of the amount that will merchant receive
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `fee_split`
+      </td>
+
+      <td>
+        Define the rules for splitting the transaction fee
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional\*\
+        `required` when `gross_amount_split` is not defined
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `fee_split.type`
+      </td>
+
+      <td>
+        Type of the split, possible values are `percentage`
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `fee_split.split_rules`
+      </td>
+
+      <td>
+        Define the detail of the split
+      </td>
+
+      <td>
+        Array of Object
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `fee_split.split_rules.*.merchant_id`
+      </td>
+
+      <td>
+        Merchant ID which will bear the transaction fee
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        `fee_split.split_rules.*.value`
+      </td>
+
+      <td>
+        Value of the split based on type.  
+
+        * Percentage: percentage of the fee that will be borne by merchant
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Required
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+<br />
+
+### Things to Note
+
+* You can split only the gross amount, only the fee, or both.
+* When the `type` is `percentage`, the total value must be equals to 100%.
+* Specified `merchant_id` must be registered under your Partner setup.
+
+<br />
+
+### Sample Calculation
+
+With transaction amount Rp 100.000, transaction fee Rp 4.440, and this split configuration:
+
+```json Split Configuration
+{
+  ...
+  "transaction_split_settings": {
+    "gross_amount_split": {
+      "type": "percentage",
+      "split_rules": [
+        {
+          "merchant_id": "G000002",
+          "value": "85"
+        },
+        {
+          "merchant_id": "G000003",
+          "value": "15"
+        }
+      ]
+    },
+    "fee_split": {
+      "type": "percentage",
+      "split_rules": [
+        {
+          "merchant_id": "G000002",
+          "value": "50"
+        },
+        {
+          "merchant_id": "G000003",
+          "value": "50"
+        }
+      ]
+    }
+  },
+  ...
+}
+```
+
+<br />
+
+The split result will be:
+
+* Merchant `G000002`:
+  * Receive Rp 82.780 (85% \* 100.000 - 2.220)
+  * Bear Rp 2.220 of the fee (50% \* 4.440)
+* Merchant `G000003`:
+  * Receive Rp 12.780 (15% \* 100.000 - 2.220)
+  * Bear Rp 2.220 of the fee (50% \* 4.440)
+
+========================================================================
+
+# reference/partner-create-merchant-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Create merchant API
+
+Create merchant API is an API call that can be used to register a new merchant under a Partner
+
+### Request Header
+
+| Field         | Type   | Attribute | Description                                          |
+| :------------ | :----- | :-------- | :--------------------------------------------------- |
+| Authorization | String | Mandatory | Basic Base64Encode(partnerServerKey:)                |
+| X-PARTNER-ID  | String | Mandatory | Unique identifier for partner. Provided by Midtrans. |
+
+<br />
+
+### Request Body
+
+| Field             | Type   | Attribute | Description                                                                                                                                                                                                                                                                                                                                            |
+| :---------------- | :----- | :-------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| email             | String | Mandatory | Email to be registered as Midtrans merchant                                                                                                                                                                                                                                                                                                            |
+| merchant\_name    | String | Mandatory | Name of the merchant.                                                                                                                                                                                                                                                                                                                                  |
+| callback\_url     | String | Optional  | Merchant’s endpoint URL where Midtrans sends a response after completing a particular request.                                                                                                                                                                                                                                                         |
+| notification\_url | String | Optional  | Merchant’s endpoint URL where Midtrans’ Payment Gateway sends HTTP callbacks for payment success or failure events. This is only for payment notifications and does not apply to disbursement or transfer. For disbursement notifications, see [Disbursement HTTP Notification setup](https://docs.midtrans.com/reference/partner-http-notification-1) |
+| pay\_account\_url | String | Optional  | Merchant’s endpoint URL where Midtrans' notification engine will send HTTP notification related with pay account (linking & unlinking).                                                                                                                                                                                                                |
+| owner\_name       | String | Optional  | The name of the merchant’s owner.                                                                                                                                                                                                                                                                                                                      |
+| phone\_number     | String | Optional  | The phone number of the merchant without country code                                                                                                                                                                                                                                                                                                  |
+| mcc               | String | Mandatory | Pass the expected value as specified here [Possible values of industry category - Partner Onboarding API](https://docs.google.com/spreadsheets/d/1Wj2XdtMXPMyW2-ia5hAyNw4G5eE6ZBG-nvTYusR9QsY/edit?gid=0#gid=0).                                                                                                                                       |
+| entity\_type      | string | Optional  | Pass either ‘individual’ or ‘corporate’ as the values.                                                                                                                                                                                                                                                                                                 |
+| business\_name    | String | Optional  | The name of the legal entity representing said merchant.                                                                                                                                                                                                                                                                                               |
+
+<br />
+
+### Example
+
+`POST api/v1/merchants`
+
+```http
+Authorization: Basic cGFydG5lci1hcGkta2V5Og==
+X-PARTNER-ID: 82150823919040624621823174737537
+{
+  "email": "merchant@midtrans.com",
+  "merchant_name": "HQ Midtrans Merchant",
+  "callback_url": "https://merchant.com/midtrans-callback",
+  "notification_url": "https://merchant.com/midtrans-notification",
+  "pay_account_url": "https://merchant.com/pay-account-notification",
+  "owner_name": "Owner Midtrans",
+  "phone_number": "81211111111",
+  "mcc": "Event",
+  "entity_type": "corporate",
+  "business_name": "PT Business Name"
+}
+```
+
+<br />
+
+#### Response
+
+##### Header
+
+| Field                            | Type   | Description                                                                 |
+| :------------------------------- | :----- | :-------------------------------------------------------------------------- |
+| x-rate-limit-limit               | String | Maximum number of requests that can be sent in the current period of time   |
+| x-rate-limit-remaining           | String | Remaining number of requests that can be sent in the current period of time |
+| x-rate-limit-reset               | String | Rate limit reset time (in Unix epoch seconds)                               |
+| x-rate-limit-retry-after-seconds | String | Number of seconds until the next rate limit reset                           |
+
+##### Body
+
+| Field             | Type      | Description                                                                                                                                                                                                       |
+| :---------------- | :-------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| status\_code      | String    | Status code                                                                                                                                                                                                       |
+| status\_message   | String    | Status message                                                                                                                                                                                                    |
+| error\_messages   | String\[] | Error messages                                                                                                                                                                                                    |
+| merchant\_id      | String    | Merchant identifier that is unique per each merchant                                                                                                                                                              |
+| merchant\_name    | String    | The name of the merchant                                                                                                                                                                                          |
+| phone\_number     | String    | The phone number of the merchant without country code                                                                                                                                                             |
+| callback\_url     | String    | Merchant’s endpoint URL where Midtrans sends a response after completing a particular request.                                                                                                                    |
+| notification\_url | String    | Merchant’s endpoint URL where Midtrans’ notification engine will send a success or failure HTTP notification.                                                                                                     |
+| pay\_account\_url | String    | Merchant’s endpoint URL where Midtrans' notification engine will send HTTP notification related with pay account (linking & unlinking).                                                                           |
+| mcc               | String    | Pass the expected value as specified here [Possible values of industry category - Partner Onboarding API](https://docs.google.com/spreadsheets/d/1Wj2XdtMXPMyW2-ia5hAyNw4G5eE6ZBG-nvTYusR9QsY/edit?gid=0#gid=0) . |
+| entity\_type      | String    | Pass either ‘individual’ or ‘corporate’ as the values.                                                                                                                                                            |
+| business\_name    | String    | The name of the legal entity representing said merchant.                                                                                                                                                          |
+
+<br />
+
+##### Successful Response
+
+```json
+{
+  "status_code": "200",
+  "status_message": "Merchants have been successfully created.",
+  "merchant_id": "M123456",
+  "merchant_name": "HQ Midtrans Merchant",
+  "phone_number": "81211111111",
+  "callback_url": "https://merchant.com/midtrans-callback",
+  "notification_url": "https://merchant.com/midtrans-notification",
+  "pay_account_url": "https://merchant.com/pay-account-notification",
+  "owner_name": "Owner Midtrans",
+  "mcc": "Event",
+  "entity_type": "corporate",
+  "business_name": "business name"
+}
+```
+
+##### Error Response 400
+
+```json
+{
+  "error_messages": [   
+      "merchant_name cannot be empty",
+      "email cannot be empty",
+  ]
+}
+```
+
+##### Error Response 401
+
+```json JSON
+{
+    "status_code": "401",
+    "status_message": "Partner is unauthorized"
+}
+```
+
+##### Error Response 500
+
+```json
+{
+  "status_code": "500",
+  "status_message": "Internal Server Error"
+}
+```
+
+========================================================================
+
+# reference/partner-get-account-info.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Get Account Info
+
+Use this API to retrieve and show user's account information.
+
+<br />
+
+Endpoints: `/api/v1/checkout/users/{{user_id}}/gopay`
+
+HTTP Method: `GET`
+
+<br />
+
+## Response Body
+
+```json Existing ENABLED account
+{
+  "user_id": "testww1",
+  "account_id": "bb2fb8cc-d754-4390-b62f-01fb3fc1517c",
+  "account_status": "ENABLED",
+  "balance": "8000000.00",
+  "phone_number": "8123456789",
+  "country_code": "62"
+}
+```
+```json Existing PENDING account
+{
+    "error_messages": [
+        "account not found"
+    ],
+    "locale": "en"
+}
+```
+```json Non-existing account
+{
+    "error_messages": [
+        "account not found"
+    ],
+    "locale": "en"
+}
+```
+
+<Table align={["left","left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        JSON Attribute
+      </th>
+
+      <th>
+        Description
+      </th>
+
+      <th>
+        Type
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        user\_id
+      </td>
+
+      <td>
+        A unique identifier owned by merchant that represents a customer
+      </td>
+
+      <td>
+        String
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        account\_status
+      </td>
+
+      <td>
+        Status of the account.\
+        Possible values are `PENDING`, `EXPIRED`, `ENABLED`, `DISABLED`
+      </td>
+
+      <td>
+        String
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        account\_id
+      </td>
+
+      <td>
+        Customer account id to be used for payment.
+      </td>
+
+      <td>
+        String
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        balance
+      </td>
+
+      <td>
+        Current balance of the account
+      </td>
+
+      <td>
+        String
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        phone\_number
+      </td>
+
+      <td>
+        Customer phone number, without `country_code`
+      </td>
+
+      <td>
+        String
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        country\_code
+      </td>
+
+      <td>
+        Customer country code
+      </td>
+
+      <td>
+        String
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+========================================================================
+
+# reference/partner-get-merchant-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Get merchant API
+
+Get merchant API is an API call that can be used to search merchants within the system based on various criteria. This API provides several parameters to filter data and perform pagination.
+
+<br />
+
+#### Request Header
+
+| Field         | Type   | Attribute | Description                                          |
+| :------------ | :----- | :-------- | :--------------------------------------------------- |
+| Authorization | String | Mandatory | Basic Base64Encode(partnerServerKey:)                |
+| X-PARTNER-ID  | String | Mandatory | Unique identifier for partner. Provided by Midtrans. |
+
+#### Request Params
+
+| Field     | Type   | Attribute | Description                                                   |
+| :-------- | :----- | :-------- | :------------------------------------------------------------ |
+| page      | Int    | Optional  | Maximum number of data returned in one pagination. Default: 1 |
+| per\_page | Int    | Optional  | Current page numberDefault: 10                               |
+| keyword   | String | Optional  | Query search by merchant ID or merchant name                  |
+
+#### Example
+
+`GET api/v1/merchants?page=1&per_page=10`
+
+```http
+Authorization: Basic cGFydG5lci1hcGkta2V5Og==
+X-PARTNER-ID: 82150823919040624621823174737537
+```
+
+#### Response
+
+##### Body
+
+| Field                       | Type   | Description                                           |
+| :-------------------------- | :----- | :---------------------------------------------------- |
+| status\_code                | String | Merchant identifier that is unique per each merchant  |
+| status\_message             | String | The name of the merchant                              |
+| merchants                   | Array  | List of merchants                                     |
+| \[].merchant\_id            | String | Merchant identifier that is unique per each merchant  |
+| \[].merchant\_name          | String | The name of the merchant                              |
+| \[].merchant\_phone\_number | String | The phone number of the merchant without country code |
+| \[].email                   | String | The email of the merchant registered with Midtrans.   |
+
+##### Successful Response
+
+```json
+{
+  "status_code": "200",
+  "status_message": "Merchants have been successfully retrieved.",
+  "merchants": [
+    {
+      "merchant_id": "M123456",
+      "merchant_name": "HQ Midtrans Merchant",
+      "merchant_phone_number": "81211111111",
+      "email": "merchant@midtrans.com"
+    }
+  ]
+}
+```
+
+##### Error Response 200 Data doesn’t exist
+
+```json
+{
+  "status_code": "200",
+  "status_message": "Merchants have been successfully retrieved.",
+  "merchants": []
+}
+```
+
+##### Error Response 401
+
+```json JSON
+{
+    "status_code": "401",
+    "status_message": "Partner is unauthorized"
+}
+```
+
+##### Error Response 500
+
+```json JSON
+{
+  "status_code": "500",
+  "status_message": "Internal Server Error"
+}
+```
+
+========================================================================
+
+# reference/partner-http-notification.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# HTTP Notification
+
+HTTP(s) Notification is sent to your server when the merchant creation completes. These notifications help you to take suitable actions in real time. Midtrans will provide a Notification server key to use by Partner to verify the signature.
+
+#### HTTP Notification
+
+<Image align="center" src="https://files.readme.io/68657a5224b7784e67be7f58131602fa4fb3510b5d175fc8c5088c082b76a006-HTTP-notification.jpg" />
+
+There are 2 types of HTTP notifications that Midtrans sends: to Merchant, and to Partner.\
+Some sample HTTP notifications for a successful transaction on different payment methods are given below.
+
+| Key            | Type                           |
+| -------------- | ------------------------------ |
+| Kind           | HTTP Request                   |
+| Request Method | POST                           |
+| Request Header | Content-Type: application/json |
+| Request Body   | String of JSON                 |
+
+<br />
+
+#### Sample HTTP Notification Gopay Payment Type to Partner
+
+| Field               | Type   | Description                                                                                                                                                                                                                                                                                                                                                 |
+| :------------------ | :----- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| transaction\_time   | String | Time at which the transaction initiated.                                                                                                                                                                                                                                                                                                                    |
+| transaction\_status | String | The transaction status of the transaction. For more details, refer to [Transaction Status](https://docs.midtrans.com/docs/https-notification-webhooks#transaction-status).                                                                                                                                                                                  |
+| transaction\_id     | String | The transaction id of the specific transaction.                                                                                                                                                                                                                                                                                                             |
+| status\_message     | String | The status message.                                                                                                                                                                                                                                                                                                                                         |
+| status\_code        | String | The transaction status code.                                                                                                                                                                                                                                                                                                                                |
+| signature\_key      | String | In the notification response body, Midtrans provides signature\_key which is generated by appending order\_id, status\_code, gross\_amount, and PartnerServerKey into a string. PartnerServerKey is confidential information known only to Midtrans and you. Thus, you can verify the signature\_key to ensure that the notification is signed by Midtrans. |
+| settlement\_time    | String | Time at which the transaction status was confirmed became "settlement".                                                                                                                                                                                                                                                                                     |
+| payment\_type       | String | The type of payment method used.                                                                                                                                                                                                                                                                                                                            |
+| order\_id           | String | The order id of the transaction.                                                                                                                                                                                                                                                                                                                            |
+| partner\_id         | String | Partner ID which initiated the transaction                                                                                                                                                                                                                                                                                                                  |
+| merchant\_id        | String | Merchant ID which initiated the transaction.                                                                                                                                                                                                                                                                                                                |
+| gross\_amount       | String | Total amount for which the transaction was done. number.                                                                                                                                                                                                                                                                                                    |
+| fraud\_status       | String | The fraud status of the transaction.                                                                                                                                                                                                                                                                                                                        |
+| currency            | String | The unit of currency used for the transaction.                                                                                                                                                                                                                                                                                                              |
+
+<br />
+
+#### Sample HTTP Notification Gopay Payment Type to Merchant
+
+| Field               | Type   | Description                                                                                                                                                                                                                                                                                                                                                   |
+| :------------------ | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| transaction\_time   | String | Time at which the transaction initiated.                                                                                                                                                                                                                                                                                                                      |
+| transaction\_status | String | The transaction status of the transaction. For more details, refer to [Transaction Status](https://docs.midtrans.com/docs/https-notification-webhooks#transaction-status).                                                                                                                                                                                    |
+| transaction\_id     | String | The transaction id of the specific transaction.                                                                                                                                                                                                                                                                                                               |
+| status\_message     | String | The status message.                                                                                                                                                                                                                                                                                                                                           |
+| status\_code        | String | The transaction status code.                                                                                                                                                                                                                                                                                                                                  |
+| signature\_key      | String | In the notification response body, Midtrans provides signature\_key which is generated by appending order\_id, status\_code, gross\_amount, and MerchantServerKey into a string. MerchantServerKey is confidential information known only to Midtrans and you. Thus, you can verify the signature\_key to ensure that the notification is signed by Midtrans. |
+| settlement\_time    | String | Time at which the transaction status was confirmed became "settlement".                                                                                                                                                                                                                                                                                       |
+| payment\_type       | String | The type of payment method used.                                                                                                                                                                                                                                                                                                                              |
+| order\_id           | String | The order id of the transaction.                                                                                                                                                                                                                                                                                                                              |
+| merchant\_id        | String | Merchant ID which initiated the transaction.                                                                                                                                                                                                                                                                                                                  |
+| gross\_amount       | String | Total amount for which the transaction was done. number.                                                                                                                                                                                                                                                                                                      |
+| fraud\_status       | String | The fraud status of the transaction.                                                                                                                                                                                                                                                                                                                          |
+| currency            | String | The unit of currency used for the transaction.                                                                                                                                                                                                                                                                                                                |
+
+<br />
+
+#### Transaction Status Definition table
+
+| Transaction Status | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| capture            | Transaction is successful and card balance is captured successfully. If no action is taken by you, the transaction will be successfully settled on the same day or the next day or within your agreed settlement time with your partner bank. Then the transaction status changes to *settlement*. It is safe to assume a successful payment.                                                                                                                                                  |
+| settlement         | The transaction is successfully settled. Funds have been credited to your account.                                                                                                                                                                                                                                                                                                                                                                                                             |
+| pending            | The transaction is created and is waiting to be paid by the customer at the payment providers like Bank Transfer, E-Wallet, and so on. For card payment method: waiting for customer to complete (and card issuer to validate) 3DS/OTP process.                                                                                                                                                                                                                                                |
+| deny               | The credentials used for payment are rejected by the payment provider or Midtrans Fraud Detection System (FDS). To know the reason and details for the denied transaction, see the status\_message in the response.                                                                                                                                                                                                                                                                            |
+| cancel             | The transaction is canceled. It can be triggered by merchant. You can trigger *Cancel* status in the following cases: 1. If you cancel the transaction after *Capture* status.                                                                                                                                                                                                                                                                                                                 |
+| expire             | Transaction is not available for processing, because the payment was delayed.                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| failure            | Unexpected error occurred during transaction processing.                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| refund             | Transaction is marked to be refunded. Refund status can be triggered by merchant.                                                                                                                                                                                                                                                                                                                                                                                                              |
+| partial\_refund    | Transaction is marked to be refunded partially (if you choose to refund in amount less than the paid amount). Refund status can be triggered by merchant.                                                                                                                                                                                                                                                                                                                                      |
+| authorize          | Only available specifically only if you are using pre-authorize feature for card transactions (an advanced feature that you will not have by default, so in most cases are safe to ignore). Transaction is successful and card balance is reserved (authorized) successfully. You can later perform API “capture” to change it into capture, or if no action is taken will be auto released. Depending on your business use case, you may assume authorize status as a successful transaction. |
+
+Sample of various payment method: [here](https://docs.midtrans.com/docs/https-notification-webhooks#sample-for-various-payment-methods)
+
+<br />
+
+#### Verifying Signature Key
+
+In the notification response body, Midtrans provides signature\_key which is generated by appending order\_id, status\_code, gross\_amount, and PartnerServerKey/MerchantServerKey into a string. PartnerServerKey/MerchantServerKey is confidential information known only to Midtrans and you. Thus, you can verify the signature\_key to ensure that the notification is signed by Midtrans.
+
+The logic to generate or calculate signature\_key is explained below:
+
+Partner Server Key:
+
+```
+SHA512(order_id+status_code+gross_amount+PartnerServerKey)
+```
+
+Merchant Server Key:
+
+```
+SHA512(order_id+status_code+gross_amount+MerchantServerKey)
+```
+
+It basically means append the value of order\_id, status\_code, gross\_amount, PartnerServerKey/MerchantServerKey into one string, then use it as input to SHA512 hash function. Then the output should match with signature\_key from notification.
+
+#### Example Partner Callback
+
+`POST https://merchant.com/partner-midtrans-callback`
+
+```json
+Content-Type: application/json
+{
+  "transaction_time": "2020-01-09 18:27:19",
+  "transaction_status": "capture",
+  "transaction_id": "57d5293c-e65f-4a29-95e4-5959c3fa335b",
+  "status_message": "midtrans payment notification",
+  "status_code": "200",
+  "signature_key": "16d6f84b2fb0468e2a9cf99a8ac4e5d803d42180347aaa70cb2a7abb13b5c6130458ca9c71956a962c0827637cd3bc7d40b21a8ae9fab12c7c3efe351b18d00a",
+  "settlement_time": "2020-01-10 18:27:19",
+  "payment_type": "credit_card",
+  "order_id": "Postman-1578568851",
+  "partner_id": "123456",
+  "merchant_id": "G141532850",
+  "gross_amount": "10000.00",
+  "fraud_status": "accept",
+  "currency": "IDR"
+}
+```
+
+#### Example Merchant Callback
+
+`POST https://merchant.com/merchant-midtrans-callback`
+
+```json
+Content-Type: application/json
+{
+  "transaction_time": "2020-01-09 18:27:19",
+  "transaction_status": "capture",
+  "transaction_id": "57d5293c-e65f-4a29-95e4-5959c3fa335b",
+  "status_message": "midtrans payment notification",
+  "status_code": "200",
+  "signature_key": "16d6f84b2fb0468e2a9cf99a8ac4e5d803d42180347aaa70cb2a7abb13b5c6130458ca9c71956a962c0827637cd3bc7d40b21a8ae9fab12c7c3efe351b18d00a",
+  "settlement_time": "2020-01-10 18:27:19",
+  "payment_type": "credit_card",
+  "order_id": "Postman-1578568851",
+  "merchant_id": "G141532850",
+  "gross_amount": "10000.00",
+  "fraud_status": "accept",
+  "currency": "IDR"
+}
+```
+
+<br />
+
+For these three types of HTTP notifications, please contact us directly to request setup assistance.
+
+| Field             | Type   | Description                                                                                                                                                                                                                                                                                                                                                          |          |
+| :---------------- | :----- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| partner\_id       | String | Partner ID which initiated the action.                                                                                                                                                                                                                                                                                                                               |          |
+| timestamp         | String | Time at which the sub merchant was created / product was activated / payment method was activated.                                                                                                                                                                                                                                                                   |          |
+| status            | String | The action status code (active \\                                                                                                                                                                                                                                                                                                                                    | failed). |
+| sub\_merchant\_id | String | Sub Merchant ID which affected by the transaction.                                                                                                                                                                                                                                                                                                                   |          |
+| product           | String | The affected product initiated by the action.                                                                                                                                                                                                                                                                                                                        |          |
+| payment\_method   | String | The affected payment methid initiated by the action.                                                                                                                                                                                                                                                                                                                 |          |
+| signatureKey      | String | In the notification response body, Midtrans provides signatureKey which is generated by appending partnerId, partnerServerKey, notificationBodyString into a string then hash with SHA512. PartnerServerKey is confidential information known only to Midtrans and you. Thus, you can verify the signatureKey to ensure that the notification is signed by Midtrans. |          |
+
+#### Example HTTP Notification Sub Merchant Creation
+
+```json
+Content-Type: application/json
+{
+  "partner_id": "706",
+  "timestamp": "2025-02-28T04:41:31Z",
+  "status": "active",
+  "sub_merchant_id": "G890500052",
+  "signatureKey": "021ad6d19a1007bb39b616b6d2719705c2fca969fc5fb2316f7a01f52c7a05608fdf6ba17779e9d458ca8bb9ae6981b3ceecd83d28e4987b2f20d0272d56daf4"
+}
+```
+
+#### Example HTTP Notification Product Activation
+
+```json
+{
+  "partner_id": "706",
+  "timestamp": "2025-02-28T04:41:38Z",
+  "product": "IRIS",
+  "status": "active",
+  "signatureKey": "7b8d1e2613d275b20353bf3a3bd89ce347af614a021c98ab8685f010501a957c555e9989df684fbb2a47f11c10acf321d8118d446e9986246ede6441478169a4"}
+```
+
+#### Sample HTTP Notification Payment Method Activation
+
+```json
+{
+  "partner_id": "706",
+  "timestamp": "2025-02-28T04:41:35Z",
+  "status": "active",
+  "payment_method": "BNI",
+  "signatureKey": "416634dbc43c987b73fefa95a2f57d48606e667e409a43ab0122289ef48879e6c0ccd41a518d357cbb4e2c011d1ad6d32e712c901c25f745d55adf7b4afd0007"
+}
+```
+
+========================================================================
+
+# reference/partner-merchant-unregister.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Unregister Merchant API
+
+Unregister merchant API is an API call that can be used to remove a merchant from a partner based on the provided Merchant ID.
+
+#### Request Header
+
+| Field         | Type   | Description                                          |
+| :------------ | :----- | :--------------------------------------------------- |
+| Authorization | String | Basic Base64Encode(partnerServerKey:)                |
+| X-PARTNER-ID  | String | Unique identifier for partner. Provided by Midtrans. |
+
+#### Example
+
+`PUT api/v1/merchants/M123456/unregister`
+
+```text HTTP
+Authorization: Basic  
+X-PARTNER-ID: 82150823919040624621823174737537
+```
+
+<br />
+
+#### Response
+
+##### Body
+
+| Field           | Type   | Description                                          |
+| :-------------- | :----- | :--------------------------------------------------- |
+| status\_code    | String | Merchant identifier that is unique per each merchant |
+| status\_message | String | The name of the merchant                             |
+
+##### Successful Response
+
+```json JSON
+{
+  "status_code": "204",
+  "status_message": "Merchants have been successfully removed from partners."
+}
+```
+
+##### Error Response 404 Data doesn’t exist
+
+```json
+{
+  "status_code": "404",
+  "status_message": "Merchant doesn't exist."
+}
+```
+
+##### Error Response 500
+
+```json
+{
+  "error_messages": [
+    "Internal server error"
+  ]
+}
+```
+
+========================================================================
+
+# reference/partner-unbind-pay-account-gopay-tokenizations.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Unbind Pay Account (GoPay Tokenizations)
+
+Unbind Pay Account is triggered to remove the linked customer account. This method is only applicable for GoPay Tokenizations.
+
+Endpoints: `/api/v1/core/pay/account/{{account_id}}/unbind`
+
+HTTP Method: `POST`
+
+## Response Body
+
+```json Sample Response - Success
+{
+  "status_code": "204",
+  "payment_type": "gopay",
+  "account_id": "00000269-7836-49e5-bc65-e592afafec14",
+  "account_status": "DISABLED",
+  "channel_response_code": "0",
+  "channel_response_message": "Process service request successfully."
+}
+```
+```json Sample Response - Denied
+{
+  "status_code": "202",
+  "payment_type": "gopay",
+  "account_id": "00000269-7836-49e5-bc65-e592afafec14",
+  "channel_response_code": "1001",
+  "channel_response_message": "Caller authentication error."
+}
+```
+
+| JSON Attribute             | Description                                                                                   | Type   |
+| -------------------------- | --------------------------------------------------------------------------------------------- | ------ |
+| status\_code               | Status code of the API result.                                                                | String |
+| payment\_type              | Payment channel associated with the account.                                                  | String |
+| account\_id                | Customer account id to be used for payment.                                                   | String |
+| account\_status            | Status of the account. <br />Possible values are `PENDING`, `EXPIRED`, `ENABLED`, `DISABLED`. | String |
+| channel\_response\_code    | Response code from payment channel provider.                                                  | String |
+| channel\_response\_message | Response message from payment channel provider.                                               | String |
+
+<br />
+
+## Pay Account Unbind Notification
+
+```json Sample Notification - Pay Account Unbind Notification
+{
+  "account_id": "00000269-7836-49e5-bc65-e592afafec14",
+  "merchant_id": "M099098",
+  "payment_type": "gopay",
+  "signature_key": "ad7ccda03d8ec6f2f415661fb511d47fcd17dcc7d7e1ade96a305dd5d3bc2bea5438a8bdfe1aeedabdefb226000338ac169fc18d5ae73788fd5e78dbac945ce4",
+  "status_code": "204",
+  "account_status": "DISABLED",
+  "status_message": "Midtrans account_unlinked notification"
+}
+```
+
+Pay Account unbind notification will be sent to merchant when user unlinked the account from merchant services/payment provider service (ex: Gojek App). This notification sample can be seen on the side, and you can see [Handle notifications](https://docs.midtrans.com/reference/notifications-handling) section to know how to handle the notifications.
+
+Specifically for GoPay Tokenization, user account will be automatically unlinked if user change GoPay PIN and phone number in Gojek app. Unbind notification will also be sent to merchant.
+
+========================================================================
+
+# reference/partner-unlink-snap-users-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Unlink Account
+
+Merchant can provide the capability for users to unlink the account outside of checkout page by sending DELETE request for a specific `user_id`.
+
+Endpoints: `/api/v1/checkout/users/{{user_id}}/gopay`
+
+HTTP Method: `DELETE`
+
+## Response Body
+
+```json Sample Response - Success
+{
+  "account_status": "DISABLED",
+  "phone_number": "****3424"
+}
+```
+```json Sample Response - Account Not Found
+{
+  "error_messages": [
+    "account not found"
+  ],
+  "locale": "en"
+}
+```
+
+| JSON Attribute  | Description                                                   | Type   |
+| --------------- | ------------------------------------------------------------- | ------ |
+| account\_status | Status of the account. <br />Possible values are  `DISABLED`. | String |
+| phone\_number   | The masked phone number that is linked to the user\_id.       | String |
+
+========================================================================
+
+# reference/partner-update-merchant-notification.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Update Notification API
+
+Update merchant notification API is an API call that can be used to update the notification URL for a particular merchant under a Partner
+
+#### Request Header
+
+| Field         | Type   | Description                                           |
+| :------------ | :----- | :---------------------------------------------------- |
+| Authorization | String | Basic Base64Encode(partnerServerKey:)                 |
+| X-PARTNER-ID  | String | Unique identifier for partner. Provided by Midtrans.  |
+| X-MERCHANT-ID | String | Unique identifier for merchant. Provided by Midtrans. |
+
+#### Request Body
+
+| Field                           | Type   | Attribute | Description                                                         |
+| :------------------------------ | :----- | :-------- | :------------------------------------------------------------------ |
+| payment\_notification\_url      | String | Optional  | Notification URL for successful, failed, and more payment statuses. |
+| iris\_notification\_url         | String | Optional  | Notification URL for payout and top up notifications                |
+| recurring\_notification\_url    | String | Optional  | Notification URL for successful/failed recurring payment.           |
+| pay\_account\_notification\_url | String | Optional  | Notification URL for successful/failed GoPay account linking        |
+| finish\_payment\_redirect\_url  | String | Optional  | Redirect URL on payment completion                                  |
+
+#### Example
+
+`PATCH /api/v1/merchants/notifications`
+
+```http
+Authorization: Basic cGFydG5lci1hcGkta2V5Og==
+X-PARTNER-ID: 82150823919040624621823174737537
+X-MERCHANT-ID: 77788612106050785053951792116179
+{
+  "payment_notification_url": "https://merchant.com/midtrans-payment-notification",
+  "iris_notification_url": "https://merchant.com/midtrans-payout-notification",
+  "recurring_notification_url": "https://merchant.com/midtrans-recurring-notification",
+  "pay_account_notification_url": "https://merchant.com/midtrans-pay-account-notification",
+  "finish_payment_redirect_url": "https://merchant.com/midtrans-finish-payment-redirect"
+}
+```
+
+#### Response
+
+##### Body
+
+| Field                           | Type      | Description                                                         |
+| :------------------------------ | :-------- | :------------------------------------------------------------------ |
+| status\_code                    | String    | Status code                                                         |
+| status\_message                 | String    | Status message                                                      |
+| error\_message                  | String    | Error message                                                       |
+| errors                          | String    | Errors                                                              |
+| error\_messages                 | String\[] | Error messages for partial success response                         |
+| payment\_notification\_url      | String    | Notification URL for successful, failed, and more payment statuses. |
+| iris\_notification\_url         | String    | Notification URL for payout and top up notifications                |
+| recurring\_notification\_url    | String    | Notification URL for successful/failed recurring payment.           |
+| pay\_account\_notification\_url | String    | Notification URL for successful/failed GoPay account linking        |
+| finish\_payment\_redirect\_url  | String    | Redirect URL on payment completion                                  |
+
+##### Successful Response
+
+```json
+{
+  "status_code": "200",
+  "status_message": "Success",
+  "payment_notification_url": "https://merchant.com/midtrans-payment-notification",
+  "iris_notification_url": "https://merchant.com/midtrans-payout-notification",
+  "recurring_notification_url": "https://merchant.com/midtrans-recurring-notification",
+  "pay_account_notification_url": "https://merchant.com/midtrans-pay-account-notification",
+  "finish_payment_redirect_url": "https://merchant.com/midtrans-finish-payment-redirect"
+}
+```
+
+##### Partial Success Response
+
+In this case only iris\_notification\_url has failed to be updated due to internal server error. It can be safely retried independently of the other 3 URLs.
+
+```json
+{
+  "status_code": "200",
+  "status_message": "Partial Success",
+  "payment_notification_url": "https://merchant.com/midtrans-payment-notification",
+  "recurring_notification_url": "https://merchant.com/midtrans-recurring-notification",
+  "pay_account_notification_url": "https://merchant.com/midtrans-pay-account-notification",
+  "finish_payment_redirect_url": "https://merchant.com/midtrans-finish-payment-redirect",
+  "error_messages": [
+      "iris_notification_url: Internal server error"
+  ]
+}
+```
+
+##### Error Response 401
+
+```json
+{
+    "status_code": "401",
+    "status_message": "Partner is unauthorized"
+}
+```
+
+##### Error Response 500
+
+```json
+{
+    "error_message": "Internal server error",
+    "errors": "Internal server error"
+}
+```
 
 ========================================================================
 
@@ -104180,6 +108403,354 @@ No code payment solution. Generate a link via dashboard or API and share it to y
 <b>Not ready to integrate?</b> [Create a test account first.](https://dashboard.midtrans.com/register)
 
 <b>Help us improve this docs & our solutions </b> - [let us know your feedback.](/page/report-issues)
+
+========================================================================
+
+# reference/refund-api-1.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Refund API
+
+This API is used to reverse the money back to customers for previous successful transaction.
+
+Refund transaction is called to reverse the money back to customers for transactions with payment status `Settlement`. If transaction's status is still `Pending` `Authorize` or `Capture` please use Cancel API instead. The same `refund_id` cannot be reused.
+
+Refund transaction is supported only for `credit_card` , `gopay`, `shopeepay` , `QRIS` ,  and `akulaku` payment methods.
+
+Refund request is made to Midtrans where Midtrans will then forward it to payment providers.
+
+For QRIS with acquirers AirPay (Shopee) and ShopeePay, the maximum refund window is 24 hours. Airpay Shopee accepts refund only from 06:00 to 23:30 GMT+7.
+
+While the maximum refund window for GoPay is as stated below:
+
+* QRIS with acquirers GoPay: 45 days
+* GoPay Tokenization and GoPay deeplink with GoPay payment option GOPAY\_COINS: 90 days
+* Other GoPay transactions: 180 days
+
+Endpoints: `/api/v1/core/{{transaction_id}}/refund/online/direct`
+
+HTTP Method: `POST`
+
+## Request Body
+
+```json
+{
+  "refund_key": "reference1",
+  "amount": 5000,
+  "reason": "for some reason"
+}
+```
+
+<Table align={[null,"left","left",null]}>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Attribute
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        refund\_key
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Merchant refund ID. If not passed then Midtrans creates a new one. It is recommended to use this parameter to avoid double refund attempt. Allowed characters are alphabets, numbers, dash (`-`), and underscore (`_`).
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        amount
+      </td>
+
+      <td>
+        Long
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Amount to be refunded. By default whole transaction amount is refunded. Note :\
+        `Shopeepay` does not support partial refund at the moment.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        reason
+      </td>
+
+      <td>
+        String(255)
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Reason justifying the refund. <br /> <hr />For GoPay & GoPay Tokenization payments, reason will be shown on customers' GoPay transaction history. <br /> <hr />Reason is mandatory for card payment with BNI as acquiring bank. If the value is not sent, Midtrans will autofill it with "refund request from merchant" to BNI.
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+## Response Body
+
+```json 200 - Success
+{
+  "status_code": "200",
+  "status_message": "Success, refund request is approved",
+  "transaction_id": "447e846a-403e-47db-a5da-d7f3f06375d6",
+  "order_id": "vtcc05",
+  "payment_type": "credit_card",
+  "transaction_time": "2015-06-15 13:36:24",
+  "transaction_status": "refund",
+  "gross_amount": "10000.00",
+  "refund_chargeback_id": 1,
+  "refund_amount": "10000.00",
+  "refund_key": "reference1"
+}
+```
+```json 200 - Success (Partial Refund)
+{
+  "status_code": "200",
+  "status_message": "Success, refund request is approved",
+  "transaction_id": "447e846a-403e-47db-a5da-d7f3f06375d6",
+  "order_id": "vtcc05",
+  "payment_type": "credit_card",
+  "transaction_time": "2015-06-15 13:36:24",
+  "transaction_status": "partial_refund",
+  "gross_amount": "10000.00",
+  "refund_chargeback_id": 1,
+  "refund_amount": "5000.00",
+  "refund_key": "reference1"
+}
+```
+```json 200 - Error (Invalid Refund)
+{
+  "status_code" : "412",
+  "status_message" : "Merchant cannot modify the status of the transaction"
+}
+```
+```json 200 - Error (Invalid Amount)
+{
+  "status_code" : "414",
+  "status_message" : "Refund request is rejected due to invalid amount"
+}
+```
+```json 200 - Error (Invalid Refund ID)
+{
+  "status_code" : "406",
+  "status_message" : "Duplicate refund ID"
+}
+```
+
+<Table align={[null,"left",null]}>
+  <thead>
+    <tr>
+      <th>
+        Field
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        status\_code
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Status code of transaction refund result.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        status\_message
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Description of transaction refund result.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_id
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Transaction ID given by Midtrans.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        order\_id
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Order ID specified by you.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        payment\_type
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        The payment method used by the customer.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_time
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Timestamp of transaction in ISO 8601 format. Time Zone: GMT+7.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        transaction\_status
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Transaction status after refund action. Possible values are<br/>`refund` : Transaction is fully refunded. <br/>`partial_refund`: transaction is partially refunded.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        gross\_amount
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Total amount of transaction in IDR.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        refund\_chargeback\_id
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Identification of the refund process.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        refund\_amount
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Total amount to be refunded in IDR.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        refund\_key
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Merchant refund reference key.
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 ========================================================================
 
@@ -120177,6 +124748,473 @@ X-TIMESTAMP: 2024-03-19T14:30:00+07:00
 | 4040905       | 404              | Merchant Is Not Registered For Card Registration Services                                        |
 | 5000901       | 500              | Internal Server Error                                                                            |
 | 5040900       | 504              | Timeout                                                                                          |
+
+========================================================================
+
+# reference/update-checkout-page-preference-api.md
+
+========================================================================
+
+---
+updatedAt: 2026-09-28T12:00:08.000Z
+agentTools:
+  projectIndex: https://docs.midtrans.com/llms.txt
+---
+
+# Update Checkout Page Preference API
+
+This API can be used to modify and configure of merchant's checkout page, such as merchant's display name, typography, and payment channel settings.
+
+Endpoints: `/api/v1/checkout/merchant-preferences`
+
+HTTP Method: `PATCH`
+
+## Request Body
+
+```json
+{
+    "display_name": "DEMO STORE",
+    "finish_payment_return_url": "https://midtrans.com/finish",
+    "error_payment_return_url": "https://midtrans.com/error",
+    "locale": "en",
+    "other_va_processor": "bri_va",
+    "allow_retry": true,
+    "brand": {
+        "typography": "Poppins",
+        "header_color": "#ffffff",
+        "button_color": "#0256A7",
+        "input_border_radius": 10,
+        "button_border_radius": 10,
+        "hide_header": false
+    },
+    "payment_channels": [
+        {
+            "name": "credit_card",
+            "enabled": true
+        },
+        {
+            "name": "bca_va",
+            "enabled": true
+        },
+        {
+            "name": "permata_va",
+            "enabled": true
+        },
+        {
+            "name": "other_va",
+            "enabled": true
+        },
+        {
+            "name": "echannel",
+            "enabled": true
+        },
+        {
+            "name": "indomaret",
+            "enabled": true
+        },
+        {
+            "name": "gopay",
+            "enabled": true
+        },
+        {
+            "name": "akulaku",
+            "enabled": true
+        },
+        {
+            "name": "alfamart",
+            "enabled": true
+        },
+        {
+            "name": "bri_va",
+            "enabled": true
+        },
+        {
+            "name": "bni_va",
+            "enabled": true
+        },
+        {
+            "name": "shopeepay",
+            "enabled": true
+        },
+        {
+            "name": "kredivo",
+            "enabled": true
+        },
+        {
+            "name": "other_qris",
+            "enabled": true
+        },
+        {
+            "name": "cimb_va",
+            "enabled": true
+        }
+    ]
+}
+```
+
+<Table align={[null,null,"left",null]}>
+  <thead>
+    <tr>
+      <th>
+        Parameter
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Attribute
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        display\_name
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The name of the merchant or store that will be displayed on the checkout page
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        finish\_payment\_return\_url
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The URL to which the user will be redirected after successfully completing a payment.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        error\_payment\_return\_url
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        The URL for redirecting the user in case an error occurs during the payment process
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        locale
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Specifies the language and regional settings for the checkout page
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        other\_va\_processor
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Alternative virtual account processor that the merchant can use for transactions. Corresponds to the `Other Bank/ATM Bank Processor` menu in Snap Preference > System Settings. Options: `permata_va`, `bni_va`, `bri_va`, `cimb_va`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        allow\_retry
+      </td>
+
+      <td>
+        Boolean
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        A boolean value that, when true, allows users to retry payments if their initial attempt fails
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.typography
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Specifies the font family to be used on the checkout page. <br /><br />Options: `Arial`,`Inter`,`Nunito`,`Open Sans`,`Playfair Display`,`Poppins`,`Questrial`,`Roboto`,`Source Sans Pro`
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.header\_color
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Hex code of header color of the checkout page
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.button\_color
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        Hex code of the color of buttons on the checkout page.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.input\_border\_radius
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        These fields define the border radius (in pixels) for input fields, affecting their rounded corners. Max value is 10.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.button\_border\_radius
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        These fields define the border radius (in pixels) for buttons, affecting their rounded corners. Max value is 10.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        brand.hide\_header
+      </td>
+
+      <td>
+        String
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        A boolean value that, when set to false, shows the header on the checkout page.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        payment\_channels
+      </td>
+
+      <td>
+        Object
+      </td>
+
+      <td>
+        Optional
+      </td>
+
+      <td>
+        An array of objects, each representing a payment method available on the checkout page. Each object has the following properties:<br /><br />name: The identifier for the payment method (e.g., "credit\_card", "bca\_va", “gopay”).<br /><br />enabled: A boolean indicating whether the payment method is available for use.<br />
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+## Response Body
+
+### Success
+
+```json 200 - Success
+{
+    "display_name": "DEMO STORE",
+    "finish_payment_return_url": "https://midtrans.com/finish",
+    "error_payment_return_url": "https://midtrans.com/error",
+    "locale": "en",
+    "other_va_processor": "bri_va",
+    "allow_retry": true,
+    "brand": {
+        "typography": "Poppins",
+        "header_color": "#ffffff",
+        "button_color": "#0256A7",
+        "input_border_radius": 10,
+        "button_border_radius": 10,
+        "hide_header": false
+    },
+    "payment_channels": [
+        {
+            "name": "credit_card",
+            "enabled": true
+        },
+        {
+            "name": "bca_va",
+            "enabled": true
+        },
+        {
+            "name": "permata_va",
+            "enabled": true
+        },
+        {
+            "name": "other_va",
+            "enabled": true
+        },
+        {
+            "name": "echannel",
+            "enabled": true
+        },
+        {
+            "name": "indomaret",
+            "enabled": true
+        },
+        {
+            "name": "gopay",
+            "enabled": true
+        },
+        {
+            "name": "akulaku",
+            "enabled": true
+        },
+        {
+            "name": "alfamart",
+            "enabled": true
+        },
+        {
+            "name": "bri_va",
+            "enabled": true
+        },
+        {
+            "name": "bni_va",
+            "enabled": true
+        },
+        {
+            "name": "shopeepay",
+            "enabled": true
+        },
+        {
+            "name": "kredivo",
+            "enabled": true
+        },
+        {
+            "name": "other_qris",
+            "enabled": true
+        },
+        {
+            "name": "cimb_va",
+            "enabled": true
+        }
+    ]
+}
+```
+
+### Failed
+
+```json 400 - Validation Error
+{
+    "error_messages": [
+        "Payment type credit_card is invalid for this merchant"
+    ]
+}
+```
+```json 401 - Access Denied
+{
+    "error_messages": [
+        "Access denied, please check server key"
+    ]
+}
+```
+
+| Field           | Type            | Description    |
+| --------------- | :-------------- | -------------- |
+| error\_messages | Array of String | Error messages |
 
 ========================================================================
 

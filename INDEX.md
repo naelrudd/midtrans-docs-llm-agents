@@ -1,6 +1,6 @@
 # Index — Docs
 Source: https://docs.midtrans.com/llms.txt
-Pages: 603
+Pages: 632
 
 | Path | First heading |
 |---|---|
@@ -423,6 +423,8 @@ Pages: 603
 | [reference/auth-payment-api-gopay-tokenization.md](https://docs.midtrans.com/reference/auth-payment-api-gopay-tokenization.md) | Payment Method: GoPay Tokenization (Pre Auth) |
 | [reference/backend-integration.md](https://docs.midtrans.com/reference/backend-integration.md) | Backend Integration |
 | [reference/backend-v2.md](https://docs.midtrans.com/reference/backend-v2.md) | Backend APIs (Shared) |
+| [reference/balance-mutation-api.md](https://docs.midtrans.com/reference/balance-mutation-api.md) | Partner Balance Mutation API |
+| [reference/balance.md](https://docs.midtrans.com/reference/balance.md) | Balance |
 | [reference/bank-transfer-object.md](https://docs.midtrans.com/reference/bank-transfer-object.md) | Bank Transfer (Virtual Account) Object |
 | [reference/bca-virtual-account.md](https://docs.midtrans.com/reference/bca-virtual-account.md) | BCA Virtual Account |
 | [reference/best-practices-to-handle-notification.md](https://docs.midtrans.com/reference/best-practices-to-handle-notification.md) | Best Practices to Handle Notification |
@@ -435,10 +437,12 @@ Pages: 603
 | [reference/bri-virtual-account.md](https://docs.midtrans.com/reference/bri-virtual-account.md) | BRI Virtual Account |
 | [reference/bsi-virtual-account.md](https://docs.midtrans.com/reference/bsi-virtual-account.md) | BSI Virtual Account |
 | [reference/cancel-a-snap-session.md](https://docs.midtrans.com/reference/cancel-a-snap-session.md) | Cancel a Snap Session |
+| [reference/cancel-api-1.md](https://docs.midtrans.com/reference/cancel-api-1.md) | Cancel API |
 | [reference/cancel-api.md](https://docs.midtrans.com/reference/cancel-api.md) | Cancel API |
 | [reference/cancel-subscription.md](https://docs.midtrans.com/reference/cancel-subscription.md) | Cancel Subscription |
 | [reference/cancel-transaction-card.md](https://docs.midtrans.com/reference/cancel-transaction-card.md) | Cancel Transaction on Card |
 | [reference/cancel-transaction.md](https://docs.midtrans.com/reference/cancel-transaction.md) | Cancel Transaction |
+| [reference/capture-api.md](https://docs.midtrans.com/reference/capture-api.md) | Capture API |
 | [reference/capture-transaction-card.md](https://docs.midtrans.com/reference/capture-transaction-card.md) | Capture Transaction on Card |
 | [reference/capture-transaction.md](https://docs.midtrans.com/reference/capture-transaction.md) | Capture Transaction |
 | [reference/card-feature-3d-secure-3ds.md](https://docs.midtrans.com/reference/card-feature-3d-secure-3ds.md) | Feature: 3D Secure (3DS) |
@@ -447,8 +451,10 @@ Pages: 603
 | [reference/card-feature-one-click.md](https://docs.midtrans.com/reference/card-feature-one-click.md) | Feature: One Click |
 | [reference/card-feature-pre-authorization.md](https://docs.midtrans.com/reference/card-feature-pre-authorization.md) | Feature: Pre-Authorization |
 | [reference/channel-response-code.md](https://docs.midtrans.com/reference/channel-response-code.md) | Card Channel Response Code |
+| [reference/charge-api.md](https://docs.midtrans.com/reference/charge-api.md) | Charge API |
 | [reference/charge-transactions-1.md](https://docs.midtrans.com/reference/charge-transactions-1.md) | Charge Transactions |
 | [reference/charge-transactions-on-card.md](https://docs.midtrans.com/reference/charge-transactions-on-card.md) | Charge Transactions on Card |
+| [reference/checkout.md](https://docs.midtrans.com/reference/checkout.md) | Checkout |
 | [reference/cimb-virtual-account.md](https://docs.midtrans.com/reference/cimb-virtual-account.md) | CIMB Virtual Account |
 | [reference/code-4xx.md](https://docs.midtrans.com/reference/code-4xx.md) | Code 4xx |
 | [reference/command-reference.md](https://docs.midtrans.com/reference/command-reference.md) | Command Reference |
@@ -457,7 +463,9 @@ Pages: 603
 | [reference/convert-invoice.md](https://docs.midtrans.com/reference/convert-invoice.md) | Convert Invoice |
 | [reference/core-api-overview.md](https://docs.midtrans.com/reference/core-api-overview.md) | Overview |
 | [reference/core-api-snap-open-api-overview.md](https://docs.midtrans.com/reference/core-api-snap-open-api-overview.md) | Overview |
+| [reference/core.md](https://docs.midtrans.com/reference/core.md) | Core |
 | [reference/coreflow-v2.md](https://docs.midtrans.com/reference/coreflow-v2.md) | Core Flows |
+| [reference/create-checkout-token-api.md](https://docs.midtrans.com/reference/create-checkout-token-api.md) | Create Checkout Token API |
 | [reference/create-invoice.md](https://docs.midtrans.com/reference/create-invoice.md) | Create Invoice |
 | [reference/create-pay-account.md](https://docs.midtrans.com/reference/create-pay-account.md) | Create Pay Account (GoPay) |
 | [reference/create-payment-link.md](https://docs.midtrans.com/reference/create-payment-link.md) | Create Payment Link |
@@ -478,6 +486,7 @@ Pages: 603
 | [reference/enable-gopaylater-for-miniapp.md](https://docs.midtrans.com/reference/enable-gopaylater-for-miniapp.md) | Enable GoPayLater for MiniApp |
 | [reference/ewallet-ovo.md](https://docs.midtrans.com/reference/ewallet-ovo.md) | OVO |
 | [reference/expire-a-snap-session.md](https://docs.midtrans.com/reference/expire-a-snap-session.md) | Expire a Snap Session |
+| [reference/expire-api.md](https://docs.midtrans.com/reference/expire-api.md) | Expire API |
 | [reference/faq-redirection-to-gojek-gopay-app.md](https://docs.midtrans.com/reference/faq-redirection-to-gojek-gopay-app.md) | FAQ: Redirection to Gojek / GoPay app |
 | [reference/faq-redirection-to-gopay-web-page.md](https://docs.midtrans.com/reference/faq-redirection-to-gopay-web-page.md) | FAQ: Redirection to GoPay web page (GoPay Tokenization webview) |
 | [reference/feature-guide.md](https://docs.midtrans.com/reference/feature-guide.md) | Feature Guide |
@@ -486,11 +495,15 @@ Pages: 603
 | [reference/frontend-v2.md](https://docs.midtrans.com/reference/frontend-v2.md) | Frontend SDKs V2 |
 | [reference/generatewebviewurl.md](https://docs.midtrans.com/reference/generatewebviewurl.md) | Generate Web View URL |
 | [reference/get-auth-code-api.md](https://docs.midtrans.com/reference/get-auth-code-api.md) | Get Auth Code API |
+| [reference/get-checkout-page-preference-api.md](https://docs.midtrans.com/reference/get-checkout-page-preference-api.md) | Get Checkout Page Preference API |
 | [reference/get-invoice.md](https://docs.midtrans.com/reference/get-invoice.md) | Get Invoice |
+| [reference/get-pay-account-gopay-tokenizations.md](https://docs.midtrans.com/reference/get-pay-account-gopay-tokenizations.md) | Get Pay Account (GoPay Tokenizations) |
 | [reference/get-profile-v2.md](https://docs.midtrans.com/reference/get-profile-v2.md) | Get Profile |
 | [reference/get-subscription.md](https://docs.midtrans.com/reference/get-subscription.md) | Get Subscription |
 | [reference/get-token.md](https://docs.midtrans.com/reference/get-token.md) | Get Token |
+| [reference/get-transaction-status-api-1.md](https://docs.midtrans.com/reference/get-transaction-status-api-1.md) | Get Transaction Status API |
 | [reference/get-transaction-status-api.md](https://docs.midtrans.com/reference/get-transaction-status-api.md) | Get Transaction Status API |
+| [reference/get-transaction-status-b2b-api.md](https://docs.midtrans.com/reference/get-transaction-status-b2b-api.md) | Get Transaction Status B2B API |
 | [reference/get-transaction-status-card.md](https://docs.midtrans.com/reference/get-transaction-status-card.md) | Get Transaction Status on Card |
 | [reference/get-transaction-status.md](https://docs.midtrans.com/reference/get-transaction-status.md) | Get Transaction Status |
 | [reference/get_coe-partner-v1-submissions-url.md](https://docs.midtrans.com/reference/get_coe-partner-v1-submissions-url.md) | Get presigned URLs for submission |
@@ -516,6 +529,7 @@ Pages: 603
 | [reference/handle-notifications.md](https://docs.midtrans.com/reference/handle-notifications.md) | Handle Notifications |
 | [reference/handling-notifications.md](https://docs.midtrans.com/reference/handling-notifications.md) | Handling Notifications |
 | [reference/http-notification.md](https://docs.midtrans.com/reference/http-notification.md) | HTTP Notification |
+| [reference/http-status-code-copy-1.md](https://docs.midtrans.com/reference/http-status-code-copy-1.md) | HTTP Status Code |
 | [reference/icon-guidelines.md](https://docs.midtrans.com/reference/icon-guidelines.md) | Icon Guidelines |
 | [reference/indomaret-1.md](https://docs.midtrans.com/reference/indomaret-1.md) | Indomaret |
 | [reference/initiateflow-1.md](https://docs.midtrans.com/reference/initiateflow-1.md) | Initiate Flow |
@@ -529,6 +543,8 @@ Pages: 603
 | [reference/kredivo.md](https://docs.midtrans.com/reference/kredivo.md) | Kredivo |
 | [reference/merchant-balance-mutation-api.md](https://docs.midtrans.com/reference/merchant-balance-mutation-api.md) | Merchant Balance Mutation API |
 | [reference/merchants-migration-backward-compatibality.md](https://docs.midtrans.com/reference/merchants-migration-backward-compatibality.md) | Merchants Migration & Backward Compatibality |
+| [reference/midtrans-merchant-api.md](https://docs.midtrans.com/reference/midtrans-merchant-api.md) | Midtrans Merchant API |
+| [reference/midtrans-partner-apis.md](https://docs.midtrans.com/reference/midtrans-partner-apis.md) | Midtrans Partner API |
 | [reference/migration-guides.md](https://docs.midtrans.com/reference/migration-guides.md) | Migration Guides |
 | [reference/miniapp-cli-tools.md](https://docs.midtrans.com/reference/miniapp-cli-tools.md) | MiniKit CLI: Create Your First MiniApp |
 | [reference/miniapp-core.md](https://docs.midtrans.com/reference/miniapp-core.md) | MiniApp Core (Shared) |
@@ -552,6 +568,17 @@ Pages: 603
 | [reference/overview-2.md](https://docs.midtrans.com/reference/overview-2.md) | Overview |
 | [reference/overview-miniapp.md](https://docs.midtrans.com/reference/overview-miniapp.md) | Overview |
 | [reference/ovo.md](https://docs.midtrans.com/reference/ovo.md) | OVO |
+| [reference/partner-cancel-checkout-session.md](https://docs.midtrans.com/reference/partner-cancel-checkout-session.md) | Cancel Checkout Page Session |
+| [reference/partner-checkout-advanced-features.md](https://docs.midtrans.com/reference/partner-checkout-advanced-features.md) | Advanced Features |
+| [reference/partner-core-advanced-features.md](https://docs.midtrans.com/reference/partner-core-advanced-features.md) | Advanced Features |
+| [reference/partner-create-merchant-api.md](https://docs.midtrans.com/reference/partner-create-merchant-api.md) | Create merchant API |
+| [reference/partner-get-account-info.md](https://docs.midtrans.com/reference/partner-get-account-info.md) | Get Account Info |
+| [reference/partner-get-merchant-api.md](https://docs.midtrans.com/reference/partner-get-merchant-api.md) | Get merchant API |
+| [reference/partner-http-notification.md](https://docs.midtrans.com/reference/partner-http-notification.md) | HTTP Notification |
+| [reference/partner-merchant-unregister.md](https://docs.midtrans.com/reference/partner-merchant-unregister.md) | Unregister Merchant API |
+| [reference/partner-unbind-pay-account-gopay-tokenizations.md](https://docs.midtrans.com/reference/partner-unbind-pay-account-gopay-tokenizations.md) | Unbind Pay Account (GoPay Tokenizations) |
+| [reference/partner-unlink-snap-users-api.md](https://docs.midtrans.com/reference/partner-unlink-snap-users-api.md) | Unlink Account |
+| [reference/partner-update-merchant-notification.md](https://docs.midtrans.com/reference/partner-update-merchant-notification.md) | Update Notification API |
 | [reference/partnercallback-6.md](https://docs.midtrans.com/reference/partnercallback-6.md) | Partner Callback |
 | [reference/payment-bank-transfer.md](https://docs.midtrans.com/reference/payment-bank-transfer.md) | Payment Method: Bank Transfer |
 | [reference/payment-card.md](https://docs.midtrans.com/reference/payment-card.md) | Payment Method: Card |
@@ -565,6 +592,7 @@ Pages: 603
 | [reference/put_coe-partner-v1-submissions-url.md](https://docs.midtrans.com/reference/put_coe-partner-v1-submissions-url.md) | Confirm upload for submission |
 | [reference/qris.md](https://docs.midtrans.com/reference/qris.md) | QRIS |
 | [reference/quick-start-1.md](https://docs.midtrans.com/reference/quick-start-1.md) | Browse Midtrans's API References |
+| [reference/refund-api-1.md](https://docs.midtrans.com/reference/refund-api-1.md) | Refund API |
 | [reference/refund-api.md](https://docs.midtrans.com/reference/refund-api.md) | Refund API |
 | [reference/refund-transaction.md](https://docs.midtrans.com/reference/refund-transaction.md) | Refund Transactions |
 | [reference/refund-transactions-card.md](https://docs.midtrans.com/reference/refund-transactions-card.md) | Refund Transactions on Card |
@@ -601,6 +629,7 @@ Pages: 603
 | [reference/troubleshooting.md](https://docs.midtrans.com/reference/troubleshooting.md) | Troubleshooting |
 | [reference/two-clicks.md](https://docs.midtrans.com/reference/two-clicks.md) | Card Payment - Subscription (Two Clicks) |
 | [reference/unbind-api.md](https://docs.midtrans.com/reference/unbind-api.md) | Unbind API |
+| [reference/update-checkout-page-preference-api.md](https://docs.midtrans.com/reference/update-checkout-page-preference-api.md) | Update Checkout Page Preference API |
 | [reference/update-subscription.md](https://docs.midtrans.com/reference/update-subscription.md) | Update Subscription |
 | [reference/version-history.md](https://docs.midtrans.com/reference/version-history.md) | Version History |
 | [reference/virtual-account-api-bank-transfer.md](https://docs.midtrans.com/reference/virtual-account-api-bank-transfer.md) | Payment Method : Bank Transfer |
