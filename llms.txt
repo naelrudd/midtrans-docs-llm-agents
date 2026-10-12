@@ -628,7 +628,7 @@
 - [Get presigned URLs for submission](https://docs.midtrans.com/reference/get_coe-partner-v1-submissions-url.md)
 - [Confirm upload for submission](https://docs.midtrans.com/reference/put_coe-partner-v1-submissions-url.md)
 - [Get submission status](https://docs.midtrans.com/reference/getsubmissionstatus.md)
-- [Get Submission Details](https://docs.midtrans.com/reference/get_coe-v1-submissions.md): Retrieves the face verification results for a given session and submission ID.
+- [Get Submission Details](https://docs.midtrans.com/reference/get_coe-v1-submissions.md): Retrieves verification results for a given partner session. `x-onekyc-token` and `x-partner-session-id` are mandatory. `x-submission-id` is optional and can be sent to fetch a specific submission.
 
 ## API References: Esign APIs
 - [Get Partner Token](https://docs.midtrans.com/reference/getpartnertoken.md): Fetch the partner token needed to call any IAB Backend APIs. The token is generated based on the Client ID and Pass Key provided during onboarding and will be valid for a limited time period.
