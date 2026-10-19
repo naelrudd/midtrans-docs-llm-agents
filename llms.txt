@@ -360,48 +360,55 @@
 - [Transactions Page - Reporting & Operations](https://docs.midtrans.com/docs/transactions-page-reporting-operations.md)
 - [Balance Page - Manage & Withdraw Your Funds](https://docs.midtrans.com/docs/balance-page-manage-withdraw-your-funds.md)
 - [Accounts Page - Managing Users & Access](https://docs.midtrans.com/docs/accounts-page-managing-users-access.md)
-- [General Settings](https://docs.midtrans.com/docs/general-settings.md)
-- [Access Keys](https://docs.midtrans.com/docs/access-keys.md)
-- [Snap Preference (Snap Checkout Settings)](https://docs.midtrans.com/docs/snap-preference-snap-checkout-settings.md): Configure your Midtrans's Snap Checkout look and feel and system settings here.
-- [Email Notifications](https://docs.midtrans.com/docs/email-notifications.md): Set up emails to be shown to customer, or receive various reports and notifications
-- [Payment Settings](https://docs.midtrans.com/docs/payment-settings.md): Configure finish redirect URL, notifications URL and BI SNAP URL for payments transactions here.
-- [Daily Report](https://docs.midtrans.com/docs/daily-report.md)
+- Settings Overview
+  - [General Settings](https://docs.midtrans.com/docs/general-settings.md)
+  - [Access Keys](https://docs.midtrans.com/docs/access-keys.md)
+  - [Snap Preference (Snap Checkout Settings)](https://docs.midtrans.com/docs/snap-preference-snap-checkout-settings.md): Configure your Midtrans's Snap Checkout look and feel and system settings here.
+  - [Email Notifications](https://docs.midtrans.com/docs/email-notifications.md): Set up emails to be shown to customer, or receive various reports and notifications
+  - [Payment Settings](https://docs.midtrans.com/docs/payment-settings.md): Configure finish redirect URL, notifications URL and BI SNAP URL for payments transactions here.
+  - [Daily Report](https://docs.midtrans.com/docs/daily-report.md)
 
 ## Documentation: DigitalIdentity
-- [Getting Authentication Token](https://docs.midtrans.com/docs/getting-an-authentication-token.md)
-- [Understanding Esign APIs Headers](https://docs.midtrans.com/docs/understanding-esign-apis-headers.md)
-- [Setting up Callback](https://docs.midtrans.com/docs/setting-up-callback.md)
+- Integrating with ESIGN Products
+  - [Getting Authentication Token](https://docs.midtrans.com/docs/getting-an-authentication-token.md)
+  - [Understanding Esign APIs Headers](https://docs.midtrans.com/docs/understanding-esign-apis-headers.md)
+  - [Setting up Callback](https://docs.midtrans.com/docs/setting-up-callback.md)
 - [Certificate Registration](https://docs.midtrans.com/docs/certificate-registration.md)
   - [Integration Guide - Certificate Registration](https://docs.midtrans.com/docs/integration-guide-1.md)
   - [Handling Submission Results](https://docs.midtrans.com/docs/handling-submission-results.md)
 
 ## Documentation: ENTERPRISE SDK
 - [Introduction](https://docs.midtrans.com/docs/introduction-2.md)
-- [Introduction - OneKYC SDK](https://docs.midtrans.com/docs/introduction-3.md)
-- [Android SDK - OneKYC SDK](https://docs.midtrans.com/docs/kyc-sdk-1.md)
-  - [Migration Guide](https://docs.midtrans.com/docs/migration-guide.md): This is a guide for existing oneKYC SDK partners who needs to migrate to Enterprise SDK.
-- [iOS SDK - OneKYC SDK](https://docs.midtrans.com/docs/kyc-sdk.md)
-  - [Migration Guide](https://docs.midtrans.com/docs/migration-guide-1.md): This is a guide for existing oneKYC SDK partners who needs to migrate to Enterprise SDK.
-- [Introduction - GoPay ID](https://docs.midtrans.com/docs/introduction.md): This document details what is and how to integrate the GoPay ID
-  - [Login with GoPay](https://docs.midtrans.com/docs/login-with-gopay-1.md): A flow where users authenticate using their GoPay account via phone number.
-  - [Verify with GoPay](https://docs.midtrans.com/docs/verify-with-gopay-1.md): A flow where users verify their identity using their existing GoPay account.
-- [Initialization](https://docs.midtrans.com/docs/initialization.md)
-- [Getting Started](https://docs.midtrans.com/docs/getting-started-1.md)
-- [Feature Manager](https://docs.midtrans.com/docs/features.md)
-- [Verify with GoPay](https://docs.midtrans.com/docs/verify-with-gopay.md)
-- [Launch Feature](https://docs.midtrans.com/docs/launch-feature.md)
-- [FAQ (EN)](https://docs.midtrans.com/docs/faq-en.md)
-- [Getting Started](https://docs.midtrans.com/docs/getting-started-4.md)
-- [Initialization](https://docs.midtrans.com/docs/initialization-1.md)
-- [Feature Manager](https://docs.midtrans.com/docs/feature-manager.md)
-- [Verify with GoPay](https://docs.midtrans.com/docs/gopay-id-verify-with-gopay.md)
-- [FAQ (EN)](https://docs.midtrans.com/docs/faq-en-1.md)
-- [Launch Feature](https://docs.midtrans.com/docs/launch-feature-1.md)
-- [KYC Data Pull](https://docs.midtrans.com/docs/backend-contracts.md)
-- [KYC callback](https://docs.midtrans.com/docs/kyc-callback.md)
-- [Get Linking Token](https://docs.midtrans.com/docs/get-linking-token-1.md): A Linking token generated after Login with GoPay that links a user's accounts.
-- [Get Temporary Access Token ](https://docs.midtrans.com/docs/gopay-id-exchange-linking-token-to-temporary-token.md): Temporary Token is a token that can be used to invoke Verify with GoPay without user auth.
-- [Unlink Accounts](https://docs.midtrans.com/docs/unlink-accounts.md): How to perform or receive unlinking account events.
+- OneKYC SDK
+  - [Introduction - OneKYC SDK](https://docs.midtrans.com/docs/introduction-3.md)
+  - [Android SDK - OneKYC SDK](https://docs.midtrans.com/docs/kyc-sdk-1.md)
+    - [Migration Guide](https://docs.midtrans.com/docs/migration-guide.md): This is a guide for existing oneKYC SDK partners who needs to migrate to Enterprise SDK.
+  - [iOS SDK - OneKYC SDK](https://docs.midtrans.com/docs/kyc-sdk.md)
+    - [Migration Guide](https://docs.midtrans.com/docs/migration-guide-1.md): This is a guide for existing oneKYC SDK partners who needs to migrate to Enterprise SDK.
+- GoPay ID
+  - [Introduction - GoPay ID](https://docs.midtrans.com/docs/introduction.md): This document details what is and how to integrate the GoPay ID
+    - [Login with GoPay](https://docs.midtrans.com/docs/login-with-gopay-1.md): A flow where users authenticate using their GoPay account via phone number.
+    - [Verify with GoPay](https://docs.midtrans.com/docs/verify-with-gopay-1.md): A flow where users verify their identity using their existing GoPay account.
+  - Android SDK - GoPay ID
+    - [Initialization](https://docs.midtrans.com/docs/initialization.md)
+    - [Getting Started](https://docs.midtrans.com/docs/getting-started-1.md)
+    - [Feature Manager](https://docs.midtrans.com/docs/features.md)
+    - [Verify with GoPay](https://docs.midtrans.com/docs/verify-with-gopay.md)
+    - [Launch Feature](https://docs.midtrans.com/docs/launch-feature.md)
+    - [FAQ (EN)](https://docs.midtrans.com/docs/faq-en.md)
+  - iOS SDK - GoPay ID
+    - [Getting Started](https://docs.midtrans.com/docs/getting-started-4.md)
+    - [Initialization](https://docs.midtrans.com/docs/initialization-1.md)
+    - [Feature Manager](https://docs.midtrans.com/docs/feature-manager.md)
+    - [Verify with GoPay](https://docs.midtrans.com/docs/gopay-id-verify-with-gopay.md)
+    - [FAQ (EN)](https://docs.midtrans.com/docs/faq-en-1.md)
+    - [Launch Feature](https://docs.midtrans.com/docs/launch-feature-1.md)
+  - [KYC Data Pull](https://docs.midtrans.com/docs/backend-contracts.md)
+  - [KYC callback](https://docs.midtrans.com/docs/kyc-callback.md)
+  - Linking Token
+    - [Get Linking Token](https://docs.midtrans.com/docs/get-linking-token-1.md): A Linking token generated after Login with GoPay that links a user's accounts.
+    - [Get Temporary Access Token ](https://docs.midtrans.com/docs/gopay-id-exchange-linking-token-to-temporary-token.md): Temporary Token is a token that can be used to invoke Verify with GoPay without user auth.
+    - [Unlink Accounts](https://docs.midtrans.com/docs/unlink-accounts.md): How to perform or receive unlinking account events.
 - [Error Codes](https://docs.midtrans.com/docs/gopayenterprise-error-codes.md)
 
 ## API References: Introduction
@@ -416,9 +423,10 @@
   - [JSON Objects](https://docs.midtrans.com/reference/json-objects.md)
   - [Response](https://docs.midtrans.com/reference/sample-response.md)
   - [Preference API](https://docs.midtrans.com/reference/snap-checkout-preference-api.md): Modify your Snap look and feel & active payment methods in Snap Checkout via API
-- [Snap JS](https://docs.midtrans.com/reference/snap-js.md): Show Snap UI in your website/app by embedding Snap JS within a page or loading it as an overlay in your website/app.
-- [JS Callback](https://docs.midtrans.com/reference/js-callback.md)
-- [Webview](https://docs.midtrans.com/reference/webview.md)
+- Frontend Integration
+  - [Snap JS](https://docs.midtrans.com/reference/snap-js.md): Show Snap UI in your website/app by embedding Snap JS within a page or loading it as an overlay in your website/app.
+  - [JS Callback](https://docs.midtrans.com/reference/js-callback.md)
+  - [Webview](https://docs.midtrans.com/reference/webview.md)
 - [BCA Virtual Account](https://docs.midtrans.com/reference/bca-virtual-account.md)
 - [Permata Virtual Account](https://docs.midtrans.com/reference/permata-virtual-account.md)
 - [BNI Virtual Account](https://docs.midtrans.com/reference/bni-virtual-account.md)
@@ -435,43 +443,49 @@
 - [DANA](https://docs.midtrans.com/reference/dana.md)
 - [Google Pay™](https://docs.midtrans.com/reference/google-pay.md)
 - [OVO](https://docs.midtrans.com/reference/ovo.md)
-- [Code 4xx](https://docs.midtrans.com/reference/status-code-4xx.md): List of Midtrans specific status codes starting with 4XX.
+- Midtrans Status Code
+  - [Code 4xx](https://docs.midtrans.com/reference/status-code-4xx.md): List of Midtrans specific status codes starting with 4XX.
 - [Handle Notifications](https://docs.midtrans.com/reference/handle-notifications.md)
-- [Card Payment - Subscription (Two Clicks)](https://docs.midtrans.com/reference/two-clicks.md)
-- [Bank Transfer - Custom VA Number](https://docs.midtrans.com/reference/custom-virtual-account-number.md)
-- [GoPay Linking / Tokenization](https://docs.midtrans.com/reference/gopay-tokenization-1.md)
-- [Expire a Snap Session](https://docs.midtrans.com/reference/expire-a-snap-session.md): Set a custom expiry time for a Snap session with the following methods.
-- [Cancel a Snap Session](https://docs.midtrans.com/reference/cancel-a-snap-session.md): Cancel a Snap page session via API
+- More Features
+  - [Card Payment - Subscription (Two Clicks)](https://docs.midtrans.com/reference/two-clicks.md)
+  - [Bank Transfer - Custom VA Number](https://docs.midtrans.com/reference/custom-virtual-account-number.md)
+  - [GoPay Linking / Tokenization](https://docs.midtrans.com/reference/gopay-tokenization-1.md)
+  - [Expire a Snap Session](https://docs.midtrans.com/reference/expire-a-snap-session.md): Set a custom expiry time for a Snap session with the following methods.
+  - [Cancel a Snap Session](https://docs.midtrans.com/reference/cancel-a-snap-session.md): Cancel a Snap page session via API
 
 ## API References: coreAPI
 - [Overview](https://docs.midtrans.com/reference/core-api-overview.md)
-- [Customer Details Object](https://docs.midtrans.com/reference/customer-details-object.md)
-- [Item Details Object](https://docs.midtrans.com/reference/item-details-object.md)
-- [Bank Transfer (Virtual Account) Object](https://docs.midtrans.com/reference/bank-transfer-object.md)
-- [Create Subscription Schedule Object](https://docs.midtrans.com/reference/create-subscription-schedule-object.md)
-- [Create Subscription Retry Schedule Object](https://docs.midtrans.com/reference/create-subscription-retry-schedule-object.md)
-- [Subscription Schedule Object](https://docs.midtrans.com/reference/subscription-schedule-object.md)
+- JSON Object
+  - [Customer Details Object](https://docs.midtrans.com/reference/customer-details-object.md)
+  - [Item Details Object](https://docs.midtrans.com/reference/item-details-object.md)
+  - [Bank Transfer (Virtual Account) Object](https://docs.midtrans.com/reference/bank-transfer-object.md)
+  - [Create Subscription Schedule Object](https://docs.midtrans.com/reference/create-subscription-schedule-object.md)
+  - [Create Subscription Retry Schedule Object](https://docs.midtrans.com/reference/create-subscription-retry-schedule-object.md)
+  - [Subscription Schedule Object](https://docs.midtrans.com/reference/subscription-schedule-object.md)
 - [Handling Notifications](https://docs.midtrans.com/reference/notifications-handling.md)
   - [Best Practices to Handle Notification](https://docs.midtrans.com/reference/best-practices-to-handle-notification.md)
-- [Code 4xx](https://docs.midtrans.com/reference/code-4xx.md): List of Midtrans specific status codes starting with 4XX.
-- [API Headers & Idempotency](https://docs.midtrans.com/reference/api-headers.md)
-- [Get Token](https://docs.midtrans.com/reference/get-token.md)
-- [Charge Transactions](https://docs.midtrans.com/reference/charge-transactions-1.md)
-- [Capture Transaction](https://docs.midtrans.com/reference/capture-transaction.md)
-- [Cancel Transaction](https://docs.midtrans.com/reference/cancel-transaction.md)
-- [Refund Transactions](https://docs.midtrans.com/reference/refund-transaction.md)
-- [Direct Refund Transaction](https://docs.midtrans.com/reference/direct-refund-transaction.md)
-- [Get Transaction Status](https://docs.midtrans.com/reference/get-transaction-status.md)
-- [Register Card](https://docs.midtrans.com/reference/register-card.md): Register Card for Card Payment Method
-- [Create Pay Account (GoPay)](https://docs.midtrans.com/reference/create-pay-account.md): Link customer account  - GoPay Tokenizations
-- [Fetch Promotion (GoPay Tokenization)](https://docs.midtrans.com/reference/fetch-promotion-gopay-tokenization.md)
-- [BIN API (Card Payment)](https://docs.midtrans.com/reference/bin-api.md): Obtain user's card properties information based on BIN (Bank Identification Number)
-- [Create Subscription](https://docs.midtrans.com/reference/create-subscription.md)
-- [Get Subscription](https://docs.midtrans.com/reference/get-subscription.md)
-- [Disable Subscription](https://docs.midtrans.com/reference/disable-subscription.md)
-- [Cancel Subscription](https://docs.midtrans.com/reference/cancel-subscription.md)
-- [Update Subscription](https://docs.midtrans.com/reference/update-subscription.md)
-- [HTTP Notification](https://docs.midtrans.com/reference/http-notification.md)
+- Midtrans Status Code
+  - [Code 4xx](https://docs.midtrans.com/reference/code-4xx.md): List of Midtrans specific status codes starting with 4XX.
+- Payment API
+  - [API Headers & Idempotency](https://docs.midtrans.com/reference/api-headers.md)
+  - [Get Token](https://docs.midtrans.com/reference/get-token.md)
+  - [Charge Transactions](https://docs.midtrans.com/reference/charge-transactions-1.md)
+  - [Capture Transaction](https://docs.midtrans.com/reference/capture-transaction.md)
+  - [Cancel Transaction](https://docs.midtrans.com/reference/cancel-transaction.md)
+  - [Refund Transactions](https://docs.midtrans.com/reference/refund-transaction.md)
+  - [Direct Refund Transaction](https://docs.midtrans.com/reference/direct-refund-transaction.md)
+  - [Get Transaction Status](https://docs.midtrans.com/reference/get-transaction-status.md)
+  - [Register Card](https://docs.midtrans.com/reference/register-card.md): Register Card for Card Payment Method
+  - [Create Pay Account (GoPay)](https://docs.midtrans.com/reference/create-pay-account.md): Link customer account  - GoPay Tokenizations
+  - [Fetch Promotion (GoPay Tokenization)](https://docs.midtrans.com/reference/fetch-promotion-gopay-tokenization.md)
+  - [BIN API (Card Payment)](https://docs.midtrans.com/reference/bin-api.md): Obtain user's card properties information based on BIN (Bank Identification Number)
+- Subscription API
+  - [Create Subscription](https://docs.midtrans.com/reference/create-subscription.md)
+  - [Get Subscription](https://docs.midtrans.com/reference/get-subscription.md)
+  - [Disable Subscription](https://docs.midtrans.com/reference/disable-subscription.md)
+  - [Cancel Subscription](https://docs.midtrans.com/reference/cancel-subscription.md)
+  - [Update Subscription](https://docs.midtrans.com/reference/update-subscription.md)
+  - [HTTP Notification](https://docs.midtrans.com/reference/http-notification.md)
 - [Payment Method: Card](https://docs.midtrans.com/reference/payment-card.md)
   - [Charge Transactions on Card](https://docs.midtrans.com/reference/charge-transactions-on-card.md)
   - [Feature: 3D Secure (3DS)](https://docs.midtrans.com/reference/card-feature-3d-secure-3ds.md)
@@ -500,15 +514,18 @@
 - [Kredivo](https://docs.midtrans.com/reference/kredivo-1.md)
 - [Card Channel Response Code](https://docs.midtrans.com/reference/channel-response-code.md)
 - [Transaction Status](https://docs.midtrans.com/reference/transaction-status.md)
-- [Deployment Notice](https://docs.midtrans.com/reference/deployment.md)
+- Important Notices
+  - [Deployment Notice](https://docs.midtrans.com/reference/deployment.md)
 
 ## API References: Payment Link API
 - [Overview](https://docs.midtrans.com/reference/overview-12.md)
-- [Create Payment Link](https://docs.midtrans.com/reference/create-payment-link.md)
+- API Reference
+  - [Create Payment Link](https://docs.midtrans.com/reference/create-payment-link.md)
 
 ## API References: BALANCE API
-- [API Host URL](https://docs.midtrans.com/reference/api-host-url-2.md)
-- [Merchant Balance Mutation API](https://docs.midtrans.com/reference/merchant-balance-mutation-api.md)
+- API Reference
+  - [API Host URL](https://docs.midtrans.com/reference/api-host-url-2.md)
+  - [Merchant Balance Mutation API](https://docs.midtrans.com/reference/merchant-balance-mutation-api.md)
 
 ## API References: INVOICING API
 - [Overview](https://docs.midtrans.com/reference/overview-2.md)
@@ -542,10 +559,11 @@
   - [Account Linking and Unlinking Notification](https://docs.midtrans.com/reference/account-linking-unlinking-notification.md)
 - [Payment Method: GoPay Tokenization (non Pre-Auth)](https://docs.midtrans.com/reference/direct-debit-api-gopay-tokenization.md)
 - [Payment Method: GoPay Tokenization (Pre Auth)](https://docs.midtrans.com/reference/auth-payment-api-gopay-tokenization.md)
-- [Refund API](https://docs.midtrans.com/reference/refund-api.md)
-- [Cancel API](https://docs.midtrans.com/reference/cancel-api.md)
-- [Get Transaction Status API](https://docs.midtrans.com/reference/get-transaction-status-api.md)
-- [Payment Notification API](https://docs.midtrans.com/reference/payment-notification-api.md)
+- Additional API
+  - [Refund API](https://docs.midtrans.com/reference/refund-api.md)
+  - [Cancel API](https://docs.midtrans.com/reference/cancel-api.md)
+  - [Get Transaction Status API](https://docs.midtrans.com/reference/get-transaction-status-api.md)
+  - [Payment Notification API](https://docs.midtrans.com/reference/payment-notification-api.md)
 - [Testing Core API BI-SNAP on Sandbox Environment](https://docs.midtrans.com/reference/testing-bi-snap-on-sandbox-environment.md)
   - [Testing GoPay Tokenization BI-SNAP on Sandbox](https://docs.midtrans.com/reference/testing-gopay-tokenization-bi-snap-on-sandbox.md)
 
@@ -642,10 +660,14 @@
 - [Get Submission Details V2](https://docs.midtrans.com/reference/getsubmissiondetailsv2.md): Get submission details and status.
 
 ## API References: Standalone Identity Verification API
-- [Get Partner Token](https://docs.midtrans.com/reference/getpartnertoken-6.md): Fetch the partner token needed to call IAB Backend APIs. The partner token will be valid for 1 hour. After expiry, partners can create a new token.
-- [Initiate Flow](https://docs.midtrans.com/reference/initiateflow-1.md): Fetch the user token/launch URL needed to start the identity verification flow on frontend. Additional details passed in this API will be stored and used during submission processing.
-- [On-Demand Data Fetch](https://docs.midtrans.com/reference/getsubmissions-1.md): Get all details and KYC status about current submission by the user.
-- [Partner Callback](https://docs.midtrans.com/reference/partnercallback-6.md): This is API implemented in your system that we will call on completed submissions.
+- Authentication
+  - [Get Partner Token](https://docs.midtrans.com/reference/getpartnertoken-6.md): Fetch the partner token needed to call IAB Backend APIs. The partner token will be valid for 1 hour. After expiry, partners can create a new token.
+- Flow
+  - [Initiate Flow](https://docs.midtrans.com/reference/initiateflow-1.md): Fetch the user token/launch URL needed to start the identity verification flow on frontend. Additional details passed in this API will be stored and used during submission processing.
+- Submissions
+  - [On-Demand Data Fetch](https://docs.midtrans.com/reference/getsubmissions-1.md): Get all details and KYC status about current submission by the user.
+- Callback
+  - [Partner Callback](https://docs.midtrans.com/reference/partnercallback-6.md): This is API implemented in your system that we will call on completed submissions.
 
 ## Recipes
 - [[Snap & Core API] How to get transaction's status](https://docs.midtrans.com/recipes/snap-core-api-how-to-get-transactions-status.md)
