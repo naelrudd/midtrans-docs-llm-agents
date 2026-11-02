@@ -1,6 +1,6 @@
 # Index — Docs
 Source: https://docs.midtrans.com/llms.txt
-Pages: 632
+Pages: 633
 
 | Path | First heading |
 |---|---|
@@ -541,6 +541,7 @@ Pages: 632
 | [reference/json-objects.md](https://docs.midtrans.com/reference/json-objects.md) | JSON Objects |
 | [reference/kredivo-1.md](https://docs.midtrans.com/reference/kredivo-1.md) | Kredivo |
 | [reference/kredivo.md](https://docs.midtrans.com/reference/kredivo.md) | Kredivo |
+| [reference/mark-as-paid.md](https://docs.midtrans.com/reference/mark-as-paid.md) | Mark as Paid |
 | [reference/merchant-balance-mutation-api.md](https://docs.midtrans.com/reference/merchant-balance-mutation-api.md) | Merchant Balance Mutation API |
 | [reference/merchants-migration-backward-compatibality.md](https://docs.midtrans.com/reference/merchants-migration-backward-compatibality.md) | Merchants Migration & Backward Compatibality |
 | [reference/midtrans-merchant-api.md](https://docs.midtrans.com/reference/midtrans-merchant-api.md) | Midtrans Merchant API |

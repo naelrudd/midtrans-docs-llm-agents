@@ -533,6 +533,7 @@
 - [Get Invoice](https://docs.midtrans.com/reference/get-invoice.md)
 - [Void Invoice](https://docs.midtrans.com/reference/void-invoice.md)
 - [Convert Invoice](https://docs.midtrans.com/reference/convert-invoice.md)
+- [Mark as Paid](https://docs.midtrans.com/reference/mark-as-paid.md)
 - [JSON Objects](https://docs.midtrans.com/reference/json-objects-1.md)
 - [Handling Notifications](https://docs.midtrans.com/reference/handling-notifications.md)
 
@@ -574,37 +575,6 @@
 
 ## API References: core-api-standar-nasional-open-api-pembayaran-bi-snap
 - [Security & Architecture](https://docs.midtrans.com/reference/bi-snap-security-architecture.md): BI-SNAP Core API architecture overview covering REST design, data formats, HTTP methods, URI standardization, and compliance mapping to ASPI technical standards.
-
-## API References: Partner API
-- [Midtrans Partner API](https://docs.midtrans.com/reference/midtrans-partner-apis.md)
-  - [HTTP Status Code](https://docs.midtrans.com/reference/http-status-code-copy-1.md)
-  - [Midtrans Merchant API](https://docs.midtrans.com/reference/midtrans-merchant-api.md)
-    - [HTTP Notification](https://docs.midtrans.com/reference/partner-http-notification.md)
-    - [Create merchant API](https://docs.midtrans.com/reference/partner-create-merchant-api.md)
-    - [Get merchant API](https://docs.midtrans.com/reference/partner-get-merchant-api.md)
-    - [Update Notification API](https://docs.midtrans.com/reference/partner-update-merchant-notification.md)
-    - [Unregister Merchant API](https://docs.midtrans.com/reference/partner-merchant-unregister.md)
-  - [Checkout](https://docs.midtrans.com/reference/checkout.md): Midtrans Checkout Page Service
-    - [Create Checkout Token API](https://docs.midtrans.com/reference/create-checkout-token-api.md)
-    - [Get Checkout Page Preference API](https://docs.midtrans.com/reference/get-checkout-page-preference-api.md)
-    - [Update Checkout Page Preference API](https://docs.midtrans.com/reference/update-checkout-page-preference-api.md)
-    - [Get Account Info](https://docs.midtrans.com/reference/partner-get-account-info.md)
-    - [Unlink Account](https://docs.midtrans.com/reference/partner-unlink-snap-users-api.md)
-    - [Cancel Checkout Page Session](https://docs.midtrans.com/reference/partner-cancel-checkout-session.md)
-    - [Advanced Features](https://docs.midtrans.com/reference/partner-checkout-advanced-features.md)
-  - [Core](https://docs.midtrans.com/reference/core.md): Midtrans's Payment API that can be integrated to your own checkout interface
-    - [Charge API](https://docs.midtrans.com/reference/charge-api.md)
-    - [Capture API](https://docs.midtrans.com/reference/capture-api.md)
-    - [Cancel API](https://docs.midtrans.com/reference/cancel-api-1.md)
-    - [Expire API](https://docs.midtrans.com/reference/expire-api.md)
-    - [Refund API](https://docs.midtrans.com/reference/refund-api-1.md)
-    - [Get Transaction Status API](https://docs.midtrans.com/reference/get-transaction-status-api-1.md)
-    - [Get Transaction Status B2B API](https://docs.midtrans.com/reference/get-transaction-status-b2b-api.md)
-    - [Get Pay Account (GoPay Tokenizations)](https://docs.midtrans.com/reference/get-pay-account-gopay-tokenizations.md)
-    - [Unbind Pay Account (GoPay Tokenizations)](https://docs.midtrans.com/reference/partner-unbind-pay-account-gopay-tokenizations.md)
-    - [Advanced Features](https://docs.midtrans.com/reference/partner-core-advanced-features.md)
-  - [Balance](https://docs.midtrans.com/reference/balance.md): Midtrans' Balance Related APIs
-    - [Partner Balance Mutation API](https://docs.midtrans.com/reference/balance-mutation-api.md)
 
 ## API References: MINIAPP
 - [Overview](https://docs.midtrans.com/reference/overview-miniapp.md): This guide explains what a MiniApp is, its benefits, and how it integrates with the GoPay ecosystem, providing developers and merchants with a clear understanding of its features and advantages.
